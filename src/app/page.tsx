@@ -8,9 +8,9 @@ export default function Home() {
         <h1 className="hero-title">{profile.name}</h1>
         <p className="muted">{profile.title}</p>
         <p className="text-zinc-300 leading-7">{profile.bio}</p>
-        <div className="mt-4 flex flex-wrap gap-3">
-          <Link href="/consult" className="btn">购课 / 咨询</Link>
-          <Link href="/follow" className="btn">订阅更新</Link>
+        <div className="mt-4 flex flex-wrap gap-4">
+          <Link href="/consult" className="link">购课 / 咨询</Link>
+          <Link href="/follow" className="link">订阅更新</Link>
         </div>
       </div>
 

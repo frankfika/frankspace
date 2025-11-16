@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: #0b0b0b;
-  --foreground: #e6e6e6;
-  --muted: #a3a3a3;
-  --border: rgba(255,255,255,0.06);
-  --surface: rgba(18,18,18,0.8);
+  --background: #ffffff;
+  --foreground: #111111;
+  --muted: #666666;
+  --border: rgba(0,0,0,0.08);
+  --surface: #f7f7f7;
 }
 
 html, body { height: 100%; }
@@ -16,14 +16,17 @@ body { background-color: var(--background); color: var(--foreground); }
 
 .bg-radial { display: none; }
 
-.container { @apply mx-auto max-w-3xl px-6 sm:px-8; }
+.container { @apply mx-auto max-w-2xl px-6 sm:px-8; }
+@screen md { .container { @apply max-w-3xl; } }
+@screen lg { .container { @apply max-w-4xl; } }
 
-.nav-link { @apply text-sm font-sans tracking-wide text-zinc-400 hover:text-white transition; }
+.nav-link { @apply text-sm font-sans tracking-wide text-zinc-600 hover:text-black transition; }
 
 .surface { @apply rounded-md border p-5 transition; border-color: var(--border); background: var(--surface); }
-.surface:hover { background: rgba(24,24,24,0.92); }
+.surface:hover { background: #f0f0f0; }
 
-.btn { @apply inline-flex items-center gap-2 rounded-md border px-4 py-2 text-xs font-sans text-white hover:bg-white/10; border-color: var(--border); }
+.btn { @apply inline-flex items-center gap-2 rounded-md border px-4 py-2 text-xs font-sans text-black hover:bg-black/5; border-color: var(--border); }
+.link { @apply text-sm font-sans text-zinc-700 hover:text-black underline underline-offset-4 decoration-zinc-300 hover:decoration-black; }
 
 .hero { @apply relative rounded-2xl border p-10 overflow-hidden; border-color: var(--border); background: var(--surface); }
 
@@ -32,9 +35,9 @@ body { background-color: var(--background); color: var(--foreground); }
 .hero-accent { color: var(--accent); }
 
 .section { @apply space-y-4; }
-.section-title { @apply font-mono text-2xl text-white; }
+.section-title { @apply font-sans text-xl text-black; }
 .muted { color: var(--muted); }
 .pill { @apply inline-flex items-center rounded-md px-3 py-1 text-xs font-sans border; border-color: var(--border); }
 
 .list-item { @apply flex items-center justify-between py-3 border-b; border-color: var(--border); }
-.list-item:hover { @apply text-white; }
+.list-item:hover { @apply bg-black/5; }

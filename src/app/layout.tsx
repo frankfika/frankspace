@@ -25,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN">
-      <body className={`${fontSans.variable} ${fontMono.variable} antialiased bg-background text-foreground font-mono`}>
+      <body className={`${fontSans.variable} ${fontMono.variable} antialiased bg-background text-foreground font-sans`}>
         <div className="bg-radial" />
         <header className="container flex items-center justify-between py-6">
           <Link href="/" className="text-sm">Chen Fang</Link>
