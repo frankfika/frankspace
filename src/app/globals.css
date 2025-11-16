@@ -31,7 +31,7 @@ body { background-color: var(--background); color: var(--foreground); }
 .surface { @apply rounded-xl border p-6 transition; border-color: var(--border); background: var(--surface); }
 .surface:hover { background: rgba(24,24,24,0.9); }
 
-.btn { @apply inline-flex items-center gap-2 rounded-full bg-white/8 px-5 py-2 text-sm font-mono text-white hover:bg-white/15 ring-1 ring-white/10; }
+.btn { @apply inline-flex items-center gap-2 rounded-full bg-white/10 px-5 py-2 text-sm font-mono text-white hover:bg-white/20 ring-1 ring-white/10; }
 
 .hero { @apply relative rounded-2xl border p-10 overflow-hidden; border-color: var(--border); background: var(--surface); }
 
