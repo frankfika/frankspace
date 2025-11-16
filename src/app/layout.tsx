@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import Link from "next/link";
+import ThemeToggle from "@/components/ThemeToggle";
 import "./globals.css";
 
 const fontSans = Inter({
@@ -27,23 +28,20 @@ export default function RootLayout({
     <html lang="zh-CN">
       <body className={`${fontSans.variable} ${fontMono.variable} antialiased bg-background text-foreground font-sans`}>
         <div className="bg-radial" />
-        <header className="container flex items-center justify-between py-6">
-          <Link href="/" className="text-sm">Chen Fang</Link>
-          <nav className="flex items-center gap-4">
-            <Link href="/about" className="nav-link">关于</Link>
-            <Link href="/courses" className="nav-link">课程</Link>
-            <Link href="/links" className="nav-link">平台</Link>
-            <Link href="/follow" className="nav-link">Follow</Link>
-            <Link href="/lab" className="nav-link">Lab</Link>
-            <Link href="/talks" className="nav-link">Talks</Link>
-            <Link href="/updates" className="nav-link">更新</Link>
-            <Link href="/writing" className="nav-link">Writing</Link>
-            <Link href="/now" className="nav-link">Now</Link>
-            <Link href="/consult" className="nav-link">Consult</Link>
-          </nav>
+        <header className="container">
+          <div className="flex items-center justify-between py-6">
+            <Link href="/" className="text-sm font-medium">Chen Fang</Link>
+            <div className="flex items-center gap-4">
+              <ThemeToggle />
+              <nav className="flex items-center gap-4">
+                <Link href="/about" className="nav-link">About</Link>
+                <Link href="/writing" className="nav-link">Writing</Link>
+              </nav>
+            </div>
+          </div>
         </header>
         <main className="container pb-16">{children}</main>
-        <footer className="container border-t py-8 text-sm text-zinc-500" style={{ borderColor: 'var(--border)' }}>
+        <footer className="container border-t py-8 text-sm text-muted border-border">
           <p className="font-mono">© {new Date().getFullYear()} Chen Fang · All rights reserved.</p>
         </footer>
       </body>
