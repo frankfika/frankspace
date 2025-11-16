@@ -16,11 +16,11 @@ export default function Home() {
 
       <div className="section">
         <h2 className="section-title">课程</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
           {courses.map((c) => (
-            <Link key={c.slug} href={`/courses/${c.slug}`} className="surface">
-              <h3 className="font-mono text-lg">{c.title}</h3>
-              <p className="mt-2 text-sm muted">{c.summary}</p>
+            <Link key={c.slug} href={`/courses/${c.slug}`} className="list-item">
+              <span>{c.title}</span>
+              <span className="muted">→</span>
             </Link>
           ))}
         </div>
@@ -28,11 +28,11 @@ export default function Home() {
 
       <div className="section">
         <h2 className="section-title">评价</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div>
           {testimonials.map(t => (
-            <div key={t.quote} className="surface">
-              <p className="text-sm">{t.quote}</p>
-              <p className="mt-2 text-xs muted">{t.by}</p>
+            <div key={t.quote} className="list-item">
+              <span className="text-sm">{t.quote}</span>
+              <span className="text-xs muted">{t.by}</span>
             </div>
           ))}
         </div>
