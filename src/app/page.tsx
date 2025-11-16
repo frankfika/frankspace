@@ -4,17 +4,13 @@ import { profile, courses, testimonials } from "@/config/profile";
 export default function Home() {
   return (
     <section className="space-y-12">
-      <div className="hero">
-        <div className="flex items-center justify-between">
-          <h1 className="hero-title">{profile.name}</h1>
-          <span className="font-mono text-sm hero-accent">OpenCSG</span>
-        </div>
-        <p className="mt-2 muted">{profile.title}</p>
-        <p className="mt-4 text-zinc-300 leading-7">{profile.bio}</p>
-        <div className="mt-6 flex flex-wrap gap-3">
+      <div className="space-y-3">
+        <h1 className="hero-title">{profile.name}</h1>
+        <p className="muted">{profile.title}</p>
+        <p className="text-zinc-300 leading-7">{profile.bio}</p>
+        <div className="mt-4 flex flex-wrap gap-3">
           <Link href="/consult" className="btn">购课 / 咨询</Link>
           <Link href="/follow" className="btn">订阅更新</Link>
-          <Link href="/lab" className="btn">Lab</Link>
         </div>
       </div>
 
@@ -23,10 +19,7 @@ export default function Home() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {courses.map((c) => (
             <Link key={c.slug} href={`/courses/${c.slug}`} className="surface">
-              <div className="flex items-center justify-between">
-                <h3 className="font-mono text-lg">{c.title}</h3>
-                <span className="text-xs muted">课程</span>
-              </div>
+              <h3 className="font-mono text-lg">{c.title}</h3>
               <p className="mt-2 text-sm muted">{c.summary}</p>
             </Link>
           ))}

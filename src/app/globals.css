@@ -15,14 +15,7 @@ html, body { height: 100%; }
 
 body { background-color: var(--background); color: var(--foreground); }
 
-/* Subtle radial background */
-.bg-radial {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background: radial-gradient(1200px 600px at 20% 10%, rgba(124,58,237,0.12), transparent 60%),
-              radial-gradient(800px 400px at 80% 0%, rgba(59,130,246,0.08), transparent 60%);
-}
+.bg-radial { display: none; }
 
 .container { @apply mx-auto max-w-5xl px-6 sm:px-8; }
 
