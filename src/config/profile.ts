@@ -75,3 +75,15 @@ export const timeline = [
   { year: '2019–2024', items: ['硅谷天堂投资总监', '某 AI 公司董事会秘书'] },
   { year: '更早', items: ['某创业公司全栈工程师'] },
 ]
+
+export const writing = [
+  { title: 'AI 战略的三个层次', date: '2025-09-01', url: '#' },
+  { title: 'Web3 的组织与治理', date: '2025-08-12', url: '#' },
+  { title: '从工程到产品：全栈的视角', date: '2025-07-20', url: '#' },
+]
+
+export const now = [
+  '完善 AI 课程的案例库与作业体系',
+  '为企业客户设计数据治理落地方案',
+  '整理 Web3 投研方法的工具包',
+]

@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { profile, courses, testimonials, updates } from "@/config/profile";
+import Avatar from "@/components/Avatar";
 
 export default function Home() {
   return (
     <section className="space-y-12">
       <div className="space-y-3">
+        <Avatar name={profile.name} />
         <h1 className="hero-title">{profile.name}</h1>
         <p className="muted">{profile.title}</p>
         <p className="text-zinc-700 leading-7">{profile.headline}</p>
