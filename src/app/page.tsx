@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { profile, courses, testimonials } from "@/config/profile";
+import { profile, courses, testimonials, updates } from "@/config/profile";
 
 export default function Home() {
   return (
@@ -7,7 +7,12 @@ export default function Home() {
       <div className="space-y-3">
         <h1 className="hero-title">{profile.name}</h1>
         <p className="muted">{profile.title}</p>
-        <p className="text-zinc-300 leading-7">{profile.bio}</p>
+        <p className="text-zinc-700 leading-7">{profile.headline}</p>
+        <div className="flex flex-wrap gap-2">
+          {profile.focuses.map(f => (
+            <span key={f} className="pill">{f}</span>
+          ))}
+        </div>
         <div className="mt-4 flex flex-wrap gap-4">
           <Link href="/consult" className="link">购课 / 咨询</Link>
           <Link href="/follow" className="link">订阅更新</Link>
@@ -15,12 +20,24 @@ export default function Home() {
       </div>
 
       <div className="section">
-        <h2 className="section-title">课程</h2>
+        <h2 className="section-title">当前提供</h2>
         <div>
-          {courses.map((c) => (
-            <Link key={c.slug} href={`/courses/${c.slug}`} className="list-item">
-              <span>{c.title}</span>
+          {profile.offerings.map(o => (
+            <Link key={o.key} href={o.href} className="list-item">
+              <span>{o.key}</span>
               <span className="muted">→</span>
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      <div className="section">
+        <h2 className="section-title">最新更新</h2>
+        <div>
+          {updates.map(u => (
+            <Link key={u.title} href={u.link} className="list-item">
+              <span className="text-sm">{u.title}</span>
+              <span className="text-xs muted">{u.date}</span>
             </Link>
           ))}
         </div>

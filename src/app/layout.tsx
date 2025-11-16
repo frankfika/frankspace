@@ -36,6 +36,7 @@ export default function RootLayout({
             <Link href="/follow" className="nav-link">Follow</Link>
             <Link href="/lab" className="nav-link">Lab</Link>
             <Link href="/talks" className="nav-link">Talks</Link>
+            <Link href="/updates" className="nav-link">更新</Link>
             <Link href="/consult" className="nav-link">Consult</Link>
           </nav>
         </header>

@@ -9,6 +9,16 @@ export const profile = {
     { key: 'Twitter/X', url: 'https://twitter.com/your-handle', handle: '@your-handle' },
     { key: 'B站', url: 'https://space.bilibili.com/your-id', handle: '你的B站ID' },
   ],
+  headline: '连接 AI 与商业，把复杂变为可落地的策略与产品。',
+  focuses: ['AI 产品战略', 'AIGC 应用设计', '数据治理', 'Web3 架构与投研'],
+  offerings: [
+    { key: 'AI 课程', href: '/courses/ai' },
+    { key: 'Web3 课程', href: '/courses/web3' },
+    { key: '顾问 / 企业内训', href: '/consult' },
+  ],
+  contact: {
+    email: 'hello@example.com',
+  },
 }
 
 export const courses = [
@@ -52,4 +62,16 @@ export const testimonials = [
   { quote: '清晰的战略框架与可落地的方法论，团队收益显著。', by: '某互联网企业负责人' },
   { quote: '把复杂的 AI 话题讲得很通透，案例非常实用。', by: '学员 A' },
   { quote: '兼具技术与商业视角的课程，值得推荐。', by: '投资从业者 B' },
+]
+
+export const updates = [
+  { title: '发布 AI 战略与产品思维公开课提纲', date: '2025-10-01', link: '#' },
+  { title: '分享 Web3 投研方法论框架', date: '2025-09-15', link: '#' },
+  { title: '企业数据治理实践笔记（节选）', date: '2025-08-28', link: '#' },
+]
+
+export const timeline = [
+  { year: 'Now', items: ['OpenCSG 产品与战略负责人', 'AI/Web3 课程与企业内训'] },
+  { year: '2019–2024', items: ['硅谷天堂投资总监', '某 AI 公司董事会秘书'] },
+  { year: '更早', items: ['某创业公司全栈工程师'] },
 ]
