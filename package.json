@@ -1,28 +1,32 @@
 {
-  "name": "frankfika",
-  "version": "0.1.0",
+  "name": "frank-chen---strategic-ai-operations",
   "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "analyze": "vite build --mode analyze"
   },
   "dependencies": {
-    "lucide-react": "^0.553.0",
-    "next": "^14.2.7",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@supabase/supabase-js": "^2.78.0",
+    "lucide-react": "0.363.0",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "^6.30.2",
+    "recharts": "2.12.7",
+    "swr": "^2.3.7"
   },
   "devDependencies": {
-    "@types/node": "^18",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "autoprefixer": "^10.4.20",
-    "eslint": "^8",
-    "eslint-config-next": "^14.2.7",
-    "postcss": "^8.4.47",
-    "tailwindcss": "^3.4.13",
-    "typescript": "^5.6.3"
+    "@tailwindcss/postcss": "^4.1.17",
+    "@types/node": "^22.14.0",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "rollup-plugin-visualizer": "^6.0.5",
+    "tailwindcss": "^4.1.17",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
   }
 }

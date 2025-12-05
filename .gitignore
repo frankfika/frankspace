@@ -20,6 +20,11 @@
 # production
 /build
 
+# vite
+/dist
+.vite
+*.local
+
 # misc
 .DS_Store
 *.pem
