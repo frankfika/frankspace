@@ -47,13 +47,15 @@ const App: React.FC = () => {
   const [customProjects, setCustomProjects] = useState<Project[]>([]);
   const [customThoughts, setCustomThoughts] = useState<Note[]>([]);
   const [customPersonalInfo, setCustomPersonalInfo] = useState<typeof CONTENT['en']['personalInfo'] | null>(null);
+  const [customSkills, setCustomSkills] = useState<typeof CONTENT['en']['skills']>([]);
 
   const data = {
     ...CONTENT[lang],
     lang,
     personalInfo: customPersonalInfo || CONTENT[lang].personalInfo,
     projects: customProjects.length > 0 ? customProjects : CONTENT[lang].projects,
-    thoughts: customThoughts.length > 0 ? customThoughts : CONTENT[lang].thoughts
+    thoughts: customThoughts.length > 0 ? customThoughts : CONTENT[lang].thoughts,
+    skills: customSkills.length > 0 ? customSkills : CONTENT[lang].skills
   };
 
   // Initialize Activities from LocalStorage or Constants
@@ -109,6 +111,20 @@ const App: React.FC = () => {
         }
     } else {
         setCustomPersonalInfo(CONTENT[lang].personalInfo);
+    }
+  }, [lang]);
+
+  // Initialize Skills from LocalStorage or Constants
+  useEffect(() => {
+    const saved = localStorage.getItem(`skills_${lang}`);
+    if (saved) {
+        try {
+            setCustomSkills(JSON.parse(saved));
+        } catch (e) {
+            setCustomSkills(CONTENT[lang].skills);
+        }
+    } else {
+        setCustomSkills(CONTENT[lang].skills);
     }
   }, [lang]);
 
@@ -185,6 +201,23 @@ const App: React.FC = () => {
       }
   };
 
+  // Handle Updates to Skills
+  const handleUpdateSkills = (updated: typeof CONTENT['en']['skills']) => {
+      try {
+          const serialized = JSON.stringify(updated);
+          localStorage.setItem(`skills_${lang}`, serialized);
+          setCustomSkills(updated);
+          setStorageError(null);
+      } catch (e: any) {
+          console.error("Storage failed:", e);
+          if (e.name === 'QuotaExceededError' || e.code === 22) {
+              setStorageError("Storage full!");
+          } else {
+              setStorageError("Failed to save changes.");
+          }
+      }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -223,7 +256,12 @@ const App: React.FC = () => {
                 {/* 右侧：核心能力雷达图 (占1列) */}
                 <div className="lg:col-span-1 flex flex-col">
                   <Suspense fallback={<LoadingSpinner />}>
-                    <SkillsChart data={data} />
+                    <SkillsChart
+                      data={data}
+                      skills={customSkills}
+                      isAdmin={isAdmin}
+                      onUpdateSkills={handleUpdateSkills}
+                    />
                   </Suspense>
                 </div>
               </div>
