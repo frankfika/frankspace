@@ -15,6 +15,9 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
   const lang = data.lang || 'en';
   const [isEditing, setIsEditing] = useState(false);
   const [editForm, setEditForm] = useState(personalInfo);
+  const [showCodePrompt, setShowCodePrompt] = useState(false);
+  const [codeInput, setCodeInput] = useState('');
+  const [resumeType, setResumeType] = useState<'zh' | 'en' | null>(null);
 
   const handleEdit = () => {
     setEditForm(personalInfo);
@@ -32,6 +35,43 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
   const handleCancel = () => {
     setEditForm(personalInfo);
     setIsEditing(false);
+  };
+
+  const handleResumeClick = (type: 'zh' | 'en') => {
+    setResumeType(type);
+    setShowCodePrompt(true);
+    setCodeInput('');
+  };
+
+  const handleCodeSubmit = () => {
+    if (codeInput === '1993') {
+      // Correct code - trigger download
+      const link = document.createElement('a');
+      if (resumeType === 'zh') {
+        link.href = '/resume-zh.pdf';
+        link.download = '陈方简历.pdf';
+      } else {
+        link.href = '/resume-en.pdf';
+        link.download = 'Frank-Chen-Resume.pdf';
+      }
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Close prompt
+      setShowCodePrompt(false);
+      setCodeInput('');
+      setResumeType(null);
+    } else {
+      alert(lang === 'zh' ? '验证码错误，请重试' : 'Invalid code, please try again');
+      setCodeInput('');
+    }
+  };
+
+  const handleClosePrompt = () => {
+    setShowCodePrompt(false);
+    setCodeInput('');
+    setResumeType(null);
   };
 
   // Render Edit Form
@@ -301,24 +341,22 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
 
           {/* Enhanced CTA Buttons - Chinese and English Resume */}
           <div className="flex flex-col sm:flex-row gap-3">
-            <a
-              href="/resume-zh.pdf"
-              download="陈方简历.pdf"
+            <button
+              onClick={() => handleResumeClick('zh')}
               className="group relative flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl font-medium shadow-2xl hover:shadow-brand-500/20 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-brand-600 to-accent-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <Download size={18} className="relative z-10 group-hover:scale-110 transition-transform" />
               <span className="relative z-10">{lang === 'zh' ? '下载中文简历' : 'Resume (CN)'}</span>
-            </a>
+            </button>
 
-            <a
-              href="/resume-en.pdf"
-              download="Frank-Chen-Resume.pdf"
+            <button
+              onClick={() => handleResumeClick('en')}
               className="group relative flex items-center justify-center gap-2 px-6 py-3.5 bg-white/90 backdrop-blur-sm text-slate-900 rounded-xl font-medium border-2 border-slate-200 hover:border-brand-500 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
               <Download size={18} className="group-hover:scale-110 group-hover:text-brand-600 transition-all" />
               <span className="group-hover:text-brand-600 transition-colors">{lang === 'zh' ? '下载英文简历' : 'Resume (EN)'}</span>
-            </a>
+            </button>
           </div>
         </div>
 
@@ -362,6 +400,61 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
           </div>
         </div>
       </div>
+
+      {/* Verification Code Modal */}
+      {showCodePrompt && (
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-[100] flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-8 animate-in zoom-in duration-200">
+            <div className="text-center mb-6">
+              <div className="w-16 h-16 bg-brand-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                <Download size={32} className="text-brand-600" />
+              </div>
+              <h3 className="text-2xl font-bold text-slate-900 mb-2">
+                {lang === 'zh' ? '请输入验证码' : 'Enter Verification Code'}
+              </h3>
+              <p className="text-slate-600 text-sm">
+                {lang === 'zh'
+                  ? '下载简历需要验证码，请联系Frank获取'
+                  : 'A code is required to download the resume. Please contact Frank for the code.'}
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <input
+                type="text"
+                value={codeInput}
+                onChange={(e) => setCodeInput(e.target.value)}
+                onKeyPress={(e) => e.key === 'Enter' && handleCodeSubmit()}
+                className="w-full px-4 py-3 text-center text-2xl font-mono tracking-widest border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                placeholder="****"
+                maxLength={4}
+                autoFocus
+              />
+
+              <div className="flex gap-3">
+                <button
+                  onClick={handleCodeSubmit}
+                  className="flex-1 px-6 py-3 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors font-medium"
+                >
+                  {lang === 'zh' ? '确认' : 'Confirm'}
+                </button>
+                <button
+                  onClick={handleClosePrompt}
+                  className="flex-1 px-6 py-3 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors font-medium"
+                >
+                  {lang === 'zh' ? '取消' : 'Cancel'}
+                </button>
+              </div>
+            </div>
+
+            <p className="text-xs text-slate-500 text-center mt-4">
+              {lang === 'zh'
+                ? '💡 提示：验证码可通过邮箱或微信联系获取'
+                : '💡 Hint: Contact via email or WeChat to get the code'}
+            </p>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
