@@ -352,10 +352,10 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
 
             <button
               onClick={() => handleResumeClick('en')}
-              className="group relative flex items-center justify-center gap-2 px-6 py-3.5 bg-white/90 backdrop-blur-sm text-slate-900 rounded-xl font-medium border-2 border-slate-200 hover:border-brand-500 shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group relative flex items-center justify-center gap-2 px-6 py-3.5 bg-white border-2 border-brand-600 text-brand-600 hover:border-brand-700 hover:text-brand-700 rounded-xl font-medium shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              <Download size={18} className="group-hover:scale-110 group-hover:text-brand-600 transition-all" />
-              <span className="group-hover:text-brand-600 transition-colors">{lang === 'zh' ? '下载英文简历' : 'Resume (EN)'}</span>
+              <Download size={18} className="group-hover:scale-110 transition-all" />
+              <span className="transition-colors">{lang === 'zh' ? '下载英文简历' : 'Resume (EN)'}</span>
             </button>
           </div>
         </div>

@@ -53,7 +53,7 @@ const Consultation: React.FC<ConsultationProps> = ({ data }) => {
 
                 {/* Right Pricing Card */}
                 <div className="shrink-0 w-full lg:w-auto min-w-[320px]">
-                    <div className="bg-white rounded-2xl border border-slate-100 shadow-xl p-8 relative overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                    <div className="bg-white rounded-2xl border-2 border-slate-200 shadow-xl p-8 relative overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
                         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-500 to-accent-500" />
                         
                         <div className="text-center mb-8">
@@ -64,11 +64,11 @@ const Consultation: React.FC<ConsultationProps> = ({ data }) => {
                              {/* <div className="text-sm text-slate-500 mt-2 font-medium">Per Session</div> */}
                         </div>
 
-                        <button 
+                        <button
                             onClick={() => setShowQR(true)}
-                            className="w-full py-4 px-6 bg-slate-900 hover:bg-brand-600 text-white font-bold rounded-xl transition-all shadow-lg hover:shadow-brand-500/25 flex items-center justify-center gap-2 group mb-4"
+                            className="w-full py-4 px-6 bg-white border-2 border-brand-600 hover:border-brand-700 text-brand-600 hover:text-brand-700 font-bold rounded-xl transition-all shadow-lg hover:shadow-brand-500/30 hover:-translate-y-0.5 flex items-center justify-center gap-2 group mb-4"
                         >
-                            <QrCode size={18} />
+                            <QrCode size={18} className="group-hover:scale-110 transition-transform" />
                             {consultation.cta}
                         </button>
 

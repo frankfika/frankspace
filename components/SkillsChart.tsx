@@ -102,13 +102,13 @@ const SkillsChart: React.FC<SkillsChartProps> = ({ data, skills, isAdmin, onUpda
         <div className="flex gap-3 pt-4 border-t border-slate-200 mt-4">
           <button
             onClick={handleAddSkill}
-            className="flex items-center gap-2 px-4 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors font-medium"
+            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-lg transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 font-medium"
           >
             <Plus size={18} /> {data.lang === 'zh' ? '添加能力' : 'Add Skill'}
           </button>
           <button
             onClick={handleSave}
-            className="flex items-center gap-2 px-6 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors font-medium"
+            className="flex items-center gap-2 px-6 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors font-medium shadow-lg"
           >
             <Save size={18} /> {data.lang === 'zh' ? '保存' : 'Save'}
           </button>

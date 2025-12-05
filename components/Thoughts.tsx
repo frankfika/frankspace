@@ -206,7 +206,7 @@ const Thoughts: React.FC<ThoughtsProps> = ({ data, thoughts, isAdmin, onUpdateTh
           {isAdmin && (
               <button
                   onClick={handleNewClick}
-                  className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-all shadow-lg hover:shadow-xl font-medium"
+                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-lg transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 font-medium"
               >
                   <Plus size={18} /> Add Note
               </button>

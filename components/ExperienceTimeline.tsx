@@ -403,7 +403,7 @@ const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
           {isAdmin && (
             <button
               onClick={handleNewExp}
-              className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-full hover:bg-brand-700 transition-colors shadow-lg text-sm font-medium"
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-full transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 text-sm font-medium"
             >
               <Plus size={16} /> Add
             </button>
@@ -470,7 +470,7 @@ const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
           {isAdmin && (
             <button
               onClick={handleNewEdu}
-              className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-full hover:bg-brand-700 transition-colors shadow-lg text-sm font-medium"
+              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-full transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 text-sm font-medium"
             >
               <Plus size={16} /> Add
             </button>

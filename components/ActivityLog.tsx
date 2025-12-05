@@ -175,9 +175,9 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data, activities, isAdmin, on
                         key={tag}
                         onClick={() => setSelectedTag(tag)}
                         className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
-                            selectedTag === tag 
-                            ? 'bg-slate-900 text-white shadow-md transform scale-105' 
-                            : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300 hover:bg-slate-50'
+                            selectedTag === tag
+                            ? 'bg-gradient-to-r from-brand-600 to-brand-700 text-white shadow-md transform scale-105'
+                            : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-300 hover:bg-brand-50'
                         }`}
                     >
                         {tag}
@@ -186,9 +186,9 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data, activities, isAdmin, on
             </div>
 
             {isAdmin && !isEditing && (
-                <button 
+                <button
                     onClick={handleNewClick}
-                    className="flex items-center gap-2 px-4 py-2 bg-slate-900 text-white rounded-lg hover:bg-slate-800 transition-colors shadow-lg self-start md:self-end"
+                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-lg transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 self-start md:self-end font-medium"
                 >
                     <Plus size={18} /> Add Activity
                 </button>
