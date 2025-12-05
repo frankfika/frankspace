@@ -46,8 +46,15 @@ const App: React.FC = () => {
   const [customActivities, setCustomActivities] = useState<ActivityItem[]>([]);
   const [customProjects, setCustomProjects] = useState<Project[]>([]);
   const [customThoughts, setCustomThoughts] = useState<Note[]>([]);
+  const [customPersonalInfo, setCustomPersonalInfo] = useState<typeof CONTENT['en']['personalInfo'] | null>(null);
 
-  const data = { ...CONTENT[lang], lang, projects: customProjects.length > 0 ? customProjects : CONTENT[lang].projects, thoughts: customThoughts.length > 0 ? customThoughts : CONTENT[lang].thoughts };
+  const data = {
+    ...CONTENT[lang],
+    lang,
+    personalInfo: customPersonalInfo || CONTENT[lang].personalInfo,
+    projects: customProjects.length > 0 ? customProjects : CONTENT[lang].projects,
+    thoughts: customThoughts.length > 0 ? customThoughts : CONTENT[lang].thoughts
+  };
 
   // Initialize Activities from LocalStorage or Constants
   useEffect(() => {
@@ -88,6 +95,20 @@ const App: React.FC = () => {
         }
     } else {
         setCustomThoughts(CONTENT[lang].thoughts);
+    }
+  }, [lang]);
+
+  // Initialize PersonalInfo from LocalStorage or Constants
+  useEffect(() => {
+    const saved = localStorage.getItem(`personalInfo_${lang}`);
+    if (saved) {
+        try {
+            setCustomPersonalInfo(JSON.parse(saved));
+        } catch (e) {
+            setCustomPersonalInfo(CONTENT[lang].personalInfo);
+        }
+    } else {
+        setCustomPersonalInfo(CONTENT[lang].personalInfo);
     }
   }, [lang]);
 
@@ -147,6 +168,23 @@ const App: React.FC = () => {
       }
   };
 
+  // Handle Updates to PersonalInfo
+  const handleUpdatePersonalInfo = (updated: typeof CONTENT['en']['personalInfo']) => {
+      try {
+          const serialized = JSON.stringify(updated);
+          localStorage.setItem(`personalInfo_${lang}`, serialized);
+          setCustomPersonalInfo(updated);
+          setStorageError(null);
+      } catch (e: any) {
+          console.error("Storage failed:", e);
+          if (e.name === 'QuotaExceededError' || e.code === 22) {
+              setStorageError("Storage full!");
+          } else {
+              setStorageError("Failed to save changes.");
+          }
+      }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -164,7 +202,11 @@ const App: React.FC = () => {
       case Tab.HOME:
         return (
              <div className="space-y-20 animate-in fade-in duration-500 pb-20">
-                <Hero data={data} />
+                <Hero
+                  data={data}
+                  isAdmin={isAdmin}
+                  onUpdatePersonalInfo={handleUpdatePersonalInfo}
+                />
              </div>
         );
       case Tab.PROFILE:

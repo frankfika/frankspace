@@ -1,16 +1,226 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ContentData } from '../types';
-import { Download, Terminal } from 'lucide-react';
+import { Download, Terminal, Edit2, Save, X } from 'lucide-react';
 import SocialLinks from './SocialLinks';
 
 interface HeroProps {
   data: ContentData;
+  isAdmin: boolean;
+  onUpdatePersonalInfo: (info: ContentData['personalInfo']) => void;
 }
 
-const Hero: React.FC<HeroProps> = ({ data }) => {
+const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
   const { personalInfo } = data;
   const lang = data.lang || 'en';
+  const [isEditing, setIsEditing] = useState(false);
+  const [editForm, setEditForm] = useState(personalInfo);
+
+  const handleEdit = () => {
+    setEditForm(personalInfo);
+    setIsEditing(true);
+  };
+
+  const handleSave = () => {
+    if (!editForm.name || !editForm.tagline || !editForm.email) {
+      return alert('Name, Tagline, and Email are required');
+    }
+    onUpdatePersonalInfo(editForm);
+    setIsEditing(false);
+  };
+
+  const handleCancel = () => {
+    setEditForm(personalInfo);
+    setIsEditing(false);
+  };
+
+  // Render Edit Form
+  if (isEditing) {
+    return (
+      <section className="relative px-6 py-32 min-h-screen">
+        <div className="max-w-4xl mx-auto">
+          <div className="flex items-center justify-between border-b border-slate-200 pb-4 mb-6">
+            <h2 className="text-2xl font-bold text-slate-900">
+              {lang === 'zh' ? '编辑个人信息' : 'Edit Personal Info'}
+            </h2>
+            <button
+              onClick={handleCancel}
+              className="p-2 hover:bg-slate-100 rounded-lg transition-colors"
+            >
+              <X size={20} />
+            </button>
+          </div>
+
+          <div className="glass-panel p-6 rounded-xl space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  {lang === 'zh' ? '姓名 *' : 'Name *'}
+                </label>
+                <input
+                  type="text"
+                  value={editForm.name}
+                  onChange={(e) => setEditForm({ ...editForm, name: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  placeholder="Frank Chen"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  {lang === 'zh' ? '邮箱 *' : 'Email *'}
+                </label>
+                <input
+                  type="email"
+                  value={editForm.email}
+                  onChange={(e) => setEditForm({ ...editForm, email: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  placeholder="fchen2020@163.com"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                {lang === 'zh' ? '标语 *' : 'Tagline *'}
+              </label>
+              <input
+                type="text"
+                value={editForm.tagline}
+                onChange={(e) => setEditForm({ ...editForm, tagline: e.target.value })}
+                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                placeholder="AI Strategy & Ops"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  {lang === 'zh' ? '位置' : 'Location'}
+                </label>
+                <input
+                  type="text"
+                  value={editForm.location}
+                  onChange={(e) => setEditForm({ ...editForm, location: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  placeholder="Beijing, China"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  {lang === 'zh' ? '状态' : 'Availability'}
+                </label>
+                <input
+                  type="text"
+                  value={editForm.availability}
+                  onChange={(e) => setEditForm({ ...editForm, availability: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  placeholder="Available for Consulting"
+                />
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  {lang === 'zh' ? '手机' : 'Mobile'}
+                </label>
+                <input
+                  type="text"
+                  value={editForm.mobile}
+                  onChange={(e) => setEditForm({ ...editForm, mobile: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  placeholder="+86 123 4567 8900"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  {lang === 'zh' ? 'GitHub' : 'GitHub'}
+                </label>
+                <input
+                  type="text"
+                  value={editForm.github}
+                  onChange={(e) => setEditForm({ ...editForm, github: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  placeholder="github.com/frankfika"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  {lang === 'zh' ? '工作年限' : 'Years Experience'}
+                </label>
+                <input
+                  type="text"
+                  value={editForm.yearsExp}
+                  onChange={(e) => setEditForm({ ...editForm, yearsExp: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  placeholder="8"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-2">
+                {lang === 'zh' ? '个人简介' : 'Summary'}
+              </label>
+              <textarea
+                value={editForm.summary}
+                onChange={(e) => setEditForm({ ...editForm, summary: e.target.value })}
+                className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent min-h-[100px]"
+                placeholder="Brief personal summary..."
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  {lang === 'zh' ? '管理资金规模' : 'Money Managed'}
+                </label>
+                <input
+                  type="text"
+                  value={editForm.moneyManaged}
+                  onChange={(e) => setEditForm({ ...editForm, moneyManaged: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  placeholder="$50M+"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold text-slate-700 mb-2">
+                  {lang === 'zh' ? '联系按钮文案' : 'Contact Button Text'}
+                </label>
+                <input
+                  type="text"
+                  value={editForm.contactBtn}
+                  onChange={(e) => setEditForm({ ...editForm, contactBtn: e.target.value })}
+                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                  placeholder="Get in Touch"
+                />
+              </div>
+            </div>
+
+            <div className="flex gap-3 pt-4">
+              <button
+                onClick={handleSave}
+                className="flex items-center gap-2 px-6 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors font-medium"
+              >
+                <Save size={18} /> {lang === 'zh' ? '保存' : 'Save'}
+              </button>
+              <button
+                onClick={handleCancel}
+                className="px-6 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors font-medium"
+              >
+                {lang === 'zh' ? '取消' : 'Cancel'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative px-6 overflow-hidden h-screen flex items-center">
@@ -33,6 +243,17 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
 
       {/* Subtle Noise Texture */}
       <div className="absolute inset-0 bg-noise opacity-[0.02] pointer-events-none -z-10" />
+
+      {/* Admin Edit Button */}
+      {isAdmin && (
+        <button
+          onClick={handleEdit}
+          className="absolute top-6 right-6 z-50 p-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-all shadow-lg hover:shadow-xl"
+          title={lang === 'zh' ? '编辑个人信息' : 'Edit Personal Info'}
+        >
+          <Edit2 size={20} />
+        </button>
+      )}
 
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center relative z-10 w-full">
         <div className="space-y-4 md:space-y-5 animate-in fade-in slide-in-from-bottom-8 duration-700">
@@ -105,7 +326,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
         <div className="hidden md:flex justify-center items-center relative animate-in fade-in zoom-in duration-1000 delay-200">
           <div className="relative w-full aspect-square max-w-md bg-white rounded-2xl border border-slate-100 shadow-2xl overflow-hidden p-6 group rotate-1 hover:rotate-0 transition-all duration-500">
             <div className="absolute inset-0 bg-gradient-to-br from-brand-50 to-white/0" />
-            
+
             {/* Mock Code Editor - Light Theme */}
             <div className="h-full flex flex-col font-mono text-sm relative z-10">
               <div className="flex items-center justify-between gap-2 pb-4 border-b border-slate-100">
@@ -124,7 +345,7 @@ const Hero: React.FC<HeroProps> = ({ data }) => {
                 <p className="pl-6">years_exp: <span className="text-blue-600">{parseInt(personalInfo.yearsExp)}</span>,</p>
                 <p className="pl-6">status: <span className="text-emerald-600">'Building the Future'</span></p>
                 <p className="text-amber-600">{`}`}</p>
-                
+
                 <div className="mt-8 pt-6 border-t border-slate-100">
                   <div className="flex items-center gap-2 text-brand-600">
                     <Terminal size={16} />

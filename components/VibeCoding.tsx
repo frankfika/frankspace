@@ -1,7 +1,20 @@
 
 import React, { useState } from 'react';
 import { ContentData, Project } from '../types';
-import { Code, Activity, Terminal, ArrowUpRight, Plus, Trash2, Edit2, Save, X, Upload } from 'lucide-react';
+import { Code, Activity, Terminal, ArrowUpRight, Plus, Trash2, Edit2, Save, X } from 'lucide-react';
+
+// Generate thumbnail URL from project link
+const getThumbnailUrl = (link?: string): string => {
+  if (!link) return '';
+
+  try {
+    const url = new URL(link);
+    // Use screenshot.rocks API for automatic thumbnail generation (free, no API key needed)
+    return `https://api.screenshotmachine.com?key=demo&url=${encodeURIComponent(link)}&dimension=1024x768&format=jpg&cacheLimit=0`;
+  } catch (e) {
+    return '';
+  }
+};
 
 interface VibeCodingProps {
     data: ContentData;
@@ -52,6 +65,9 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
           return alert('Title, Category, and Description are required');
       }
 
+      // Auto-generate thumbnail from link
+      const autoImage = editForm.link ? getThumbnailUrl(editForm.link) : editForm.image;
+
       if (isEditing === 'new') {
           const newProject: Project = {
               id: Date.now().toString(),
@@ -60,13 +76,13 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
               description: editForm.description!,
               techStack: editForm.techStack || [],
               link: editForm.link,
-              image: editForm.image,
+              image: autoImage,
               stats: editForm.stats
           };
           onUpdateProjects([...projects, newProject]);
       } else {
           const updated = projects.map(p =>
-              p.id === isEditing ? { ...p, ...editForm } as Project : p
+              p.id === isEditing ? { ...p, ...editForm, image: autoImage } as Project : p
           );
           onUpdateProjects(updated);
       }
@@ -154,17 +170,9 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
                           className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
                           placeholder="https://example.com"
                       />
-                  </div>
-
-                  <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">Image URL</label>
-                      <input
-                          type="url"
-                          value={editForm.image || ''}
-                          onChange={(e) => setEditForm({ ...editForm, image: e.target.value })}
-                          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                          placeholder="https://images.unsplash.com/..."
-                      />
+                      <p className="text-xs text-slate-500 mt-1">
+                          Thumbnail will be automatically generated from this URL
+                      </p>
                   </div>
 
                   <div>
