@@ -16,7 +16,7 @@ const SkillsChart = lazy(() => import('./components/SkillsChart'));
 const VibeCoding = lazy(() => import('./components/VibeCoding'));
 const ActivityLog = lazy(() => import('./components/ActivityLog'));
 import { CONTENT } from './constants';
-import { Language, ActivityItem, Project, Note } from './types';
+import { Language, ActivityItem, Project, Note, ExperienceItem, EducationItem } from './types';
 import { User, Terminal, BookOpen, Menu, X, Languages, Radio, Lock, Unlock, Sparkles, AlertCircle, Home as HomeIcon } from 'lucide-react';
 
 enum Tab {
@@ -48,6 +48,8 @@ const App: React.FC = () => {
   const [customThoughts, setCustomThoughts] = useState<Note[]>([]);
   const [customPersonalInfo, setCustomPersonalInfo] = useState<typeof CONTENT['en']['personalInfo'] | null>(null);
   const [customSkills, setCustomSkills] = useState<typeof CONTENT['en']['skills']>([]);
+  const [customExperience, setCustomExperience] = useState<typeof CONTENT['en']['experience']>([]);
+  const [customEducation, setCustomEducation] = useState<typeof CONTENT['en']['education']>([]);
 
   const data = {
     ...CONTENT[lang],
@@ -55,7 +57,9 @@ const App: React.FC = () => {
     personalInfo: customPersonalInfo || CONTENT[lang].personalInfo,
     projects: customProjects.length > 0 ? customProjects : CONTENT[lang].projects,
     thoughts: customThoughts.length > 0 ? customThoughts : CONTENT[lang].thoughts,
-    skills: customSkills.length > 0 ? customSkills : CONTENT[lang].skills
+    skills: customSkills.length > 0 ? customSkills : CONTENT[lang].skills,
+    experience: customExperience.length > 0 ? customExperience : CONTENT[lang].experience,
+    education: customEducation.length > 0 ? customEducation : CONTENT[lang].education
   };
 
   // Initialize Activities from LocalStorage or Constants
@@ -125,6 +129,34 @@ const App: React.FC = () => {
         }
     } else {
         setCustomSkills(CONTENT[lang].skills);
+    }
+  }, [lang]);
+
+  // Initialize Experience from LocalStorage or Constants
+  useEffect(() => {
+    const saved = localStorage.getItem(`experience_${lang}`);
+    if (saved) {
+        try {
+            setCustomExperience(JSON.parse(saved));
+        } catch (e) {
+            setCustomExperience(CONTENT[lang].experience);
+        }
+    } else {
+        setCustomExperience(CONTENT[lang].experience);
+    }
+  }, [lang]);
+
+  // Initialize Education from LocalStorage or Constants
+  useEffect(() => {
+    const saved = localStorage.getItem(`education_${lang}`);
+    if (saved) {
+        try {
+            setCustomEducation(JSON.parse(saved));
+        } catch (e) {
+            setCustomEducation(CONTENT[lang].education);
+        }
+    } else {
+        setCustomEducation(CONTENT[lang].education);
     }
   }, [lang]);
 
@@ -218,6 +250,40 @@ const App: React.FC = () => {
       }
   };
 
+  // Handle Updates to Experience
+  const handleUpdateExperience = (updated: typeof CONTENT['en']['experience']) => {
+      try {
+          const serialized = JSON.stringify(updated);
+          localStorage.setItem(`experience_${lang}`, serialized);
+          setCustomExperience(updated);
+          setStorageError(null);
+      } catch (e: any) {
+          console.error("Storage failed:", e);
+          if (e.name === 'QuotaExceededError' || e.code === 22) {
+              setStorageError("Storage full!");
+          } else {
+              setStorageError("Failed to save changes.");
+          }
+      }
+  };
+
+  // Handle Updates to Education
+  const handleUpdateEducation = (updated: typeof CONTENT['en']['education']) => {
+      try {
+          const serialized = JSON.stringify(updated);
+          localStorage.setItem(`education_${lang}`, serialized);
+          setCustomEducation(updated);
+          setStorageError(null);
+      } catch (e: any) {
+          console.error("Storage failed:", e);
+          if (e.name === 'QuotaExceededError' || e.code === 22) {
+              setStorageError("Storage full!");
+          } else {
+              setStorageError("Failed to save changes.");
+          }
+      }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -269,7 +335,12 @@ const App: React.FC = () => {
 
             {/* 工作经历时间线 */}
             <section className="max-w-6xl mx-auto px-6">
-              <ExperienceTimeline data={data} />
+              <ExperienceTimeline
+                data={data}
+                isAdmin={isAdmin}
+                onUpdateExperience={handleUpdateExperience}
+                onUpdateEducation={handleUpdateEducation}
+              />
             </section>
           </div>
         );

@@ -27,6 +27,7 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
   const [filter, setFilter] = useState<string>('All');
   const [isEditing, setIsEditing] = useState<string | null>(null);
   const [editForm, setEditForm] = useState<Partial<Project>>({});
+  const [tagInput, setTagInput] = useState('');
 
   // Extract categories dynamically
   const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
@@ -93,6 +94,25 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
   const handleCancel = () => {
       setIsEditing(null);
       setEditForm({});
+      setTagInput('');
+  };
+
+  const handleAddTag = () => {
+      const trimmedTag = tagInput.trim();
+      if (trimmedTag && !editForm.techStack?.includes(trimmedTag)) {
+          setEditForm({
+              ...editForm,
+              techStack: [...(editForm.techStack || []), trimmedTag]
+          });
+          setTagInput('');
+      }
+  };
+
+  const handleRemoveTag = (index: number) => {
+      setEditForm({
+          ...editForm,
+          techStack: editForm.techStack?.filter((_, i) => i !== index)
+      });
   };
 
   // Render Edit Form
@@ -111,7 +131,7 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
                   </button>
               </div>
 
-              <div className="glass-panel p-6 rounded-xl space-y-4">
+              <div className="glass-panel p-6 rounded-xl space-y-4 max-h-[calc(100vh-200px)] overflow-y-auto">
                   <div>
                       <label className="block text-sm font-semibold text-slate-700 mb-2">Title *</label>
                       <input
@@ -151,14 +171,50 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
                   </div>
 
                   <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">Tech Stack (comma separated)</label>
-                      <input
-                          type="text"
-                          value={editForm.techStack?.join(', ') || ''}
-                          onChange={(e) => setEditForm({ ...editForm, techStack: e.target.value.split(',').map(s => s.trim()).filter(Boolean) })}
-                          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                          placeholder="React, Node.js, MongoDB"
-                      />
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Tech Stack</label>
+
+                      {/* Display existing tags */}
+                      <div className="flex flex-wrap gap-2 mb-3">
+                          {editForm.techStack?.map((tag, index) => (
+                              <span
+                                  key={index}
+                                  className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-50 text-brand-700 rounded-lg border border-brand-200 text-sm font-medium"
+                              >
+                                  {tag}
+                                  <button
+                                      type="button"
+                                      onClick={() => handleRemoveTag(index)}
+                                      className="text-brand-500 hover:text-brand-700 hover:bg-brand-100 rounded p-0.5 transition-colors"
+                                  >
+                                      <X size={14} />
+                                  </button>
+                              </span>
+                          ))}
+                      </div>
+
+                      {/* Input field for new tags */}
+                      <div className="flex gap-2">
+                          <input
+                              type="text"
+                              value={tagInput}
+                              onChange={(e) => setTagInput(e.target.value)}
+                              onKeyPress={(e) => {
+                                  if (e.key === 'Enter') {
+                                      e.preventDefault();
+                                      handleAddTag();
+                                  }
+                              }}
+                              className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                              placeholder="Type tech name and press Enter"
+                          />
+                          <button
+                              type="button"
+                              onClick={handleAddTag}
+                              className="px-4 py-2 bg-brand-600 text-white rounded-lg hover:bg-brand-700 transition-colors flex items-center gap-2"
+                          >
+                              <Plus size={16} /> Add
+                          </button>
+                      </div>
                   </div>
 
                   <div>
