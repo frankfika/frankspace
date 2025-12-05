@@ -16,7 +16,7 @@ const SkillsChart = lazy(() => import('./components/SkillsChart'));
 const VibeCoding = lazy(() => import('./components/VibeCoding'));
 const ActivityLog = lazy(() => import('./components/ActivityLog'));
 import { CONTENT } from './constants';
-import { Language, ActivityItem } from './types';
+import { Language, ActivityItem, Project, Note } from './types';
 import { User, Terminal, BookOpen, Menu, X, Languages, Radio, Lock, Unlock, Sparkles, AlertCircle, Home as HomeIcon } from 'lucide-react';
 
 enum Tab {
@@ -44,8 +44,10 @@ const App: React.FC = () => {
   // Admin & Data State
   const [isAdmin, setIsAdmin] = useState(false);
   const [customActivities, setCustomActivities] = useState<ActivityItem[]>([]);
+  const [customProjects, setCustomProjects] = useState<Project[]>([]);
+  const [customThoughts, setCustomThoughts] = useState<Note[]>([]);
 
-  const data = { ...CONTENT[lang], lang };
+  const data = { ...CONTENT[lang], lang, projects: customProjects.length > 0 ? customProjects : CONTENT[lang].projects, thoughts: customThoughts.length > 0 ? customThoughts : CONTENT[lang].thoughts };
 
   // Initialize Activities from LocalStorage or Constants
   useEffect(() => {
@@ -58,6 +60,34 @@ const App: React.FC = () => {
         }
     } else {
         setCustomActivities(CONTENT[lang].activities);
+    }
+  }, [lang]);
+
+  // Initialize Projects from LocalStorage or Constants
+  useEffect(() => {
+    const saved = localStorage.getItem(`projects_${lang}`);
+    if (saved) {
+        try {
+            setCustomProjects(JSON.parse(saved));
+        } catch (e) {
+            setCustomProjects(CONTENT[lang].projects);
+        }
+    } else {
+        setCustomProjects(CONTENT[lang].projects);
+    }
+  }, [lang]);
+
+  // Initialize Thoughts from LocalStorage or Constants
+  useEffect(() => {
+    const saved = localStorage.getItem(`thoughts_${lang}`);
+    if (saved) {
+        try {
+            setCustomThoughts(JSON.parse(saved));
+        } catch (e) {
+            setCustomThoughts(CONTENT[lang].thoughts);
+        }
+    } else {
+        setCustomThoughts(CONTENT[lang].thoughts);
     }
   }, [lang]);
 
@@ -77,6 +107,40 @@ const App: React.FC = () => {
           console.error("Storage failed:", e);
           if (e.name === 'QuotaExceededError' || e.code === 22) {
               setStorageError("Storage full! Image might be too large. Try deleting old activities or smaller images.");
+          } else {
+              setStorageError("Failed to save changes.");
+          }
+      }
+  };
+
+  // Handle Updates to Projects
+  const handleUpdateProjects = (updated: Project[]) => {
+      try {
+          const serialized = JSON.stringify(updated);
+          localStorage.setItem(`projects_${lang}`, serialized);
+          setCustomProjects(updated);
+          setStorageError(null);
+      } catch (e: any) {
+          console.error("Storage failed:", e);
+          if (e.name === 'QuotaExceededError' || e.code === 22) {
+              setStorageError("Storage full! Try deleting old projects or smaller images.");
+          } else {
+              setStorageError("Failed to save changes.");
+          }
+      }
+  };
+
+  // Handle Updates to Thoughts
+  const handleUpdateThoughts = (updated: Note[]) => {
+      try {
+          const serialized = JSON.stringify(updated);
+          localStorage.setItem(`thoughts_${lang}`, serialized);
+          setCustomThoughts(updated);
+          setStorageError(null);
+      } catch (e: any) {
+          console.error("Storage failed:", e);
+          if (e.name === 'QuotaExceededError' || e.code === 22) {
+              setStorageError("Storage full! Try deleting old notes.");
           } else {
               setStorageError("Failed to save changes.");
           }
@@ -132,8 +196,19 @@ const App: React.FC = () => {
       case Tab.VIBE:
         return (
           <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
+            {storageError && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-center gap-2 animate-pulse">
+                    <AlertCircle size={20} />
+                    {storageError}
+                </div>
+            )}
             <Suspense fallback={<LoadingSpinner />}>
-              <VibeCoding data={data} />
+              <VibeCoding
+                data={data}
+                projects={customProjects}
+                isAdmin={isAdmin}
+                onUpdateProjects={handleUpdateProjects}
+              />
             </Suspense>
           </div>
         );
@@ -159,7 +234,18 @@ const App: React.FC = () => {
       case Tab.THOUGHTS:
         return (
           <div className="max-w-4xl mx-auto px-6 pt-32 pb-20">
-            <Thoughts data={data} />
+            {storageError && (
+                <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-700 rounded-lg flex items-center gap-2 animate-pulse">
+                    <AlertCircle size={20} />
+                    {storageError}
+                </div>
+            )}
+            <Thoughts
+              data={data}
+              thoughts={customThoughts}
+              isAdmin={isAdmin}
+              onUpdateThoughts={handleUpdateThoughts}
+            />
           </div>
         );
       case Tab.CONSULTATION:
