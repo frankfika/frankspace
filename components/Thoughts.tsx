@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { ContentData, Note } from '../types';
-import { BookOpen, Calendar, ArrowRight, ArrowUp, ExternalLink, Plus, Trash2, Edit2, Save, X, FileText, Link } from 'lucide-react';
+import { BookOpen, Calendar, ArrowRight, ArrowUp, ExternalLink, Plus, Trash2, Edit2, Save, X } from 'lucide-react';
 
 interface ThoughtsProps {
     data: ContentData;
@@ -212,35 +212,6 @@ const Thoughts: React.FC<ThoughtsProps> = ({ data, thoughts, isAdmin, onUpdateTh
               </button>
           )}
         </div>
-
-      {/* Featured Articles from WeChat */}
-      {data.articles && data.articles.length > 0 && (
-        <div className="glass-panel p-6 rounded-xl mb-8">
-          <h3 className="text-lg font-bold text-slate-900 mb-4 flex items-center gap-2">
-            <FileText size={20} className="text-green-600" />
-            {data.lang === 'zh' ? '微信公众号文章' : 'WeChat Articles'}
-          </h3>
-          <div className="grid md:grid-cols-2 gap-3">
-            {data.articles.map((article) => (
-              <a
-                key={article.id}
-                href={article.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 p-3 rounded-lg border border-slate-200 hover:border-green-300 hover:bg-green-50 transition-all"
-              >
-                <div className="flex-shrink-0 w-8 h-8 rounded-lg bg-green-100 flex items-center justify-center text-green-600 group-hover:bg-green-500 group-hover:text-white transition-all">
-                  <Link size={16} />
-                </div>
-                <span className="text-sm text-slate-700 group-hover:text-green-700 line-clamp-1 flex-1">
-                  {article.title}
-                </span>
-                <ExternalLink size={14} className="text-slate-400 group-hover:text-green-600 flex-shrink-0" />
-              </a>
-            ))}
-          </div>
-        </div>
-      )}
 
       <div className="grid gap-6">
         {thoughts.map((note) => (

@@ -3,7 +3,7 @@
 
 
 
-import { ContentData, PersonalTraits, Recommendations, ArticleLink } from './types';
+import { ContentData, PersonalTraits, Recommendations } from './types';
 
 // Personal traits data from old site
 const PERSONAL_TRAITS_EN: PersonalTraits = {
@@ -95,33 +95,6 @@ const RECOMMENDATIONS_ZH: Recommendations = {
   ]
 };
 
-// Articles data from old site
-const ARTICLES_EN: ArticleLink[] = [
-  { id: 'a1', title: "Investment Methodology | How do investors really view projects?", url: "https://mp.weixin.qq.com/s/yRAphxCu4rFsLEjehJyK6A" },
-  { id: 'a2', title: "Dirty Jobs and Hard Tech", url: "https://mp.weixin.qq.com/s/rQMjdqCqWFlGETH0G-0x5A" },
-  { id: 'a3', title: "A Debate on the 'Rise of India'", url: "https://mp.weixin.qq.com/s/i5Zf7s-oDMpXantd5nFjKg" },
-  { id: 'a4', title: "In 2020, I Made a PPT About India", url: "https://mp.weixin.qq.com/s/6FnsUTn9NDeXeZ7Rf29diA" },
-  { id: 'a5', title: "The Final Form of Software — 'Be Paper'", url: "https://mp.weixin.qq.com/s/L81qpEUWbCrs6-PrYxSH6Q" },
-  { id: 'a6', title: "AI Companies in China: High-Tech Construction Crew", url: "https://mp.weixin.qq.com/s/cKCRcZrn9v_R5TKP0fodZA" },
-  { id: 'a7', title: "From L0 to L3: Understanding Generative AI's Technology Layers", url: "https://mp.weixin.qq.com/s/6-oj-8v9TYi8ZphUgDWjqA" },
-  { id: 'a8', title: "Popular Science on Intelligent Computing", url: "https://mp.weixin.qq.com/s/a_935PnzLuZ1XsSeAy-u2A" },
-  { id: 'a9', title: "A Day Learning in a Pyramid Scheme: POS Cash-Out Logic", url: "https://mp.weixin.qq.com/s/eT5wldKRPHqlCjNxvSWoKw" },
-  { id: 'a10', title: "Build a Personal Website + AI Assistant in One Day", url: "https://mp.weixin.qq.com/s/u_B6-22Tl9ZVFMepkv0cXg" }
-];
-
-const ARTICLES_ZH: ArticleLink[] = [
-  { id: 'a1', title: '投资方法论 | 投资人究竟是怎么看项目的？', url: 'https://mp.weixin.qq.com/s/yRAphxCu4rFsLEjehJyK6A' },
-  { id: 'a2', title: '"脏活累活"与硬科技', url: 'https://mp.weixin.qq.com/s/rQMjdqCqWFlGETH0G-0x5A' },
-  { id: 'a3', title: '胡说八道｜记一场关于"印度崛起"的小辩论', url: 'https://mp.weixin.qq.com/s/i5Zf7s-oDMpXantd5nFjKg' },
-  { id: 'a4', title: '2020年，我做了一个关于印度的PPT', url: 'https://mp.weixin.qq.com/s/6FnsUTn9NDeXeZ7Rf29diA' },
-  { id: 'a5', title: '软件最终的形态 — "Be Paper"', url: 'https://mp.weixin.qq.com/s/L81qpEUWbCrs6-PrYxSH6Q' },
-  { id: 'a6', title: '中国的AI企业现状：聚光灯下的「高科技施工队」', url: 'https://mp.weixin.qq.com/s/cKCRcZrn9v_R5TKP0fodZA' },
-  { id: 'a7', title: '从L0到L3：文科生对「生成式AI」四层技术体系的解读', url: 'https://mp.weixin.qq.com/s/6-oj-8v9TYi8ZphUgDWjqA' },
-  { id: 'a8', title: '一些关于智能算力的科普和分享', url: 'https://mp.weixin.qq.com/s/a_935PnzLuZ1XsSeAy-u2A' },
-  { id: 'a9', title: '在传销组织学习的一天：POS机套现的经济模型和商业逻辑', url: 'https://mp.weixin.qq.com/s/eT5wldKRPHqlCjNxvSWoKw' },
-  { id: 'a10', title: '就不写代码 | 花一天时间打造一个[个人网站]+[大模型助手]', url: 'https://mp.weixin.qq.com/s/u_B6-22Tl9ZVFMepkv0cXg' }
-];
-
 const SKILLS_DATA = [
   { subject: 'AI/Tech', A: 95, fullMark: 100 },
   { subject: 'Strategy', A: 90, fullMark: 100 },
@@ -147,7 +120,6 @@ export const CONTENT: { en: ContentData; zh: ContentData } = {
   en: {
     personalTraits: PERSONAL_TRAITS_EN,
     recommendations: RECOMMENDATIONS_EN,
-    articles: ARTICLES_EN,
     personalInfo: {
       name: "Frank Chen",
       tagline: "Cross-Functional Strategic Operations Expert & AI Engineer",
@@ -404,13 +376,67 @@ export const CONTENT: { en: ContentData; zh: ContentData } = {
         content: "When we launched our Web3 project, we had zero marketing budget. Instead of buying ads, we focused on 'Narrative Fit'. We analyzed the editorial patterns of top tech media like 36kr and tailored our press release to fit their current themes (at the time, 'Real-world Asset tokenization'). \n\nThe result? A front-page feature that drove 50,000 unique visitors in 24 hours. The lesson: Journalists are hungry for good stories. If you package your product updates as industry insights, you don't need to pay for coverage.",
         readTime: "4 min read",
         link: "https://36kr.com/"
+      },
+      // WeChat Articles
+      {
+        id: 'w1',
+        title: "Investment Methodology | How do investors really view projects?",
+        date: "2023-06-15",
+        tags: ["Investment", "Methodology"],
+        snippet: "A detailed mind map breaking down how investors evaluate startup projects from multiple dimensions.",
+        readTime: "10 min read",
+        link: "https://mp.weixin.qq.com/s/yRAphxCu4rFsLEjehJyK6A"
+      },
+      {
+        id: 'w2',
+        title: "Dirty Jobs and Hard Tech",
+        date: "2023-05-20",
+        tags: ["Tech", "Industry"],
+        snippet: "Why the most valuable tech companies often do the 'dirty work' that others avoid.",
+        readTime: "8 min read",
+        link: "https://mp.weixin.qq.com/s/rQMjdqCqWFlGETH0G-0x5A"
+      },
+      {
+        id: 'w3',
+        title: "A Debate on the 'Rise of India'",
+        date: "2023-04-10",
+        tags: ["India", "Geopolitics"],
+        snippet: "My thoughts on India's economic trajectory and what it means for global tech.",
+        readTime: "12 min read",
+        link: "https://mp.weixin.qq.com/s/i5Zf7s-oDMpXantd5nFjKg"
+      },
+      {
+        id: 'w4',
+        title: "AI Companies in China: High-Tech Construction Crew",
+        date: "2023-08-15",
+        tags: ["AI", "China"],
+        snippet: "An analysis of China's AI industry - the reality behind the hype.",
+        readTime: "15 min read",
+        link: "https://mp.weixin.qq.com/s/cKCRcZrn9v_R5TKP0fodZA"
+      },
+      {
+        id: 'w5',
+        title: "From L0 to L3: Understanding Generative AI's Technology Layers",
+        date: "2023-09-20",
+        tags: ["AI", "Technology"],
+        snippet: "A liberal arts student's interpretation of the four-layer technology system of Generative AI.",
+        readTime: "20 min read",
+        link: "https://mp.weixin.qq.com/s/6-oj-8v9TYi8ZphUgDWjqA"
+      },
+      {
+        id: 'w6',
+        title: "Build a Personal Website + AI Assistant in One Day",
+        date: "2024-01-10",
+        tags: ["AI", "Tutorial"],
+        snippet: "How I built this personal website with an integrated AI chatbot without writing much code.",
+        readTime: "8 min read",
+        link: "https://mp.weixin.qq.com/s/u_B6-22Tl9ZVFMepkv0cXg"
       }
     ]
   },
   zh: {
     personalTraits: PERSONAL_TRAITS_ZH,
     recommendations: RECOMMENDATIONS_ZH,
-    articles: ARTICLES_ZH,
     personalInfo: {
       name: "Frank Chen",
       tagline: "战略运营专家 & AI工程师",
@@ -656,33 +682,87 @@ export const CONTENT: { en: ContentData; zh: ContentData } = {
     thoughts: [
       {
         id: 't1',
-        title: "AI与投资运营的融合",
-        date: "2024-10-15",
-        tags: ["AI战略", "金融"],
-        snippet: "机器学习模型如何重塑私募股权的尽职调查流程...",
-        content: "私募股权投资的版图正在发生巨变。传统上，尽职调查是一个依赖人工、劳动密集型的过程，涉及无数的电子表格和专家访谈。如今，Agentic Workflows（智能体工作流）和大语言模型可以在几分钟内分析市场情绪、根据用户评论预测流失率，甚至审计代码库。\n\n在我最近为OpenCSG投资组合进行的工作中，我们实施了一个定制的“尽职调查智能体”，抓取GitHub仓库和Discord社区数据，以验证初创公司创始人提出的技术主张。这不仅将我们的初步筛选时间减少了70%，还发现了人类分析师错过的危险信号。",
-        readTime: "5分钟阅读",
-        link: "https://36kr.com/"
+        title: 'AI与投资运营的融合',
+        date: '2024-10-15',
+        tags: ['AI战略', '金融'],
+        snippet: '机器学习模型如何重塑私募股权的尽职调查流程...',
+        content: '私募股权投资的版图正在发生巨变。传统上，尽职调查是一个依赖人工、劳动密集型的过程，涉及无数的电子表格和专家访谈。如今，Agentic Workflows（智能体工作流）和大语言模型可以在几分钟内分析市场情绪、根据用户评论预测流失率，甚至审计代码库。\n\n在我最近为OpenCSG投资组合进行的工作中，我们实施了一个定制的"尽职调查智能体"，抓取GitHub仓库和Discord社区数据，以验证初创公司创始人提出的技术主张。这不仅将我们的初步筛选时间减少了70%，还发现了人类分析师错过的危险信号。',
+        readTime: '5分钟阅读',
+        link: 'https://36kr.com/'
       },
       {
         id: 't2',
-        title: "跨文化技术团队管理",
-        date: "2024-08-22",
-        tags: ["管理", "文化"],
-        snippet: "从斯德哥尔摩到上海：弥合工程与业务部门之间的鸿沟。",
-        content: "曾在瑞典、印度和中国领导团队，我观察到“技术”语言是通用的，但“商业”语言却有很强的地方口音。\n\n在斯德哥尔摩，共识为王。决策过程较长，但执行起来天衣无缝，因为每个人都已达成一致。在上海，速度是硬通货。我们经常在上线的产品上进行迭代。\n\n作为领导者，挑战不在于将一种风格强加于另一种，在于创建一个接口层。我称之为“协议式领导力”——为团队如何交流输入和输出定义清晰的API，同时对每个文化单元的内部处理逻辑保持不可知论。",
-        readTime: "8分钟阅读",
-        link: "https://36kr.com/"
+        title: '跨文化技术团队管理',
+        date: '2024-08-22',
+        tags: ['管理', '文化'],
+        snippet: '从斯德哥尔摩到上海：弥合工程与业务部门之间的鸿沟。',
+        content: '曾在瑞典、印度和中国领导团队，我观察到"技术"语言是通用的，但"商业"语言却有很强的地方口音。\n\n在斯德哥尔摩，共识为王。决策过程较长，但执行起来天衣无缝，因为每个人都已达成一致。在上海，速度是硬通货。我们经常在上线的产品上进行迭代。\n\n作为领导者，挑战不在于将一种风格强加于另一种，在于创建一个接口层。我称之为"协议式领导力"——为团队如何交流输入和输出定义清晰的API，同时对每个文化单元的内部处理逻辑保持不可知论。',
+        readTime: '8分钟阅读',
+        link: 'https://36kr.com/'
       },
       {
         id: 't3',
-        title: "零成本营销：36kr攻略",
-        date: "2024-05-10",
-        tags: ["增长黑客", "公关"],
-        snippet: "如何利用个人影响力和权威媒体在不投放广告的情况下获得关注。",
-        content: "当我们启动Web3项目时，营销预算为零。我们没有购买广告，而是专注于“叙事契合度”（Narrative Fit）。我们分析了像36kr这样的顶级科技媒体的编辑模式，并定制了我们的新闻稿以适应他们当时的主题（当时是“RWA 现实世界资产代币化”）。\n\n结果如何？一篇头版专题报道在24小时内带来了50,000名独立访客。教训是：记者渴望好故事。如果你将产品更新包装成行业洞察，你就不需要为报道付费。",
-        readTime: "4分钟阅读",
-        link: "https://36kr.com/"
+        title: '零成本营销：36kr攻略',
+        date: '2024-05-10',
+        tags: ['增长黑客', '公关'],
+        snippet: '如何利用个人影响力和权威媒体在不投放广告的情况下获得关注。',
+        content: '当我们启动Web3项目时，营销预算为零。我们没有购买广告，而是专注于"叙事契合度"（Narrative Fit）。我们分析了像36kr这样的顶级科技媒体的编辑模式，并定制了我们的新闻稿以适应他们当时的主题（当时是"RWA 现实世界资产代币化"）。\n\n结果如何？一篇头版专题报道在24小时内带来了50,000名独立访客。教训是：记者渴望好故事。如果你将产品更新包装成行业洞察，你就不需要为报道付费。',
+        readTime: '4分钟阅读',
+        link: 'https://36kr.com/'
+      },
+      {
+        id: 'w1',
+        title: '投资方法论 | 投资人究竟是怎么看项目的？',
+        date: '2023-06-15',
+        tags: ['投资', '方法论'],
+        snippet: '一张详细的脑图，从多个维度解析投资人如何评估创业项目。',
+        readTime: '10分钟阅读',
+        link: 'https://mp.weixin.qq.com/s/yRAphxCu4rFsLEjehJyK6A'
+      },
+      {
+        id: 'w2',
+        title: '"脏活累活"与硬科技',
+        date: '2023-05-20',
+        tags: ['科技', '行业'],
+        snippet: '为什么最有价值的科技公司往往在做别人不愿意做的脏活累活。',
+        readTime: '8分钟阅读',
+        link: 'https://mp.weixin.qq.com/s/rQMjdqCqWFlGETH0G-0x5A'
+      },
+      {
+        id: 'w3',
+        title: '胡说八道｜记一场关于"印度崛起"的小辩论',
+        date: '2023-04-10',
+        tags: ['印度', '地缘政治'],
+        snippet: '我对印度经济发展轨迹的思考，以及它对全球科技的意义。',
+        readTime: '12分钟阅读',
+        link: 'https://mp.weixin.qq.com/s/i5Zf7s-oDMpXantd5nFjKg'
+      },
+      {
+        id: 'w4',
+        title: '中国的AI企业现状：聚光灯下的「高科技施工队」',
+        date: '2023-08-15',
+        tags: ['AI', '中国'],
+        snippet: '对中国AI行业的深度分析——繁华背后的真实现状。',
+        readTime: '15分钟阅读',
+        link: 'https://mp.weixin.qq.com/s/cKCRcZrn9v_R5TKP0fodZA'
+      },
+      {
+        id: 'w5',
+        title: '从L0到L3：文科生对「生成式AI」四层技术体系的解读',
+        date: '2023-09-20',
+        tags: ['AI', '技术'],
+        snippet: '一个文科生视角下的生成式AI四层技术体系解读。',
+        readTime: '20分钟阅读',
+        link: 'https://mp.weixin.qq.com/s/6-oj-8v9TYi8ZphUgDWjqA'
+      },
+      {
+        id: 'w6',
+        title: '就不写代码 | 花一天时间打造一个[个人网站]+[大模型助手]',
+        date: '2024-01-10',
+        tags: ['AI', '教程'],
+        snippet: '如何在不写太多代码的情况下搭建一个带AI聊天助手的个人网站。',
+        readTime: '8分钟阅读',
+        link: 'https://mp.weixin.qq.com/s/u_B6-22Tl9ZVFMepkv0cXg'
       }
     ]
   }
