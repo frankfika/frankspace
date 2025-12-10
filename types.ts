@@ -75,6 +75,40 @@ export interface ConsultationService {
     cta: string;
 }
 
+// New types for recommendations
+export interface BookRecommendation {
+  category: string;
+  books: string[];
+}
+
+export interface MediaRecommendation {
+  category: string;
+  items: string[];
+}
+
+export interface ArticleLink {
+  id: string;
+  title: string;
+  url: string;
+}
+
+export interface PersonalTraits {
+  mbti: string;
+  zodiac: string;
+  hometown: string;
+  hangouts: string;
+  workedIn: string;
+  personalities: string;
+  proudMoments: string[];
+  beliefs: string[];
+}
+
+export interface Recommendations {
+  books: BookRecommendation[];
+  movies: MediaRecommendation[];
+  tvShows: MediaRecommendation[];
+}
+
 export interface ContentData {
   personalInfo: {
     name: string;
@@ -92,6 +126,7 @@ export interface ContentData {
     yearsLabel: string;
     moneyLabel: string;
   };
+  personalTraits?: PersonalTraits;
   navigation: {
     home: string;
     profile: string;
@@ -115,4 +150,6 @@ export interface ContentData {
   activities: ActivityItem[];
   socials: SocialLink[];
   consultation: ConsultationService;
+  recommendations?: Recommendations;
+  articles?: ArticleLink[];
 }

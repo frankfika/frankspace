@@ -1,15 +1,16 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ContentData } from '../types';
-import { Award, Briefcase, MapPin, Star, Users } from 'lucide-react';
+import { Award, Briefcase, MapPin, Star, Users, Heart, Lightbulb, ChevronDown, ChevronUp, Sparkles } from 'lucide-react';
 
 interface ProfileHeaderProps {
   data: ContentData;
 }
 
 const ProfileHeader: React.FC<ProfileHeaderProps> = ({ data }) => {
-  const { personalInfo } = data;
+  const { personalInfo, personalTraits } = data;
   const lang = data.lang || 'en';
+  const [showTraits, setShowTraits] = useState(false);
 
   // 社会职位和荣誉
   const positions = [
@@ -80,9 +81,77 @@ const ProfileHeader: React.FC<ProfileHeaderProps> = ({ data }) => {
             <p className="text-slate-600 leading-relaxed max-w-3xl">
               {personalInfo.summary}
             </p>
+
+            {/* Personal Traits Tags */}
+            {personalTraits && (
+              <div className="flex flex-wrap gap-2 pt-2">
+                <span className="px-3 py-1 bg-purple-50 text-purple-700 rounded-full text-sm font-medium border border-purple-200">
+                  {personalTraits.mbti}
+                </span>
+                <span className="px-3 py-1 bg-amber-50 text-amber-700 rounded-full text-sm font-medium border border-amber-200">
+                  {personalTraits.zodiac}
+                </span>
+                <span className="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-sm font-medium border border-blue-200">
+                  {personalTraits.hometown}
+                </span>
+              </div>
+            )}
           </div>
         </div>
 
+        {/* Personal Traits Section - Expandable */}
+        {personalTraits && (
+          <div className="mb-8 pb-8 border-b border-slate-200">
+            <button
+              onClick={() => setShowTraits(!showTraits)}
+              className="w-full flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-purple-50 to-blue-50 hover:from-purple-100 hover:to-blue-100 transition-all group"
+            >
+              <div className="flex items-center gap-3">
+                <Sparkles size={20} className="text-purple-600" />
+                <span className="font-semibold text-slate-900">
+                  {lang === 'zh' ? '了解更多关于我' : 'Learn More About Me'}
+                </span>
+              </div>
+              {showTraits ? <ChevronUp size={20} className="text-slate-500" /> : <ChevronDown size={20} className="text-slate-500" />}
+            </button>
+
+            {showTraits && (
+              <div className="mt-4 grid md:grid-cols-2 gap-6 animate-in fade-in slide-in-from-top-2 duration-300">
+                {/* Proud Moments */}
+                <div className="p-5 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50 border border-amber-200">
+                  <h4 className="flex items-center gap-2 font-bold text-amber-800 mb-3">
+                    <Award size={18} />
+                    {lang === 'zh' ? '最骄傲的事' : 'Proudest Moments'}
+                  </h4>
+                  <ul className="space-y-2">
+                    {personalTraits.proudMoments.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-amber-900">
+                        <span className="text-amber-500 mt-1">•</span>
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                {/* Beliefs */}
+                <div className="p-5 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-200">
+                  <h4 className="flex items-center gap-2 font-bold text-purple-800 mb-3">
+                    <Heart size={18} />
+                    {lang === 'zh' ? '价值观与人生信条' : 'Values & Beliefs'}
+                  </h4>
+                  <ul className="space-y-2">
+                    {personalTraits.beliefs.map((item, i) => (
+                      <li key={i} className="flex items-start gap-2 text-sm text-purple-900">
+                        <Lightbulb size={14} className="text-purple-500 mt-0.5 flex-shrink-0" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* 社会职位与荣誉 */}
         <div>

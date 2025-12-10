@@ -3,7 +3,124 @@
 
 
 
-import { ContentData } from './types';
+import { ContentData, PersonalTraits, Recommendations, ArticleLink } from './types';
+
+// Personal traits data from old site
+const PERSONAL_TRAITS_EN: PersonalTraits = {
+  mbti: "ENFJ-A",
+  zodiac: "Aries",
+  hometown: "Qingdao, Shandong",
+  hangouts: "Beijing, Qingdao, Wuxi, Shanghai, Nanjing",
+  workedIn: "Singapore, Sweden, India, Australia",
+  personalities: "Proud post-90s, passionate Aries with a deep Scorpio rising, straightforward, typical Shandong native.",
+  proudMoments: [
+    "Despite changing careers many times, I always get promoted or receive a raise within 1-2 years",
+    "Studied in India and made significant contributions during the pandemic",
+    "Always have opportunities to keep starting businesses and hustling, with companions along the way",
+    "Positive mindset and open thinking"
+  ],
+  beliefs: [
+    "Do good deeds without asking about the future",
+    "If not dead, keep hustling",
+    "What's there to fear? Just start doing it, the worst is failure",
+    "If you can't fit into others' circles, create your own",
+    "Don't shun meeting swindlers - they know reliable people too",
+    "Sincerity is the biggest trick"
+  ]
+};
+
+const PERSONAL_TRAITS_ZH: PersonalTraits = {
+  mbti: "ENFJ-A",
+  zodiac: "白羊座",
+  hometown: "山东青岛",
+  hangouts: "北京、青岛、无锡、上海、南京",
+  workedIn: "新加坡、瑞典、印度、澳大利亚",
+  personalities: "骄傲的90后、热情的白羊座加上深邃的上升天蝎、真诚直率、超级典型的山东人。",
+  proudMoments: [
+    "虽然换了很多次职业方向，但基本每个工作在1-2年内必然会升职/加薪",
+    "去过印度读书，并且在疫情期间做了很多贡献",
+    "一直有机会在不断创业和折腾，前路一直有小伙伴陪伴",
+    "心态好，思路开拓"
+  ],
+  beliefs: [
+    "但行好事，莫问前程",
+    "不死就折腾",
+    "怕啥，先干起来再说，大不了就是失败嘛",
+    "如果你融入不了别人的圈子，就自己造一个圈子",
+    "不要排斥认识骗子，骗子可以认识靠谱的人，靠谱的人可以认识骗子",
+    "真诚是最大的套路"
+  ]
+};
+
+// Recommendations data from old site
+const RECOMMENDATIONS_EN: Recommendations = {
+  books: [
+    { category: "Biography", books: ["Steve Jobs", "I Walked at the Brink of Collapse"] },
+    { category: "Finance", books: ["Currency Wars"] },
+    { category: "History & Philosophy", books: ["Siddhartha", "Quotations from Chairman Mao", "The Stories of the Ming Dynasty"] },
+    { category: "Others", books: ["Being Part of It: The Chinese Government and Economic Development", "The Sovereign Individual"] }
+  ],
+  movies: [
+    { category: "Drama", items: ["Joker", "Let the Bullets Fly", "Farewell My Concubine", "The Shepherd"] },
+    { category: "Comedy", items: ["Goodbye Mr. Loser", "Fame and Fortune", "Crazy Stone", "Breakup Buddies"] },
+    { category: "Other", items: ["The Truman Show"] }
+  ],
+  tvShows: [
+    { category: "History", items: ["Towards the Republic", "Han Wu the Great Emperor", "Yongzheng Dynasty", "New Three Kingdoms"] },
+    { category: "War", items: ["My Chief and My Regiment", "Drawing Sword", "Liberation"] },
+    { category: "Documentary", items: ["The Embassy", "Guardian West Liberation", "National Geographic", "A Bite of China"] },
+    { category: "Spy/Crime", items: ["The Kite", "Undercover", "Day and Night", "Detective Di Renjie"] },
+    { category: "Other", items: ["Nirvana in Fire 1 & 2"] }
+  ]
+};
+
+const RECOMMENDATIONS_ZH: Recommendations = {
+  books: [
+    { category: "传记", books: ["《乔布斯传》", "《我曾走在崩溃的边缘》"] },
+    { category: "金融", books: ["《货币战争》"] },
+    { category: "历史与哲学", books: ["《悉达多》", "《毛主席语录》", "《明朝那些事儿》"] },
+    { category: "其他", books: ["《置身事内：中国政府与经济发展》", "《主权个人》"] }
+  ],
+  movies: [
+    { category: "剧情片", items: ["《小丑》", "《让子弹飞》", "《霸王别姬》", "《牧马人》"] },
+    { category: "喜剧", items: ["《夏洛特烦恼》", "《扬名立万》", "《疯狂的石头》", "《心花怒放》"] },
+    { category: "其他", items: ["《楚门的世界》"] }
+  ],
+  tvShows: [
+    { category: "历史剧", items: ["《走向共和》", "《汉武大帝》", "《雍正王朝》", "《新三国》"] },
+    { category: "战争剧", items: ["《我的团长我的团》", "《亮剑》", "《解放》"] },
+    { category: "纪录片", items: ["《差馆》", "《守护解放西》", "《国家地理》", "《舌尖上的中国》"] },
+    { category: "谍战/刑侦", items: ["《风筝》", "《潜伏》", "《白夜追凶》", "《神探狄仁杰》"] },
+    { category: "其他", items: ["《琅琊榜1和2》"] }
+  ]
+};
+
+// Articles data from old site
+const ARTICLES_EN: ArticleLink[] = [
+  { id: 'a1', title: "Investment Methodology | How do investors really view projects?", url: "https://mp.weixin.qq.com/s/yRAphxCu4rFsLEjehJyK6A" },
+  { id: 'a2', title: "Dirty Jobs and Hard Tech", url: "https://mp.weixin.qq.com/s/rQMjdqCqWFlGETH0G-0x5A" },
+  { id: 'a3', title: "A Debate on the 'Rise of India'", url: "https://mp.weixin.qq.com/s/i5Zf7s-oDMpXantd5nFjKg" },
+  { id: 'a4', title: "In 2020, I Made a PPT About India", url: "https://mp.weixin.qq.com/s/6FnsUTn9NDeXeZ7Rf29diA" },
+  { id: 'a5', title: "The Final Form of Software — 'Be Paper'", url: "https://mp.weixin.qq.com/s/L81qpEUWbCrs6-PrYxSH6Q" },
+  { id: 'a6', title: "AI Companies in China: High-Tech Construction Crew", url: "https://mp.weixin.qq.com/s/cKCRcZrn9v_R5TKP0fodZA" },
+  { id: 'a7', title: "From L0 to L3: Understanding Generative AI's Technology Layers", url: "https://mp.weixin.qq.com/s/6-oj-8v9TYi8ZphUgDWjqA" },
+  { id: 'a8', title: "Popular Science on Intelligent Computing", url: "https://mp.weixin.qq.com/s/a_935PnzLuZ1XsSeAy-u2A" },
+  { id: 'a9', title: "A Day Learning in a Pyramid Scheme: POS Cash-Out Logic", url: "https://mp.weixin.qq.com/s/eT5wldKRPHqlCjNxvSWoKw" },
+  { id: 'a10', title: "Build a Personal Website + AI Assistant in One Day", url: "https://mp.weixin.qq.com/s/u_B6-22Tl9ZVFMepkv0cXg" }
+];
+
+const ARTICLES_ZH: ArticleLink[] = [
+  { id: 'a1', title: '投资方法论 | 投资人究竟是怎么看项目的？', url: 'https://mp.weixin.qq.com/s/yRAphxCu4rFsLEjehJyK6A' },
+  { id: 'a2', title: '"脏活累活"与硬科技', url: 'https://mp.weixin.qq.com/s/rQMjdqCqWFlGETH0G-0x5A' },
+  { id: 'a3', title: '胡说八道｜记一场关于"印度崛起"的小辩论', url: 'https://mp.weixin.qq.com/s/i5Zf7s-oDMpXantd5nFjKg' },
+  { id: 'a4', title: '2020年，我做了一个关于印度的PPT', url: 'https://mp.weixin.qq.com/s/6FnsUTn9NDeXeZ7Rf29diA' },
+  { id: 'a5', title: '软件最终的形态 — "Be Paper"', url: 'https://mp.weixin.qq.com/s/L81qpEUWbCrs6-PrYxSH6Q' },
+  { id: 'a6', title: '中国的AI企业现状：聚光灯下的「高科技施工队」', url: 'https://mp.weixin.qq.com/s/cKCRcZrn9v_R5TKP0fodZA' },
+  { id: 'a7', title: '从L0到L3：文科生对「生成式AI」四层技术体系的解读', url: 'https://mp.weixin.qq.com/s/6-oj-8v9TYi8ZphUgDWjqA' },
+  { id: 'a8', title: '一些关于智能算力的科普和分享', url: 'https://mp.weixin.qq.com/s/a_935PnzLuZ1XsSeAy-u2A' },
+  { id: 'a9', title: '在传销组织学习的一天：POS机套现的经济模型和商业逻辑', url: 'https://mp.weixin.qq.com/s/eT5wldKRPHqlCjNxvSWoKw' },
+  { id: 'a10', title: '就不写代码 | 花一天时间打造一个[个人网站]+[大模型助手]', url: 'https://mp.weixin.qq.com/s/u_B6-22Tl9ZVFMepkv0cXg' }
+];
 
 const SKILLS_DATA = [
   { subject: 'AI/Tech', A: 95, fullMark: 100 },
@@ -28,6 +145,9 @@ const SOCIALS_DATA = [
 
 export const CONTENT: { en: ContentData; zh: ContentData } = {
   en: {
+    personalTraits: PERSONAL_TRAITS_EN,
+    recommendations: RECOMMENDATIONS_EN,
+    articles: ARTICLES_EN,
     personalInfo: {
       name: "Frank Chen",
       tagline: "Cross-Functional Strategic Operations Expert & AI Engineer",
@@ -288,6 +408,9 @@ export const CONTENT: { en: ContentData; zh: ContentData } = {
     ]
   },
   zh: {
+    personalTraits: PERSONAL_TRAITS_ZH,
+    recommendations: RECOMMENDATIONS_ZH,
+    articles: ARTICLES_ZH,
     personalInfo: {
       name: "Frank Chen",
       tagline: "战略运营专家 & AI工程师",
