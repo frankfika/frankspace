@@ -1,22 +1,20 @@
 
 
-
-
-
-import React, { useState, useEffect, lazy, Suspense } from 'react';
+import React, { useState, useEffect, lazy, Suspense, useMemo } from 'react';
 import Hero from './components/Hero';
 import ProfileHeader from './components/ProfileHeader';
 import ExperienceTimeline from './components/ExperienceTimeline';
 import Thoughts from './components/Thoughts';
 import Consultation from './components/Consultation';
 import LoadingSpinner from './components/LoadingSpinner';
+import { useLocalStorage } from './hooks/useLocalStorage';
 
 // Lazy load heavy components
 const SkillsChart = lazy(() => import('./components/SkillsChart'));
 const VibeCoding = lazy(() => import('./components/VibeCoding'));
 const ActivityLog = lazy(() => import('./components/ActivityLog'));
 import { CONTENT } from './constants';
-import { Language, ActivityItem, Project, Note, ExperienceItem, EducationItem } from './types';
+import { Language, ActivityItem, Project, Note } from './types';
 import { User, Terminal, BookOpen, Menu, X, Languages, Radio, Lock, Unlock, Sparkles, AlertCircle, Home as HomeIcon } from 'lucide-react';
 
 enum Tab {
@@ -30,7 +28,7 @@ enum Tab {
 
 const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState<Tab>(Tab.HOME);
-  
+
   // Initialize Language from localStorage or default to 'zh'
   const [lang, setLang] = useState<Language>(() => {
       const savedLang = localStorage.getItem('app_language');
@@ -39,250 +37,44 @@ const App: React.FC = () => {
 
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [storageError, setStorageError] = useState<string | null>(null);
-  
-  // Admin & Data State
   const [isAdmin, setIsAdmin] = useState(false);
-  const [customActivities, setCustomActivities] = useState<ActivityItem[]>([]);
-  const [customProjects, setCustomProjects] = useState<Project[]>([]);
-  const [customThoughts, setCustomThoughts] = useState<Note[]>([]);
-  const [customPersonalInfo, setCustomPersonalInfo] = useState<typeof CONTENT['en']['personalInfo'] | null>(null);
-  const [customSkills, setCustomSkills] = useState<typeof CONTENT['en']['skills']>([]);
-  const [customExperience, setCustomExperience] = useState<typeof CONTENT['en']['experience']>([]);
-  const [customEducation, setCustomEducation] = useState<typeof CONTENT['en']['education']>([]);
 
-  const data = {
+  // Use custom hooks for localStorage management
+  const { data: customActivities, setData: handleUpdateActivities, error: activitiesError } =
+    useLocalStorage<ActivityItem[]>('activities', lang, 'activities');
+  const { data: customProjects, setData: handleUpdateProjects, error: projectsError } =
+    useLocalStorage<Project[]>('projects', lang, 'projects');
+  const { data: customThoughts, setData: handleUpdateThoughts, error: thoughtsError } =
+    useLocalStorage<Note[]>('thoughts', lang, 'thoughts');
+  const { data: customPersonalInfo, setData: handleUpdatePersonalInfo, error: personalInfoError } =
+    useLocalStorage<typeof CONTENT['en']['personalInfo']>('personalInfo', lang, 'personalInfo');
+  const { data: customSkills, setData: handleUpdateSkills, error: skillsError } =
+    useLocalStorage<typeof CONTENT['en']['skills']>('skills', lang, 'skills');
+  const { data: customExperience, setData: handleUpdateExperience, error: experienceError } =
+    useLocalStorage<typeof CONTENT['en']['experience']>('experience', lang, 'experience');
+  const { data: customEducation, setData: handleUpdateEducation, error: educationError } =
+    useLocalStorage<typeof CONTENT['en']['education']>('education', lang, 'education');
+
+  // Aggregate storage errors
+  const storageError = activitiesError || projectsError || thoughtsError ||
+    personalInfoError || skillsError || experienceError || educationError;
+
+  // Memoize data object to prevent unnecessary re-renders
+  const data = useMemo(() => ({
     ...CONTENT[lang],
     lang,
     personalInfo: customPersonalInfo || CONTENT[lang].personalInfo,
-    projects: customProjects.length > 0 ? customProjects : CONTENT[lang].projects,
-    thoughts: customThoughts.length > 0 ? customThoughts : CONTENT[lang].thoughts,
-    skills: customSkills.length > 0 ? customSkills : CONTENT[lang].skills,
-    experience: customExperience.length > 0 ? customExperience : CONTENT[lang].experience,
-    education: customEducation.length > 0 ? customEducation : CONTENT[lang].education
-  };
-
-  // Initialize Activities from LocalStorage or Constants
-  useEffect(() => {
-    const saved = localStorage.getItem(`activities_${lang}`);
-    if (saved) {
-        try {
-            setCustomActivities(JSON.parse(saved));
-        } catch (e) {
-            setCustomActivities(CONTENT[lang].activities);
-        }
-    } else {
-        setCustomActivities(CONTENT[lang].activities);
-    }
-  }, [lang]);
-
-  // Initialize Projects from LocalStorage or Constants
-  useEffect(() => {
-    const saved = localStorage.getItem(`projects_${lang}`);
-    if (saved) {
-        try {
-            setCustomProjects(JSON.parse(saved));
-        } catch (e) {
-            setCustomProjects(CONTENT[lang].projects);
-        }
-    } else {
-        setCustomProjects(CONTENT[lang].projects);
-    }
-  }, [lang]);
-
-  // Initialize Thoughts from LocalStorage or Constants
-  useEffect(() => {
-    const saved = localStorage.getItem(`thoughts_${lang}`);
-    if (saved) {
-        try {
-            setCustomThoughts(JSON.parse(saved));
-        } catch (e) {
-            setCustomThoughts(CONTENT[lang].thoughts);
-        }
-    } else {
-        setCustomThoughts(CONTENT[lang].thoughts);
-    }
-  }, [lang]);
-
-  // Initialize PersonalInfo from LocalStorage or Constants
-  useEffect(() => {
-    const saved = localStorage.getItem(`personalInfo_${lang}`);
-    if (saved) {
-        try {
-            setCustomPersonalInfo(JSON.parse(saved));
-        } catch (e) {
-            setCustomPersonalInfo(CONTENT[lang].personalInfo);
-        }
-    } else {
-        setCustomPersonalInfo(CONTENT[lang].personalInfo);
-    }
-  }, [lang]);
-
-  // Initialize Skills from LocalStorage or Constants
-  useEffect(() => {
-    const saved = localStorage.getItem(`skills_${lang}`);
-    if (saved) {
-        try {
-            setCustomSkills(JSON.parse(saved));
-        } catch (e) {
-            setCustomSkills(CONTENT[lang].skills);
-        }
-    } else {
-        setCustomSkills(CONTENT[lang].skills);
-    }
-  }, [lang]);
-
-  // Initialize Experience from LocalStorage or Constants
-  useEffect(() => {
-    const saved = localStorage.getItem(`experience_${lang}`);
-    if (saved) {
-        try {
-            setCustomExperience(JSON.parse(saved));
-        } catch (e) {
-            setCustomExperience(CONTENT[lang].experience);
-        }
-    } else {
-        setCustomExperience(CONTENT[lang].experience);
-    }
-  }, [lang]);
-
-  // Initialize Education from LocalStorage or Constants
-  useEffect(() => {
-    const saved = localStorage.getItem(`education_${lang}`);
-    if (saved) {
-        try {
-            setCustomEducation(JSON.parse(saved));
-        } catch (e) {
-            setCustomEducation(CONTENT[lang].education);
-        }
-    } else {
-        setCustomEducation(CONTENT[lang].education);
-    }
-  }, [lang]);
+    projects: customProjects?.length > 0 ? customProjects : CONTENT[lang].projects,
+    thoughts: customThoughts?.length > 0 ? customThoughts : CONTENT[lang].thoughts,
+    skills: customSkills?.length > 0 ? customSkills : CONTENT[lang].skills,
+    experience: customExperience?.length > 0 ? customExperience : CONTENT[lang].experience,
+    education: customEducation?.length > 0 ? customEducation : CONTENT[lang].education
+  }), [lang, customPersonalInfo, customProjects, customThoughts, customSkills, customExperience, customEducation]);
 
   // Persist Language
   useEffect(() => {
       localStorage.setItem('app_language', lang);
   }, [lang]);
-
-  // Handle Updates to Activities with Quota Safety
-  const handleUpdateActivities = (updated: ActivityItem[]) => {
-      try {
-          const serialized = JSON.stringify(updated);
-          localStorage.setItem(`activities_${lang}`, serialized);
-          setCustomActivities(updated);
-          setStorageError(null);
-      } catch (e: any) {
-          console.error("Storage failed:", e);
-          if (e.name === 'QuotaExceededError' || e.code === 22) {
-              setStorageError("Storage full! Image might be too large. Try deleting old activities or smaller images.");
-          } else {
-              setStorageError("Failed to save changes.");
-          }
-      }
-  };
-
-  // Handle Updates to Projects
-  const handleUpdateProjects = (updated: Project[]) => {
-      try {
-          const serialized = JSON.stringify(updated);
-          localStorage.setItem(`projects_${lang}`, serialized);
-          setCustomProjects(updated);
-          setStorageError(null);
-      } catch (e: any) {
-          console.error("Storage failed:", e);
-          if (e.name === 'QuotaExceededError' || e.code === 22) {
-              setStorageError("Storage full! Try deleting old projects or smaller images.");
-          } else {
-              setStorageError("Failed to save changes.");
-          }
-      }
-  };
-
-  // Handle Updates to Thoughts
-  const handleUpdateThoughts = (updated: Note[]) => {
-      try {
-          const serialized = JSON.stringify(updated);
-          localStorage.setItem(`thoughts_${lang}`, serialized);
-          setCustomThoughts(updated);
-          setStorageError(null);
-      } catch (e: any) {
-          console.error("Storage failed:", e);
-          if (e.name === 'QuotaExceededError' || e.code === 22) {
-              setStorageError("Storage full! Try deleting old notes.");
-          } else {
-              setStorageError("Failed to save changes.");
-          }
-      }
-  };
-
-  // Handle Updates to PersonalInfo
-  const handleUpdatePersonalInfo = (updated: typeof CONTENT['en']['personalInfo']) => {
-      try {
-          const serialized = JSON.stringify(updated);
-          localStorage.setItem(`personalInfo_${lang}`, serialized);
-          setCustomPersonalInfo(updated);
-          setStorageError(null);
-      } catch (e: any) {
-          console.error("Storage failed:", e);
-          if (e.name === 'QuotaExceededError' || e.code === 22) {
-              setStorageError("Storage full!");
-          } else {
-              setStorageError("Failed to save changes.");
-          }
-      }
-  };
-
-  // Handle Updates to Skills
-  const handleUpdateSkills = (updated: typeof CONTENT['en']['skills']) => {
-      try {
-          const serialized = JSON.stringify(updated);
-          localStorage.setItem(`skills_${lang}`, serialized);
-          setCustomSkills(updated);
-          setStorageError(null);
-      } catch (e: any) {
-          console.error("Storage failed:", e);
-          if (e.name === 'QuotaExceededError' || e.code === 22) {
-              setStorageError("Storage full!");
-          } else {
-              setStorageError("Failed to save changes.");
-          }
-      }
-  };
-
-  // Handle Updates to Experience
-  const handleUpdateExperience = (updated: typeof CONTENT['en']['experience']) => {
-      try {
-          const serialized = JSON.stringify(updated);
-          localStorage.setItem(`experience_${lang}`, serialized);
-          setCustomExperience(updated);
-          setStorageError(null);
-      } catch (e: any) {
-          console.error("Storage failed:", e);
-          if (e.name === 'QuotaExceededError' || e.code === 22) {
-              setStorageError("Storage full!");
-          } else {
-              setStorageError("Failed to save changes.");
-          }
-      }
-  };
-
-  // Handle Updates to Education
-  const handleUpdateEducation = (updated: typeof CONTENT['en']['education']) => {
-      try {
-          const serialized = JSON.stringify(updated);
-          localStorage.setItem(`education_${lang}`, serialized);
-          setCustomEducation(updated);
-          setStorageError(null);
-      } catch (e: any) {
-          console.error("Storage failed:", e);
-          if (e.name === 'QuotaExceededError' || e.code === 22) {
-              setStorageError("Storage full!");
-          } else {
-              setStorageError("Failed to save changes.");
-          }
-      }
-  };
 
   useEffect(() => {
     const handleScroll = () => {
