@@ -27,16 +27,16 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-accent-50 flex items-center justify-center p-6">
+    <div className="min-h-screen bg-gradient-to-br from-brand-50 to-accent-50 flex items-center justify-center p-4 sm:p-6">
       <div className="w-full max-w-md">
-        <div className="bg-white rounded-2xl shadow-2xl p-8 border border-slate-100">
+        <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl p-6 sm:p-8 border border-slate-100">
           {/* Header */}
-          <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-brand-100 rounded-full mb-4">
-              <Lock className="text-brand-600" size={32} />
+          <div className="text-center mb-6 sm:mb-8">
+            <div className="inline-flex items-center justify-center w-14 h-14 sm:w-16 sm:h-16 bg-brand-100 rounded-full mb-3 sm:mb-4">
+              <Lock className="text-brand-600" size={28} />
             </div>
-            <h1 className="text-3xl font-bold text-slate-900 mb-2">Admin Login</h1>
-            <p className="text-slate-600">Enter your credentials to access the admin panel</p>
+            <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 mb-1.5 sm:mb-2">Admin Login</h1>
+            <p className="text-sm sm:text-base text-slate-600">Enter your credentials to access the admin panel</p>
           </div>
 
           {/* Error Message */}

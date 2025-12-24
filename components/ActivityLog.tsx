@@ -153,28 +153,28 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data, activities, isAdmin, on
     : activities.filter(a => a.tag === selectedTag);
 
   return (
-    <div className="space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="border-b border-slate-200 pb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+    <div className="space-y-8 sm:space-y-10 md:space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="border-b border-slate-200 pb-4 sm:pb-6 md:pb-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 sm:gap-6">
           <div>
-            <h2 className="text-4xl font-bold text-slate-900 mb-3 flex items-center gap-4">
-                <div className="p-3 bg-accent-100 text-accent-700 rounded-xl">
-                    <Radio size={28} />
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3 md:gap-4">
+                <div className="p-2 sm:p-2.5 md:p-3 bg-accent-100 text-accent-700 rounded-lg sm:rounded-xl">
+                    <Radio size={20} className="sm:w-6 sm:h-6 md:w-7 md:h-7" />
                 </div>
                 {data.navigation.activities}
             </h2>
-            <p className="text-slate-500 text-lg">
+            <p className="text-slate-500 text-sm sm:text-base md:text-lg">
                 Events, conferences, and community milestones.
             </p>
           </div>
           
-          <div className="flex flex-col md:items-end gap-4">
+          <div className="flex flex-col md:items-end gap-3 sm:gap-4">
             {/* Filter Controls */}
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {uniqueTags.map(tag => (
                     <button
                         key={tag}
                         onClick={() => setSelectedTag(tag)}
-                        className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all ${
+                        className={`px-3 sm:px-4 py-1 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
                             selectedTag === tag
                             ? 'bg-gradient-to-r from-brand-600 to-brand-700 text-white shadow-md transform scale-105'
                             : 'bg-white text-slate-600 border border-slate-200 hover:border-brand-300 hover:bg-brand-50'
@@ -188,9 +188,9 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data, activities, isAdmin, on
             {isAdmin && !isEditing && (
                 <button
                     onClick={handleNewClick}
-                    className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-lg transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 self-start md:self-end font-medium"
+                    className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-lg transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 self-start md:self-end font-medium text-sm sm:text-base"
                 >
-                    <Plus size={18} /> Add Activity
+                    <Plus size={16} className="sm:w-[18px] sm:h-[18px]" /> Add Activity
                 </button>
             )}
           </div>
@@ -198,14 +198,14 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data, activities, isAdmin, on
 
         {/* Editor Form */}
         {isEditing && (
-            <div className="bg-white border border-brand-200 rounded-xl p-6 shadow-xl mb-12 animate-in slide-in-from-top-4 relative z-20">
-                <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-xl font-bold text-slate-900">{isEditing === 'new' ? 'Add New Activity' : 'Edit Activity'}</h3>
+            <div className="bg-white border border-brand-200 rounded-lg sm:rounded-xl p-4 sm:p-6 shadow-xl mb-8 sm:mb-12 animate-in slide-in-from-top-4 relative z-20">
+                <div className="flex justify-between items-center mb-4 sm:mb-6">
+                    <h3 className="text-lg sm:text-xl font-bold text-slate-900">{isEditing === 'new' ? 'Add New Activity' : 'Edit Activity'}</h3>
                     <button onClick={() => setIsEditing(null)} className="text-slate-400 hover:text-slate-600">
-                        <X />
+                        <X size={20} />
                     </button>
                 </div>
-                <div className="grid md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     <div className="space-y-4">
                         <div className="space-y-1">
                             <label className="text-xs font-bold text-slate-400 uppercase">Title</label>
@@ -216,21 +216,21 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data, activities, isAdmin, on
                                 onChange={e => setEditForm({...editForm, title: e.target.value})}
                             />
                         </div>
-                         <div className="flex gap-4">
-                            <div className="w-full space-y-1">
+                         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
+                            <div className="w-full sm:flex-1 space-y-1">
                                 <label className="text-xs font-bold text-slate-400 uppercase">Role</label>
-                                <input 
-                                    placeholder="e.g. Organizer" 
-                                    className="w-full p-3 border border-slate-200 rounded-lg outline-none"
+                                <input
+                                    placeholder="e.g. Organizer"
+                                    className="w-full p-2.5 sm:p-3 border border-slate-200 rounded-lg outline-none text-sm sm:text-base"
                                     value={editForm.role || ''}
                                     onChange={e => setEditForm({...editForm, role: e.target.value})}
                                 />
                             </div>
-                             <div className="w-1/2 space-y-1">
+                             <div className="w-full sm:w-1/2 space-y-1">
                                 <label className="text-xs font-bold text-slate-400 uppercase">Date</label>
-                                <input 
+                                <input
                                     type="date"
-                                    className="w-full p-3 border border-slate-200 rounded-lg outline-none"
+                                    className="w-full p-2.5 sm:p-3 border border-slate-200 rounded-lg outline-none text-sm sm:text-base"
                                     value={editForm.date || ''}
                                     onChange={e => setEditForm({...editForm, date: e.target.value})}
                                 />
@@ -330,25 +330,25 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data, activities, isAdmin, on
         )}
 
         {/* Timeline Container */}
-        <div className="relative pl-8 md:pl-0">
+        <div className="relative pl-6 sm:pl-8 md:pl-0">
              {/* The Vertical Line */}
-            <div className="absolute left-0 md:left-[180px] top-4 bottom-0 w-0.5 bg-slate-200" />
+            <div className="absolute left-0 sm:left-0 md:left-[140px] lg:left-[180px] top-4 bottom-0 w-0.5 bg-slate-200" />
 
             {filteredActivities.length === 0 ? (
-                <div className="text-center py-20 text-slate-400 pl-8 md:pl-[180px]">
+                <div className="text-center py-12 sm:py-16 md:py-20 text-slate-400 pl-6 sm:pl-8 md:pl-[140px] lg:pl-[180px] text-sm sm:text-base">
                     No activities found for this filter.
                 </div>
             ) : (
-                <div className="space-y-16">
+                <div className="space-y-8 sm:space-y-12 md:space-y-16">
                     {filteredActivities.map((activity, idx) => (
-                        <div key={activity.id} className="relative flex flex-col md:flex-row gap-8 animate-in fade-in duration-700" style={{ animationDelay: `${idx * 100}ms` }}>
-                            
+                        <div key={activity.id} className="relative flex flex-col md:flex-row gap-4 sm:gap-6 md:gap-8 animate-in fade-in duration-700" style={{ animationDelay: `${idx * 100}ms` }}>
+
                             {/* Timeline Node */}
-                            <div className="absolute left-[-4px] md:left-[176px] top-1.5 w-2.5 h-2.5 rounded-full bg-brand-500 ring-4 ring-slate-50 z-10" />
+                            <div className="absolute left-[-4px] sm:left-[-4px] md:left-[136px] lg:left-[176px] top-1.5 w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-brand-500 ring-2 sm:ring-4 ring-slate-50 z-10" />
 
                             {/* Date Column (Desktop) */}
-                            <div className="hidden md:block w-[160px] text-right pt-0.5 shrink-0">
-                                <span className="font-mono text-sm font-bold text-slate-500 block">
+                            <div className="hidden md:block w-[120px] lg:w-[160px] text-right pt-0.5 shrink-0">
+                                <span className="font-mono text-xs lg:text-sm font-bold text-slate-500 block">
                                     {formatDate(activity.date)}
                                 </span>
                             </div>
@@ -356,61 +356,61 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data, activities, isAdmin, on
                             {/* Content Card */}
                             <div className="flex-1 relative group">
                                 {/* Date Mobile */}
-                                <div className="md:hidden font-mono text-sm font-bold text-slate-500 mb-2 pl-6">
+                                <div className="md:hidden font-mono text-xs sm:text-sm font-bold text-slate-500 mb-2 pl-4 sm:pl-6">
                                     {formatDate(activity.date)}
                                 </div>
 
                                 {/* Admin Controls */}
                                 {isAdmin && (
-                                    <div className="absolute right-0 top-0 flex gap-2 z-20">
-                                        <button onClick={() => handleEditClick(activity)} className="p-2 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200"><Edit2 size={16} /></button>
-                                        <button onClick={() => handleDelete(activity.id)} className="p-2 bg-red-100 text-red-600 rounded-full hover:bg-red-200"><Trash2 size={16} /></button>
+                                    <div className="absolute right-0 top-0 flex gap-1.5 sm:gap-2 z-20">
+                                        <button onClick={() => handleEditClick(activity)} className="p-1.5 sm:p-2 bg-blue-100 text-blue-600 rounded-full hover:bg-blue-200"><Edit2 size={14} className="sm:w-4 sm:h-4" /></button>
+                                        <button onClick={() => handleDelete(activity.id)} className="p-1.5 sm:p-2 bg-red-100 text-red-600 rounded-full hover:bg-red-200"><Trash2 size={14} className="sm:w-4 sm:h-4" /></button>
                                     </div>
                                 )}
-                                
-                                <div className="pl-6 md:pl-0">
+
+                                <div className="pl-4 sm:pl-6 md:pl-0">
                                     {/* Header */}
-                                    <div className="flex flex-col gap-3 mb-4">
-                                        <div className="flex flex-wrap items-center gap-2">
-                                            <span className={`px-3 py-1 rounded-full text-xs font-bold border flex items-center gap-1 ${getTagColor(activity.tag)}`}>
-                                                <Hash size={12} />
+                                    <div className="flex flex-col gap-2 sm:gap-3 mb-3 sm:mb-4">
+                                        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+                                            <span className={`px-2 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-xs font-bold border flex items-center gap-1 ${getTagColor(activity.tag)}`}>
+                                                <Hash size={10} className="sm:w-3 sm:h-3" />
                                                 {activity.tag}
                                             </span>
                                             {activity.link && (
-                                                <a href={activity.link} target="_blank" rel="noopener noreferrer" className="text-xs font-bold text-slate-400 hover:text-brand-600 flex items-center gap-1 transition-colors">
-                                                    <LinkIcon size={12} /> Source
+                                                <a href={activity.link} target="_blank" rel="noopener noreferrer" className="text-[10px] sm:text-xs font-bold text-slate-400 hover:text-brand-600 flex items-center gap-1 transition-colors">
+                                                    <LinkIcon size={10} className="sm:w-3 sm:h-3" /> Source
                                                 </a>
                                             )}
                                         </div>
-                                        <h3 className="text-2xl font-bold text-slate-900 leading-tight">
+                                        <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 leading-tight pr-16 sm:pr-20">
                                             {activity.title}
                                         </h3>
-                                        <div className="flex items-center gap-4 text-sm text-slate-500">
+                                        <div className="flex flex-wrap items-center gap-2 sm:gap-4 text-xs sm:text-sm text-slate-500">
                                             <span className="flex items-center gap-1 font-medium text-slate-700">
-                                                <Radio size={14} className="text-brand-500" /> {activity.role}
+                                                <Radio size={12} className="text-brand-500 sm:w-3.5 sm:h-3.5" /> {activity.role}
                                             </span>
                                             <span className="flex items-center gap-1">
-                                                <MapPin size={14} /> {activity.location}
+                                                <MapPin size={12} className="sm:w-3.5 sm:h-3.5" /> {activity.location}
                                             </span>
                                         </div>
                                     </div>
 
                                     {/* Content Body */}
-                                    <div className="space-y-4">
-                                        <p className="text-slate-600 leading-relaxed text-base whitespace-pre-line border-l-2 border-slate-100 pl-4">
+                                    <div className="space-y-3 sm:space-y-4">
+                                        <p className="text-slate-600 leading-relaxed text-sm sm:text-base whitespace-pre-line border-l-2 border-slate-100 pl-3 sm:pl-4">
                                             {activity.description}
                                         </p>
 
                                         {/* Video Embed */}
                                         {activity.videoUrl && (
-                                            <div className="rounded-xl overflow-hidden shadow-lg border border-slate-200 bg-black aspect-video max-w-2xl">
-                                                <iframe 
-                                                    src={getEmbedUrl(activity.videoUrl)} 
+                                            <div className="rounded-lg sm:rounded-xl overflow-hidden shadow-lg border border-slate-200 bg-black aspect-video w-full max-w-full sm:max-w-xl md:max-w-2xl">
+                                                <iframe
+                                                    src={getEmbedUrl(activity.videoUrl)}
                                                     className="w-full h-full"
                                                     title={`Video for ${activity.title}`}
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                                                     allowFullScreen
-                                                    scrolling="no" 
+                                                    scrolling="no"
                                                     frameBorder="0"
                                                 />
                                             </div>
@@ -418,11 +418,11 @@ const ActivityLog: React.FC<ActivityLogProps> = ({ data, activities, isAdmin, on
 
                                         {/* Gallery */}
                                         {activity.images && activity.images.length > 0 && (
-                                            <div className={`grid gap-3 pt-2 ${activity.images.length === 1 ? 'grid-cols-1 max-w-md' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4'}`}>
+                                            <div className={`grid gap-2 sm:gap-3 pt-2 ${activity.images.length === 1 ? 'grid-cols-1 max-w-xs sm:max-w-md' : 'grid-cols-2 sm:grid-cols-3 lg:grid-cols-4'}`}>
                                                 {activity.images.map((img, i) => (
-                                                    <div 
-                                                        key={i} 
-                                                        className={`rounded-lg overflow-hidden shadow-sm border border-slate-100 relative group cursor-pointer transition-all hover:shadow-md ${activity.images.length === 1 ? 'h-56' : 'h-32'}`}
+                                                    <div
+                                                        key={i}
+                                                        className={`rounded-md sm:rounded-lg overflow-hidden shadow-sm border border-slate-100 relative group cursor-pointer transition-all hover:shadow-md ${activity.images.length === 1 ? 'h-40 sm:h-56' : 'h-24 sm:h-32'}`}
                                                     >
                                                         <img src={img} alt={`Gallery ${i}`} className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-500" />
                                                     </div>

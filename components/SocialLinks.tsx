@@ -7,17 +7,17 @@ interface SocialLinksProps {
 }
 
 const iconMap: Record<string, React.ReactNode> = {
-    'MessageCircle': <MessageCircle size={18} />,
-    'Mail': <Mail size={18} />,
-    'Github': <Github size={18} />,
-    'Newspaper': <Newspaper size={18} />,
-    'Vote': <Vote size={18} />,
-    'Phone': <Phone size={18} />,
-    'Globe': <Globe size={18} />,
-    'Linkedin': <Linkedin size={18} />,
-    'Twitter': <Twitter size={18} />,
-    'Video': <Youtube size={18} />,
-    'Rss': <Rss size={18} />
+    'MessageCircle': <MessageCircle className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />,
+    'Mail': <Mail className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />,
+    'Github': <Github className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />,
+    'Newspaper': <Newspaper className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />,
+    'Vote': <Vote className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />,
+    'Phone': <Phone className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />,
+    'Globe': <Globe className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />,
+    'Linkedin': <Linkedin className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />,
+    'Twitter': <Twitter className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />,
+    'Video': <Youtube className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />,
+    'Rss': <Rss className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />
 };
 
 const SocialLinks: React.FC<SocialLinksProps> = ({ data }) => {
@@ -42,10 +42,10 @@ const SocialLinks: React.FC<SocialLinksProps> = ({ data }) => {
                 rel={social.url.startsWith('http') ? "noopener noreferrer" : ""}
                 onClick={(e) => handleAction(e, social)}
                 title={`${social.platform}: ${social.username}`}
-                className={`w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center text-white shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 group ${social.color}`}
+                className={`w-9 h-9 sm:w-10 sm:h-10 md:w-11 md:h-11 rounded-lg sm:rounded-xl flex items-center justify-center text-white shadow-md hover:shadow-xl hover:scale-110 transition-all duration-300 group ${social.color}`}
             >
                 <span className="group-hover:rotate-12 transition-transform duration-300">
-                    {iconMap[social.icon] || <Globe size={18} />}
+                    {iconMap[social.icon] || <Globe className="w-4 h-4 sm:w-[18px] sm:h-[18px]" />}
                 </span>
             </a>
         )})}

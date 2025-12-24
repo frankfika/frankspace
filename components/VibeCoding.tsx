@@ -262,27 +262,27 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
   }
 
   return (
-    <div className="space-y-12 animate-in fade-in zoom-in duration-500">
-      <div className="flex flex-col md:flex-row justify-between items-end gap-6 border-b border-slate-200 pb-8">
+    <div className="space-y-8 sm:space-y-10 md:space-y-12 animate-in fade-in zoom-in duration-500">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 sm:gap-6 border-b border-slate-200 pb-4 sm:pb-6 md:pb-8">
         <div>
-          <h2 className="text-4xl font-bold text-slate-900 mb-3 flex items-center gap-4">
-            <div className="p-3 bg-slate-900 text-white rounded-xl shadow-lg shadow-slate-900/20">
-                <Terminal size={28} />
+          <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-slate-900 mb-2 sm:mb-3 flex items-center gap-2 sm:gap-3 md:gap-4">
+            <div className="p-2 sm:p-2.5 md:p-3 bg-slate-900 text-white rounded-lg sm:rounded-xl shadow-lg shadow-slate-900/20">
+                <Terminal size={20} className="sm:w-6 sm:h-6 md:w-7 md:h-7" />
             </div>
             {data.navigation.vibe}
           </h2>
-          <p className="text-slate-500 text-lg max-w-xl">
+          <p className="text-slate-500 text-sm sm:text-base md:text-lg max-w-xl">
             A curated collection of projects, scripts, and strategic initiatives bridging technology and business.
           </p>
         </div>
 
         {/* Filter Tabs + Admin Add Button */}
-        <div className="flex gap-2 flex-wrap items-center">
+        <div className="flex gap-1.5 sm:gap-2 flex-wrap items-center">
           {categories.map(cat => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all ${
+              className={`px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
                 filter === cat
                   ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20 transform scale-105'
                   : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200 hover:border-slate-300'
@@ -295,46 +295,46 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
           {isAdmin && (
               <button
                   onClick={handleNewClick}
-                  className="ml-2 flex items-center gap-2 px-4 py-2.5 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-full transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 font-medium"
+                  className="ml-1 sm:ml-2 flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 md:py-2.5 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-full transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 font-medium text-xs sm:text-sm"
               >
-                  <Plus size={18} /> Add
+                  <Plus size={14} className="sm:w-4 sm:h-4 md:w-[18px] md:h-[18px]" /> Add
               </button>
           )}
         </div>
       </div>
 
-      <div className="grid md:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 md:gap-8">
         {filteredProjects.map((project) => (
           <div
             key={project.id}
-            className="group relative flex flex-col bg-white rounded-2xl border border-slate-200 shadow-sm hover:shadow-2xl hover:shadow-brand-500/10 transition-all duration-300 transform hover:-translate-y-2 overflow-hidden"
+            className="group relative flex flex-col bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm hover:shadow-2xl hover:shadow-brand-500/10 transition-all duration-300 transform hover:-translate-y-1 sm:hover:-translate-y-2 overflow-hidden"
           >
             {/* Admin Controls */}
             {isAdmin && (
-                <div className="absolute top-12 right-4 z-30 flex gap-2">
+                <div className="absolute top-10 sm:top-12 right-2 sm:right-4 z-30 flex gap-1.5 sm:gap-2">
                     <button
                         onClick={() => handleEditClick(project)}
-                        className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors shadow-lg"
+                        className="p-1.5 sm:p-2 bg-blue-500 text-white rounded-md sm:rounded-lg hover:bg-blue-600 transition-colors shadow-lg"
                     >
-                        <Edit2 size={16} />
+                        <Edit2 size={14} className="sm:w-4 sm:h-4" />
                     </button>
                     <button
                         onClick={() => handleDelete(project.id)}
-                        className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-lg"
+                        className="p-1.5 sm:p-2 bg-red-500 text-white rounded-md sm:rounded-lg hover:bg-red-600 transition-colors shadow-lg"
                     >
-                        <Trash2 size={16} />
+                        <Trash2 size={14} className="sm:w-4 sm:h-4" />
                     </button>
                 </div>
             )}
 
             {/* Top Bar Decoration (Mac Window Style) */}
-            <div className="absolute top-0 left-0 right-0 h-9 bg-slate-900/5 backdrop-blur-sm z-20 flex items-center px-4 border-b border-white/10">
-                <div className="flex gap-1.5">
-                    <div className="w-2.5 h-2.5 rounded-full bg-red-400/80 shadow-sm"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-amber-400/80 shadow-sm"></div>
-                    <div className="w-2.5 h-2.5 rounded-full bg-emerald-400/80 shadow-sm"></div>
+            <div className="absolute top-0 left-0 right-0 h-7 sm:h-9 bg-slate-900/5 backdrop-blur-sm z-20 flex items-center px-3 sm:px-4 border-b border-white/10">
+                <div className="flex gap-1 sm:gap-1.5">
+                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-red-400/80 shadow-sm"></div>
+                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-amber-400/80 shadow-sm"></div>
+                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-emerald-400/80 shadow-sm"></div>
                 </div>
-                <div className="ml-auto text-[10px] font-mono font-bold text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="ml-auto text-[8px] sm:text-[10px] font-mono font-bold text-slate-500 opacity-0 group-hover:opacity-100 transition-opacity hidden sm:block">
                     SRC/PROJECTS/{project.id.toUpperCase()}
                 </div>
             </div>
@@ -347,7 +347,7 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
               className="flex flex-col flex-1"
             >
                 {/* Project Image Container */}
-                <div className="h-56 w-full relative overflow-hidden bg-slate-100 mt-9">
+                <div className="h-40 sm:h-48 md:h-56 w-full relative overflow-hidden bg-slate-100 mt-7 sm:mt-9">
                     {project.image ? (
                         <img
                             src={project.image}
@@ -369,33 +369,33 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
                 </div>
 
                 {/* Content Body */}
-                <div className="p-6 flex-1 flex flex-col relative">
-                  <div className="flex justify-between items-start mb-4">
+                <div className="p-4 sm:p-5 md:p-6 flex-1 flex flex-col relative">
+                  <div className="flex justify-between items-start mb-3 sm:mb-4">
                     <div className="flex flex-col">
-                        <span className="text-xs font-bold font-mono text-brand-600 mb-1 flex items-center gap-1">
-                            <span className="inline-block w-1.5 h-1.5 bg-brand-500 rounded-full animate-pulse"></span>
+                        <span className="text-[10px] sm:text-xs font-bold font-mono text-brand-600 mb-0.5 sm:mb-1 flex items-center gap-1">
+                            <span className="inline-block w-1 h-1 sm:w-1.5 sm:h-1.5 bg-brand-500 rounded-full animate-pulse"></span>
                             {project.category}
                         </span>
-                        <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors">
+                        <h3 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors">
                             {project.title}
                         </h3>
                     </div>
                     {project.stats && (
-                        <div className="flex items-center gap-1.5 text-slate-600 text-xs font-bold bg-slate-100 px-3 py-1.5 rounded-lg border border-slate-200">
-                            <Activity size={12} className="text-brand-500" />
+                        <div className="flex items-center gap-1 sm:gap-1.5 text-slate-600 text-[10px] sm:text-xs font-bold bg-slate-100 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg border border-slate-200">
+                            <Activity size={10} className="text-brand-500 sm:w-3 sm:h-3" />
                             {project.stats}
                         </div>
                      )}
                   </div>
 
-                  <p className="text-slate-600 text-sm mb-6 leading-relaxed flex-1 border-l-2 border-slate-100 pl-4">
+                  <p className="text-slate-600 text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed flex-1 border-l-2 border-slate-100 pl-3 sm:pl-4">
                     {project.description}
                   </p>
 
                   {/* Tech Stack Footer */}
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-100 mt-auto">
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-3 sm:pt-4 border-t border-slate-100 mt-auto">
                     {project.techStack.map((tech, i) => (
-                      <span key={i} className="text-xs text-slate-600 bg-slate-50 px-2.5 py-1 rounded border border-slate-200 font-mono flex items-center gap-1.5 group-hover:border-brand-300 transition-colors">
+                      <span key={i} className="text-[10px] sm:text-xs text-slate-600 bg-slate-50 px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded border border-slate-200 font-mono flex items-center gap-1 sm:gap-1.5 group-hover:border-brand-300 transition-colors">
                         <span className="text-brand-400 font-bold">#</span>
                         {tech}
                       </span>

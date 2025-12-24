@@ -263,7 +263,7 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
   }
 
   return (
-    <section className="relative px-6 overflow-hidden h-screen flex items-center">
+    <section className="relative px-4 sm:px-6 overflow-hidden min-h-screen flex items-center py-12 sm:py-16 md:py-20">
       {/* Enhanced Gradient Background - More Vibrant */}
       <div className="absolute inset-0 bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 pointer-events-none -z-20" />
       <div className="absolute inset-0 bg-gradient-to-tr from-brand-100/40 via-transparent to-accent-100/40 pointer-events-none -z-20" />
@@ -295,8 +295,8 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
         </button>
       )}
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8 items-center relative z-10 w-full">
-        <div className="space-y-4 md:space-y-5 animate-in fade-in slide-in-from-bottom-8 duration-700">
+      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-6 sm:gap-8 items-center relative z-10 w-full">
+        <div className="space-y-3 sm:space-y-4 md:space-y-5 animate-in fade-in slide-in-from-bottom-8 duration-700">
           {/* Status Badge */}
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/90 backdrop-blur-sm border border-brand-300 shadow-lg text-brand-700 text-sm font-medium">
             <span className="relative flex h-2.5 w-2.5">
@@ -308,7 +308,7 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
 
           {/* Name with Enhanced Gradient */}
           <div className="space-y-3">
-            <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight leading-tight">
               <span className="text-slate-900">{personalInfo.name.split(' ')[0]} </span>
               <span className="relative inline-block">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-600 via-brand-500 to-accent-600 animate-gradient">
@@ -322,7 +322,7 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
           {/* Tagline with Glass Effect */}
           <div className="relative group">
             <div className="absolute inset-0 bg-gradient-to-r from-brand-500/10 to-accent-500/10 rounded-lg blur-sm group-hover:blur-md transition-all"></div>
-            <h2 className="relative text-lg sm:text-xl md:text-2xl text-slate-700 font-light border-l-4 border-brand-500 pl-4 py-2 bg-white/50 backdrop-blur-sm rounded-r-lg">
+            <h2 className="relative text-base sm:text-lg md:text-xl lg:text-2xl text-slate-700 font-light border-l-4 border-brand-500 pl-3 sm:pl-4 py-1.5 sm:py-2 bg-white/50 backdrop-blur-sm rounded-r-lg">
               {personalInfo.tagline}
             </h2>
           </div>
@@ -335,15 +335,15 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
           </div>
 
           {/* Summary with Better Typography */}
-          <p className="text-slate-600 max-w-lg leading-relaxed text-sm md:text-base line-clamp-3">
+          <p className="text-slate-600 max-w-[90vw] sm:max-w-md md:max-w-lg leading-relaxed text-sm md:text-base line-clamp-3 sm:line-clamp-none">
             {personalInfo.summary}
           </p>
 
           {/* Enhanced CTA Buttons - Chinese and English Resume */}
-          <div className="flex flex-col sm:flex-row gap-3">
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <button
               onClick={() => handleResumeClick('zh')}
-              className="group relative flex items-center justify-center gap-2 px-6 py-3.5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl font-medium shadow-2xl hover:shadow-brand-500/20 hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+              className="group relative flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-3.5 bg-gradient-to-r from-slate-900 to-slate-800 text-white rounded-xl font-medium shadow-2xl hover:shadow-brand-500/20 hover:-translate-y-1 transition-all duration-300 overflow-hidden text-sm sm:text-base"
             >
               <div className="absolute inset-0 bg-gradient-to-r from-brand-600 to-accent-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               <Download size={18} className="relative z-10 group-hover:scale-110 transition-transform" />
@@ -352,7 +352,7 @@ const Hero: React.FC<HeroProps> = ({ data, isAdmin, onUpdatePersonalInfo }) => {
 
             <button
               onClick={() => handleResumeClick('en')}
-              className="group relative flex items-center justify-center gap-2 px-6 py-3.5 bg-white border-2 border-brand-600 text-brand-600 hover:border-brand-700 hover:text-brand-700 rounded-xl font-medium shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+              className="group relative flex items-center justify-center gap-2 px-4 sm:px-6 py-3 sm:py-3.5 bg-white border-2 border-brand-600 text-brand-600 hover:border-brand-700 hover:text-brand-700 rounded-xl font-medium shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 text-sm sm:text-base"
             >
               <Download size={18} className="group-hover:scale-110 transition-all" />
               <span className="transition-colors">{lang === 'zh' ? '下载英文简历' : 'Resume (EN)'}</span>

@@ -188,7 +188,7 @@ const PersonalInfoEditor: React.FC = () => {
     type: 'input' | 'textarea' = 'input',
     placeholder?: { zh: string; en: string }
   ) => (
-    <div className="grid grid-cols-2 gap-4" key={field}>
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4" key={field}>
       <div>
         <label className="block text-sm font-medium text-slate-700 mb-1">{label} (中文)</label>
         {type === 'textarea' ? (
@@ -234,27 +234,29 @@ const PersonalInfoEditor: React.FC = () => {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Personal Info</h1>
-          <p className="text-slate-600 text-sm">Fill in Chinese, auto-translate to English, then adjust</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1">Personal Info</h1>
+          <p className="text-slate-600 text-xs sm:text-sm">Fill in Chinese, auto-translate to English, then adjust</p>
         </div>
-        <div className="flex gap-3">
+        <div className="flex gap-2 sm:gap-3">
           <button
             onClick={handleTranslate}
             disabled={translating}
-            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium shadow hover:bg-indigo-700 transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-indigo-600 text-white rounded-lg font-medium shadow hover:bg-indigo-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
           >
-            {translating ? <Loader2 size={18} className="animate-spin" /> : <Languages size={18} />}
-            {translating ? 'Translating...' : 'Auto Translate'}
+            {translating ? <Loader2 size={16} className="animate-spin sm:w-[18px] sm:h-[18px]" /> : <Languages size={16} className="sm:w-[18px] sm:h-[18px]" />}
+            <span className="hidden sm:inline">{translating ? 'Translating...' : 'Auto Translate'}</span>
+            <span className="sm:hidden">{translating ? '...' : 'Translate'}</span>
           </button>
           <button
             onClick={handleSave}
             disabled={saving}
-            className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg font-medium shadow hover:bg-brand-700 transition-colors disabled:opacity-50"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-600 text-white rounded-lg font-medium shadow hover:bg-brand-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
           >
-            <Save size={18} />
-            {saving ? 'Saving...' : 'Save Both'}
+            <Save size={16} className="sm:w-[18px] sm:h-[18px]" />
+            <span className="hidden sm:inline">{saving ? 'Saving...' : 'Save Both'}</span>
+            <span className="sm:hidden">{saving ? '...' : 'Save'}</span>
           </button>
         </div>
       </div>
@@ -273,16 +275,16 @@ const PersonalInfoEditor: React.FC = () => {
         </div>
       )}
 
-      <div className="bg-white rounded-xl border border-slate-200 p-6 space-y-6">
+      <div className="bg-white rounded-lg sm:rounded-xl border border-slate-200 p-4 sm:p-6 space-y-4 sm:space-y-6">
         {/* Header showing columns */}
-        <div className="grid grid-cols-2 gap-4 pb-4 border-b border-slate-200">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 pb-3 sm:pb-4 border-b border-slate-200">
           <div className="text-center">
-            <span className="inline-block px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+            <span className="inline-block px-2 sm:px-3 py-0.5 sm:py-1 bg-red-100 text-red-700 rounded-full text-xs sm:text-sm font-medium">
               Chinese (主要填写)
             </span>
           </div>
           <div className="text-center">
-            <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+            <span className="inline-block px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-100 text-blue-700 rounded-full text-xs sm:text-sm font-medium">
               English (自动翻译/可调整)
             </span>
           </div>
@@ -290,8 +292,8 @@ const PersonalInfoEditor: React.FC = () => {
 
         {/* Basic Info */}
         <div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">Basic Information</h3>
-          <div className="space-y-4">
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-3 sm:mb-4">Basic Information</h3>
+          <div className="space-y-3 sm:space-y-4">
             {renderField('Name', 'name', 'input', { zh: 'Frank Chen', en: 'Frank Chen' })}
             {renderField('Tagline', 'tagline', 'input', { zh: '战略运营专家', en: 'Strategic Operations Expert' })}
             {renderField('Location', 'location', 'input', { zh: '中国', en: 'China' })}
@@ -301,9 +303,9 @@ const PersonalInfoEditor: React.FC = () => {
 
         {/* Contact */}
         <div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">Contact</h3>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-3 sm:mb-4">Contact</h3>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Email (same for both)</label>
                 <input
@@ -331,7 +333,7 @@ const PersonalInfoEditor: React.FC = () => {
                 />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">GitHub (same for both)</label>
                 <input
@@ -354,9 +356,9 @@ const PersonalInfoEditor: React.FC = () => {
 
         {/* Stats */}
         <div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">Stats & Highlights</h3>
-          <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-3 sm:mb-4">Stats & Highlights</h3>
+          <div className="space-y-3 sm:space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Years Exp (same)</label>
                 <input
@@ -391,8 +393,8 @@ const PersonalInfoEditor: React.FC = () => {
 
         {/* Buttons */}
         <div>
-          <h3 className="text-lg font-semibold text-slate-900 mb-4">Button Labels</h3>
-          <div className="space-y-4">
+          <h3 className="text-base sm:text-lg font-semibold text-slate-900 mb-3 sm:mb-4">Button Labels</h3>
+          <div className="space-y-3 sm:space-y-4">
             {renderField('Contact Button', 'contact_btn', 'input', { zh: '联系我', en: 'Contact Me' })}
             {renderField('Resume Button', 'resume_btn', 'input', { zh: '简历', en: 'Resume' })}
           </div>

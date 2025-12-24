@@ -230,17 +230,17 @@ const ExperienceEditor: React.FC = () => {
 
   return (
     <div>
-      <div className="mb-6 flex items-center justify-between">
+      <div className="mb-4 sm:mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900 mb-1">Experience</h1>
-          <p className="text-slate-600 text-sm">Fill in Chinese, auto-translate to English, then adjust</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-900 mb-1">Experience</h1>
+          <p className="text-slate-600 text-xs sm:text-sm">Fill in Chinese, auto-translate to English, then adjust</p>
         </div>
         {!isEditing && (
           <button
             onClick={handleCreate}
-            className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg font-medium shadow hover:bg-brand-700 transition-colors"
+            className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-600 text-white rounded-lg font-medium shadow hover:bg-brand-700 transition-colors text-sm sm:text-base self-start sm:self-auto"
           >
-            <Plus size={18} />
+            <Plus size={16} className="sm:w-[18px] sm:h-[18px]" />
             Add Experience
           </button>
         )}
@@ -261,55 +261,57 @@ const ExperienceEditor: React.FC = () => {
       )}
 
       {isEditing && (
-        <div className="mb-6 bg-white rounded-xl border border-slate-200 p-6">
-          <div className="flex items-center justify-between mb-6">
-            <h3 className="text-lg font-semibold text-slate-900">
+        <div className="mb-4 sm:mb-6 bg-white rounded-lg sm:rounded-xl border border-slate-200 p-4 sm:p-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4 sm:mb-6">
+            <h3 className="text-base sm:text-lg font-semibold text-slate-900">
               {isCreating ? 'Add New Experience' : 'Edit Experience'}
             </h3>
-            <div className="flex gap-3">
+            <div className="flex flex-wrap gap-2 sm:gap-3">
               <button
                 onClick={handleTranslate}
                 disabled={translating}
-                className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-lg font-medium shadow hover:bg-indigo-700 transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-indigo-600 text-white rounded-lg font-medium shadow hover:bg-indigo-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
               >
-                {translating ? <Loader2 size={18} className="animate-spin" /> : <Languages size={18} />}
-                {translating ? 'Translating...' : 'Auto Translate'}
+                {translating ? <Loader2 size={16} className="animate-spin" /> : <Languages size={16} />}
+                <span className="hidden sm:inline">{translating ? 'Translating...' : 'Auto Translate'}</span>
+                <span className="sm:hidden">{translating ? '...' : 'Translate'}</span>
               </button>
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="flex items-center gap-2 px-4 py-2 bg-brand-600 text-white rounded-lg font-medium shadow hover:bg-brand-700 transition-colors disabled:opacity-50"
+                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-brand-600 text-white rounded-lg font-medium shadow hover:bg-brand-700 transition-colors disabled:opacity-50 text-sm sm:text-base"
               >
-                <Save size={18} />
-                {saving ? 'Saving...' : 'Save Both'}
+                <Save size={16} />
+                <span className="hidden sm:inline">{saving ? 'Saving...' : 'Save Both'}</span>
+                <span className="sm:hidden">{saving ? '...' : 'Save'}</span>
               </button>
               <button
                 onClick={handleCancel}
-                className="flex items-center gap-2 px-4 py-2 bg-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-300 transition-colors"
+                className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-200 text-slate-700 rounded-lg font-medium hover:bg-slate-300 transition-colors text-sm sm:text-base"
               >
-                <X size={18} />
-                Cancel
+                <X size={16} />
+                <span className="hidden sm:inline">Cancel</span>
               </button>
             </div>
           </div>
 
           {/* Header showing columns */}
-          <div className="grid grid-cols-2 gap-4 pb-4 border-b border-slate-200 mb-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 pb-3 sm:pb-4 border-b border-slate-200 mb-4 sm:mb-6">
             <div className="text-center">
-              <span className="inline-block px-3 py-1 bg-red-100 text-red-700 rounded-full text-sm font-medium">
+              <span className="inline-block px-2 sm:px-3 py-0.5 sm:py-1 bg-red-100 text-red-700 rounded-full text-xs sm:text-sm font-medium">
                 Chinese (主要填写)
               </span>
             </div>
             <div className="text-center">
-              <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium">
+              <span className="inline-block px-2 sm:px-3 py-0.5 sm:py-1 bg-blue-100 text-blue-700 rounded-full text-xs sm:text-sm font-medium">
                 English (自动翻译/可调整)
               </span>
             </div>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Role */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Role / Position (中文) *</label>
                 <input
@@ -333,7 +335,7 @@ const ExperienceEditor: React.FC = () => {
             </div>
 
             {/* Company */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Company (中文) *</label>
                 <input
@@ -372,7 +374,7 @@ const ExperienceEditor: React.FC = () => {
             </div>
 
             {/* Description */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Description (中文)</label>
                 <textarea
@@ -396,7 +398,7 @@ const ExperienceEditor: React.FC = () => {
             </div>
 
             {/* Achievements */}
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Achievements (中文)</label>
                 <div className="space-y-2">
@@ -491,11 +493,11 @@ const ExperienceEditor: React.FC = () => {
           return (
             <div
               key={exp.id}
-              className="bg-white rounded-xl border border-slate-200 p-6 hover:shadow-lg transition-shadow"
+              className="bg-white rounded-lg sm:rounded-xl border border-slate-200 p-4 sm:p-6 hover:shadow-lg transition-shadow"
             >
-              <div className="flex items-start justify-between mb-3">
+              <div className="flex items-start justify-between mb-2 sm:mb-3">
                 <div className="flex-1">
-                  <div className="flex gap-4 mb-2">
+                  <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 mb-2">
                     <div className="flex-1">
                       <span className="text-xs text-red-600 font-medium">中文</span>
                       <h3 className="text-lg font-semibold text-slate-900">{exp.role}</h3>
@@ -525,7 +527,7 @@ const ExperienceEditor: React.FC = () => {
                 </div>
               </div>
               {(exp.achievements?.length > 0 || enExp?.achievements?.length > 0) && (
-                <div className="grid grid-cols-2 gap-4 mt-3 pt-3 border-t border-slate-100">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 mt-2 sm:mt-3 pt-2 sm:pt-3 border-t border-slate-100">
                   <div>
                     {exp.achievements?.slice(0, 2).map((a: string, idx: number) => (
                       <p key={idx} className="text-sm text-slate-600">• {a}</p>

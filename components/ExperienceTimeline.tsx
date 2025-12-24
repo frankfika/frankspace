@@ -390,64 +390,64 @@ const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
   }
 
   return (
-    <div className="grid lg:grid-cols-2 gap-12">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
       {/* Work Experience */}
       <div>
-        <div className="flex items-center justify-between mb-8">
-          <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
-            <div className="p-2 bg-brand-100 rounded-lg">
-               <Briefcase className="text-brand-600" size={24} />
+        <div className="flex items-center justify-between mb-4 sm:mb-6 md:mb-8">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 flex items-center gap-2 sm:gap-3">
+            <div className="p-1.5 sm:p-2 bg-brand-100 rounded-md sm:rounded-lg">
+               <Briefcase className="text-brand-600" size={20} />
             </div>
             {data.headers.experience}
           </h3>
           {isAdmin && (
             <button
               onClick={handleNewExp}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-full transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 text-sm font-medium"
+              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-full transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 text-xs sm:text-sm font-medium"
             >
-              <Plus size={16} /> Add
+              <Plus size={14} className="sm:w-4 sm:h-4" /> Add
             </button>
           )}
         </div>
-        <div className="space-y-8 border-l-2 border-slate-200 ml-3 pl-8 relative">
+        <div className="space-y-6 sm:space-y-8 border-l-2 border-slate-200 ml-2 sm:ml-3 pl-4 sm:pl-6 md:pl-8 relative">
           {data.experience.map((job) => (
             <div key={job.id} className="relative group">
               {/* Timeline Dot */}
-              <div className="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-white bg-slate-300 group-hover:bg-brand-500 transition-colors shadow-sm" />
+              <div className="absolute -left-[25px] sm:-left-[33px] md:-left-[41px] top-1 h-4 w-4 sm:h-5 sm:w-5 rounded-full border-2 sm:border-4 border-white bg-slate-300 group-hover:bg-brand-500 transition-colors shadow-sm" />
 
-              <div className="glass-panel p-6 rounded-xl border-slate-200/60 hover:border-brand-200 transition-all relative">
+              <div className="glass-panel p-4 sm:p-5 md:p-6 rounded-lg sm:rounded-xl border-slate-200/60 hover:border-brand-200 transition-all relative">
                 {/* Admin Controls */}
                 {isAdmin && (
-                  <div className="absolute top-4 right-4 flex gap-2">
+                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex gap-1.5 sm:gap-2">
                     <button
                       onClick={() => handleEditExp(job)}
-                      className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors shadow-lg"
+                      className="p-1.5 sm:p-2 bg-blue-500 text-white rounded-md sm:rounded-lg hover:bg-blue-600 transition-colors shadow-lg"
                     >
-                      <Edit2 size={14} />
+                      <Edit2 size={12} className="sm:w-3.5 sm:h-3.5" />
                     </button>
                     <button
                       onClick={() => handleDeleteExp(job.id)}
-                      className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-lg"
+                      className="p-1.5 sm:p-2 bg-red-500 text-white rounded-md sm:rounded-lg hover:bg-red-600 transition-colors shadow-lg"
                     >
-                      <Trash2 size={14} />
+                      <Trash2 size={12} className="sm:w-3.5 sm:h-3.5" />
                     </button>
                   </div>
                 )}
 
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-2">
-                  <h4 className="text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between mb-1.5 sm:mb-2 pr-16 sm:pr-20">
+                  <h4 className="text-base sm:text-lg font-bold text-slate-900 group-hover:text-brand-600 transition-colors">
                     {job.role}
                   </h4>
-                  <span className="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-1 rounded border border-slate-200">
+                  <span className="text-[10px] sm:text-xs font-mono text-slate-500 bg-slate-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded border border-slate-200 mt-1 sm:mt-0">
                     {job.period}
                   </span>
                 </div>
-                <h5 className="text-sm font-semibold text-brand-600 mb-3">{job.company}</h5>
-                <p className="text-sm text-slate-600 italic mb-4">{job.description}</p>
-                <ul className="space-y-2">
+                <h5 className="text-xs sm:text-sm font-semibold text-brand-600 mb-2 sm:mb-3">{job.company}</h5>
+                <p className="text-xs sm:text-sm text-slate-600 italic mb-3 sm:mb-4">{job.description}</p>
+                <ul className="space-y-1.5 sm:space-y-2">
                   {job.achievements.map((item, idx) => (
-                    <li key={idx} className="text-sm text-slate-600 flex items-start gap-2">
-                      <span className="text-accent-500 mt-1.5 text-[10px]">►</span>
+                    <li key={idx} className="text-xs sm:text-sm text-slate-600 flex items-start gap-1.5 sm:gap-2">
+                      <span className="text-accent-500 mt-1 sm:mt-1.5 text-[8px] sm:text-[10px]">►</span>
                       {item}
                     </li>
                   ))}
@@ -460,58 +460,58 @@ const ExperienceTimeline: React.FC<ExperienceTimelineProps> = ({
 
       {/* Education */}
       <div>
-        <div className="flex items-center justify-between mb-8">
-          <h3 className="text-2xl font-bold text-slate-900 flex items-center gap-3">
-            <div className="p-2 bg-brand-100 rounded-lg">
-              <GraduationCap className="text-brand-600" size={24} />
+        <div className="flex items-center justify-between mb-4 sm:mb-6 md:mb-8">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-bold text-slate-900 flex items-center gap-2 sm:gap-3">
+            <div className="p-1.5 sm:p-2 bg-brand-100 rounded-md sm:rounded-lg">
+              <GraduationCap className="text-brand-600" size={20} />
             </div>
             {data.headers.education}
           </h3>
           {isAdmin && (
             <button
               onClick={handleNewEdu}
-              className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-full transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 text-sm font-medium"
+              className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-full transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 text-xs sm:text-sm font-medium"
             >
-              <Plus size={16} /> Add
+              <Plus size={14} className="sm:w-4 sm:h-4" /> Add
             </button>
           )}
         </div>
-        <div className="space-y-8 border-l-2 border-slate-200 ml-3 pl-8 relative">
+        <div className="space-y-6 sm:space-y-8 border-l-2 border-slate-200 ml-2 sm:ml-3 pl-4 sm:pl-6 md:pl-8 relative">
           {data.education.map((edu, index) => (
             <div key={index} className="relative group">
               {/* Timeline Dot */}
-              <div className="absolute -left-[41px] top-1 h-5 w-5 rounded-full border-4 border-white bg-slate-300 group-hover:bg-accent-500 transition-colors shadow-sm" />
+              <div className="absolute -left-[25px] sm:-left-[33px] md:-left-[41px] top-1 h-4 w-4 sm:h-5 sm:w-5 rounded-full border-2 sm:border-4 border-white bg-slate-300 group-hover:bg-accent-500 transition-colors shadow-sm" />
 
-              <div className="glass-panel p-6 rounded-xl border-slate-200/60 hover:border-accent-200 transition-all relative">
+              <div className="glass-panel p-4 sm:p-5 md:p-6 rounded-lg sm:rounded-xl border-slate-200/60 hover:border-accent-200 transition-all relative">
                 {/* Admin Controls */}
                 {isAdmin && (
-                  <div className="absolute top-4 right-4 flex gap-2">
+                  <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex gap-1.5 sm:gap-2">
                     <button
                       onClick={() => handleEditEdu(edu, index)}
-                      className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors shadow-lg"
+                      className="p-1.5 sm:p-2 bg-blue-500 text-white rounded-md sm:rounded-lg hover:bg-blue-600 transition-colors shadow-lg"
                     >
-                      <Edit2 size={14} />
+                      <Edit2 size={12} className="sm:w-3.5 sm:h-3.5" />
                     </button>
                     <button
                       onClick={() => handleDeleteEdu(index)}
-                      className="p-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-lg"
+                      className="p-1.5 sm:p-2 bg-red-500 text-white rounded-md sm:rounded-lg hover:bg-red-600 transition-colors shadow-lg"
                     >
-                      <Trash2 size={14} />
+                      <Trash2 size={12} className="sm:w-3.5 sm:h-3.5" />
                     </button>
                   </div>
                 )}
 
-                <div className="flex justify-between items-start mb-2">
-                  <h4 className="text-lg font-bold text-slate-900">{edu.school}</h4>
-                  <span className="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-1 rounded border border-slate-200">
+                <div className="flex flex-col sm:flex-row justify-between items-start mb-1.5 sm:mb-2 pr-16 sm:pr-20">
+                  <h4 className="text-base sm:text-lg font-bold text-slate-900">{edu.school}</h4>
+                  <span className="text-[10px] sm:text-xs font-mono text-slate-500 bg-slate-100 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded border border-slate-200 mt-1 sm:mt-0">
                     {edu.period}
                   </span>
                 </div>
-                <h5 className="text-sm text-accent-600 mb-3">{edu.degree}</h5>
-                <ul className="space-y-1">
+                <h5 className="text-xs sm:text-sm text-accent-600 mb-2 sm:mb-3">{edu.degree}</h5>
+                <ul className="space-y-1 sm:space-y-1.5">
                   {edu.details.map((detail, idx) => (
-                    <li key={idx} className="text-sm text-slate-600 flex items-start gap-2">
-                      <span className="text-brand-500 mt-1.5 text-[10px]">●</span>
+                    <li key={idx} className="text-xs sm:text-sm text-slate-600 flex items-start gap-1.5 sm:gap-2">
+                      <span className="text-brand-500 mt-1 sm:mt-1.5 text-[8px] sm:text-[10px]">●</span>
                       {detail}
                     </li>
                   ))}

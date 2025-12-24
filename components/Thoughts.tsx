@@ -105,23 +105,23 @@ const Thoughts: React.FC<ThoughtsProps> = ({ data, thoughts, isAdmin, onUpdateTh
                       />
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                       <div>
-                          <label className="block text-sm font-semibold text-slate-700 mb-2">Date</label>
+                          <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 sm:mb-2">Date</label>
                           <input
                               type="date"
                               value={editForm.date || ''}
                               onChange={(e) => setEditForm({ ...editForm, date: e.target.value })}
-                              className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                              className="w-full px-3 sm:px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-sm sm:text-base"
                           />
                       </div>
                       <div>
-                          <label className="block text-sm font-semibold text-slate-700 mb-2">Read Time</label>
+                          <label className="block text-xs sm:text-sm font-semibold text-slate-700 mb-1.5 sm:mb-2">Read Time</label>
                           <input
                               type="text"
                               value={editForm.readTime || ''}
                               onChange={(e) => setEditForm({ ...editForm, readTime: e.target.value })}
-                              className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                              className="w-full px-3 sm:px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent text-sm sm:text-base"
                               placeholder="5 min"
                           />
                       </div>
@@ -189,16 +189,16 @@ const Thoughts: React.FC<ThoughtsProps> = ({ data, thoughts, isAdmin, onUpdateTh
   }
 
   return (
-    <div className="space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
-       <div className="border-b border-slate-200 pb-6 flex items-center justify-between">
+    <div className="space-y-6 sm:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-500">
+       <div className="border-b border-slate-200 pb-4 sm:pb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-2 flex items-center gap-3">
-                 <div className="p-2 bg-brand-100 rounded-lg">
-                    <BookOpen className="text-brand-600" size={24} />
+              <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-slate-900 mb-1 sm:mb-2 flex items-center gap-2 sm:gap-3">
+                 <div className="p-1.5 sm:p-2 bg-brand-100 rounded-md sm:rounded-lg">
+                    <BookOpen className="text-brand-600" size={20} />
                  </div>
                 {data.navigation.thoughts}
               </h2>
-              <p className="text-slate-500">
+              <p className="text-slate-500 text-sm sm:text-base">
                 Insights on AI strategy, reading list, and random musings.
               </p>
           </div>
@@ -206,33 +206,33 @@ const Thoughts: React.FC<ThoughtsProps> = ({ data, thoughts, isAdmin, onUpdateTh
           {isAdmin && (
               <button
                   onClick={handleNewClick}
-                  className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-lg transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 font-medium"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-1.5 sm:py-2 bg-gradient-to-r from-brand-600 to-brand-700 hover:from-brand-700 hover:to-brand-800 text-white rounded-lg transition-all shadow-lg hover:shadow-brand-500/50 hover:-translate-y-0.5 font-medium text-sm sm:text-base self-start sm:self-auto"
               >
-                  <Plus size={18} /> Add Note
+                  <Plus size={16} className="sm:w-[18px] sm:h-[18px]" /> Add Note
               </button>
           )}
         </div>
 
-      <div className="grid gap-6">
+      <div className="grid gap-4 sm:gap-6">
         {thoughts.map((note) => (
           <div
             key={note.id}
-            className={`glass-panel p-6 rounded-xl hover:bg-white border transition-all shadow-sm relative ${expandedId === note.id ? 'bg-white border-brand-200 ring-1 ring-brand-100' : 'hover:border-brand-200 hover:shadow-md'}`}
+            className={`glass-panel p-4 sm:p-5 md:p-6 rounded-lg sm:rounded-xl hover:bg-white border transition-all shadow-sm relative ${expandedId === note.id ? 'bg-white border-brand-200 ring-1 ring-brand-100' : 'hover:border-brand-200 hover:shadow-md'}`}
           >
             {/* Admin Controls */}
             {isAdmin && (
-                <div className="absolute top-4 right-4 flex gap-2 z-10">
+                <div className="absolute top-3 right-3 sm:top-4 sm:right-4 flex gap-1.5 sm:gap-2 z-10">
                     <button
                         onClick={() => handleEditClick(note)}
-                        className="p-1.5 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors shadow-lg"
+                        className="p-1 sm:p-1.5 bg-blue-500 text-white rounded-md sm:rounded-lg hover:bg-blue-600 transition-colors shadow-lg"
                     >
-                        <Edit2 size={14} />
+                        <Edit2 size={12} className="sm:w-3.5 sm:h-3.5" />
                     </button>
                     <button
                         onClick={() => handleDelete(note.id)}
-                        className="p-1.5 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors shadow-lg"
+                        className="p-1 sm:p-1.5 bg-red-500 text-white rounded-md sm:rounded-lg hover:bg-red-600 transition-colors shadow-lg"
                     >
-                        <Trash2 size={14} />
+                        <Trash2 size={12} className="sm:w-3.5 sm:h-3.5" />
                     </button>
                 </div>
             )}
@@ -243,13 +243,13 @@ const Thoughts: React.FC<ThoughtsProps> = ({ data, thoughts, isAdmin, onUpdateTh
                     if (note.content) toggleExpand(note.id);
                 }}
             >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-3">
-                    <h3 className="text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors pr-20">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 sm:gap-3 md:gap-4 mb-2 sm:mb-3">
+                    <h3 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors pr-16 sm:pr-20">
                         {note.title}
                     </h3>
-                    <div className="flex items-center gap-4 text-sm text-slate-500 font-mono bg-slate-50 px-3 py-1 rounded-full shrink-0">
+                    <div className="flex items-center gap-2 sm:gap-4 text-xs sm:text-sm text-slate-500 font-mono bg-slate-50 px-2 sm:px-3 py-0.5 sm:py-1 rounded-full shrink-0">
                         <span className="flex items-center gap-1">
-                            <Calendar size={14} />
+                            <Calendar size={12} className="sm:w-3.5 sm:h-3.5" />
                             {note.date}
                         </span>
                         <span className="w-1 h-1 bg-slate-300 rounded-full"></span>
@@ -257,30 +257,30 @@ const Thoughts: React.FC<ThoughtsProps> = ({ data, thoughts, isAdmin, onUpdateTh
                     </div>
                 </div>
 
-                <p className="text-slate-600 mb-5 leading-relaxed">
+                <p className="text-slate-600 mb-3 sm:mb-4 md:mb-5 leading-relaxed text-sm sm:text-base">
                    {expandedId === note.id ? (note.content || note.snippet) : note.snippet}
                 </p>
             </div>
 
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-2 border-t border-slate-100">
-              <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 pt-2 border-t border-slate-100">
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
                 {note.tags.map(tag => (
-                  <span key={tag} className="text-xs text-brand-600 bg-brand-50 px-2 py-0.5 rounded border border-brand-100 font-medium">
+                  <span key={tag} className="text-[10px] sm:text-xs text-brand-600 bg-brand-50 px-1.5 sm:px-2 py-0.5 rounded border border-brand-100 font-medium">
                     #{tag}
                   </span>
                 ))}
               </div>
 
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2 sm:gap-3">
                   {/* External Link Button */}
                   {note.link && (
                     <a
                         href={note.link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-1 text-sm font-semibold text-slate-700 hover:text-brand-600 transition-colors bg-slate-100 hover:bg-brand-50 px-3 py-1.5 rounded-full"
+                        className="flex items-center gap-1 text-xs sm:text-sm font-semibold text-slate-700 hover:text-brand-600 transition-colors bg-slate-100 hover:bg-brand-50 px-2 sm:px-3 py-1 sm:py-1.5 rounded-full"
                     >
-                        Read Article <ExternalLink size={14} />
+                        Read Article <ExternalLink size={12} className="sm:w-3.5 sm:h-3.5" />
                     </a>
                   )}
 
@@ -291,12 +291,12 @@ const Thoughts: React.FC<ThoughtsProps> = ({ data, thoughts, isAdmin, onUpdateTh
                             e.stopPropagation();
                             toggleExpand(note.id);
                         }}
-                        className="text-brand-600 text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all px-2"
+                        className="text-brand-600 text-xs sm:text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all px-1 sm:px-2"
                     >
                         {expandedId === note.id ? (
-                            <>Show Preview <ArrowUp size={14} /></>
+                            <>Show Preview <ArrowUp size={12} className="sm:w-3.5 sm:h-3.5" /></>
                         ) : (
-                            <>Show Full <ArrowRight size={14} /></>
+                            <>Show Full <ArrowRight size={12} className="sm:w-3.5 sm:h-3.5" /></>
                         )}
                     </button>
                   )}

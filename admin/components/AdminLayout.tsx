@@ -59,11 +59,11 @@ const AdminLayout: React.FC = () => {
       >
         <div className="h-full flex flex-col">
           {/* Header */}
-          <div className="p-6 border-b border-slate-200 flex items-center justify-between">
+          <div className="p-4 sm:p-6 border-b border-slate-200 flex items-center justify-between">
             {sidebarOpen && (
               <div>
-                <h2 className="text-xl font-bold text-slate-900">Admin Panel</h2>
-                <p className="text-sm text-slate-500 mt-1">{user?.email}</p>
+                <h2 className="text-lg sm:text-xl font-bold text-slate-900">Admin Panel</h2>
+                <p className="text-xs sm:text-sm text-slate-500 mt-1 truncate max-w-[180px]">{user?.email}</p>
               </div>
             )}
             <button
@@ -134,13 +134,13 @@ const AdminLayout: React.FC = () => {
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto">
-        <div className="p-6 lg:p-8">
+        <div className="p-4 sm:p-6 lg:p-8">
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setSidebarOpen(true)}
-            className="lg:hidden mb-6 p-2 hover:bg-slate-100 rounded-lg transition-colors"
+            className="lg:hidden mb-4 sm:mb-6 p-2 hover:bg-slate-100 rounded-lg transition-colors"
           >
-            <Menu size={24} />
+            <Menu size={22} className="sm:w-6 sm:h-6" />
           </button>
 
           <Outlet />
