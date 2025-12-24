@@ -5,6 +5,14 @@ import LoginPage from './admin/pages/LoginPage';
 import AdminLayout from './admin/components/AdminLayout';
 import Dashboard from './admin/pages/Dashboard';
 import ActivitiesEditor from './admin/pages/ActivitiesEditor';
+import PersonalInfoEditor from './admin/pages/PersonalInfoEditor';
+import ExperienceEditor from './admin/pages/ExperienceEditor';
+import EducationEditor from './admin/pages/EducationEditor';
+import SkillsEditor from './admin/pages/SkillsEditor';
+import ProjectsEditor from './admin/pages/ProjectsEditor';
+import ThoughtsEditor from './admin/pages/ThoughtsEditor';
+import SocialsEditor from './admin/pages/SocialsEditor';
+import ConsultationEditor from './admin/pages/ConsultationEditor';
 import ProtectedRoute from './admin/components/ProtectedRoute';
 
 const AppRouter: React.FC = () => {
@@ -27,16 +35,15 @@ const AppRouter: React.FC = () => {
           }
         >
           <Route index element={<Dashboard />} />
+          <Route path="personal-info" element={<PersonalInfoEditor />} />
+          <Route path="experience" element={<ExperienceEditor />} />
+          <Route path="education" element={<EducationEditor />} />
+          <Route path="skills" element={<SkillsEditor />} />
+          <Route path="projects" element={<ProjectsEditor />} />
+          <Route path="thoughts" element={<ThoughtsEditor />} />
           <Route path="activities" element={<ActivitiesEditor />} />
-          {/* Placeholder routes for other editors - to be implemented */}
-          <Route path="personal-info" element={<div className="p-6 bg-white rounded-xl border border-slate-200"><h2 className="text-2xl font-bold">Personal Info Editor</h2><p className="text-slate-600 mt-2">Coming soon...</p></div>} />
-          <Route path="experience" element={<div className="p-6 bg-white rounded-xl border border-slate-200"><h2 className="text-2xl font-bold">Experience Editor</h2><p className="text-slate-600 mt-2">Coming soon...</p></div>} />
-          <Route path="education" element={<div className="p-6 bg-white rounded-xl border border-slate-200"><h2 className="text-2xl font-bold">Education Editor</h2><p className="text-slate-600 mt-2">Coming soon...</p></div>} />
-          <Route path="skills" element={<div className="p-6 bg-white rounded-xl border border-slate-200"><h2 className="text-2xl font-bold">Skills Editor</h2><p className="text-slate-600 mt-2">Coming soon...</p></div>} />
-          <Route path="projects" element={<div className="p-6 bg-white rounded-xl border border-slate-200"><h2 className="text-2xl font-bold">Projects Editor</h2><p className="text-slate-600 mt-2">Coming soon...</p></div>} />
-          <Route path="thoughts" element={<div className="p-6 bg-white rounded-xl border border-slate-200"><h2 className="text-2xl font-bold">Thoughts Editor</h2><p className="text-slate-600 mt-2">Coming soon...</p></div>} />
-          <Route path="socials" element={<div className="p-6 bg-white rounded-xl border border-slate-200"><h2 className="text-2xl font-bold">Social Links Editor</h2><p className="text-slate-600 mt-2">Coming soon...</p></div>} />
-          <Route path="consultation" element={<div className="p-6 bg-white rounded-xl border border-slate-200"><h2 className="text-2xl font-bold">Consultation Editor</h2><p className="text-slate-600 mt-2">Coming soon...</p></div>} />
+          <Route path="socials" element={<SocialsEditor />} />
+          <Route path="consultation" element={<ConsultationEditor />} />
         </Route>
 
         {/* Catch all */}

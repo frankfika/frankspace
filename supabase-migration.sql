@@ -173,6 +173,35 @@ CREATE TABLE IF NOT EXISTS consultation (
   UNIQUE(lang)
 );
 
+-- 12. Personal Traits Table
+CREATE TABLE IF NOT EXISTS personal_traits (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  lang VARCHAR(5) NOT NULL DEFAULT 'en',
+  mbti VARCHAR(20),
+  zodiac VARCHAR(50),
+  hometown VARCHAR(100),
+  hangouts VARCHAR(200),
+  worked_in VARCHAR(200),
+  personalities TEXT,
+  proud_moments JSONB DEFAULT '[]'::jsonb,
+  beliefs JSONB DEFAULT '[]'::jsonb,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  UNIQUE(lang)
+);
+
+-- 13. Recommendations Table (Books/Movies/TV Shows)
+CREATE TABLE IF NOT EXISTS recommendations (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  lang VARCHAR(5) NOT NULL DEFAULT 'en',
+  type VARCHAR(20) NOT NULL CHECK (type IN ('book', 'movie', 'tv_show')),
+  category VARCHAR(100) NOT NULL,
+  items JSONB DEFAULT '[]'::jsonb,
+  display_order INTEGER DEFAULT 0,
+  created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
+  updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Create indexes for better query performance
 CREATE INDEX IF NOT EXISTS idx_skills_lang ON skills(lang);
 CREATE INDEX IF NOT EXISTS idx_experience_lang ON experience(lang);
@@ -181,6 +210,8 @@ CREATE INDEX IF NOT EXISTS idx_projects_lang ON projects(lang);
 CREATE INDEX IF NOT EXISTS idx_thoughts_lang ON thoughts(lang);
 CREATE INDEX IF NOT EXISTS idx_activities_lang ON activities(lang);
 CREATE INDEX IF NOT EXISTS idx_socials_lang ON socials(lang);
+CREATE INDEX IF NOT EXISTS idx_personal_traits_lang ON personal_traits(lang);
+CREATE INDEX IF NOT EXISTS idx_recommendations_lang ON recommendations(lang);
 
 -- Enable Row Level Security
 ALTER TABLE personal_info ENABLE ROW LEVEL SECURITY;
@@ -194,6 +225,8 @@ ALTER TABLE thoughts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE activities ENABLE ROW LEVEL SECURITY;
 ALTER TABLE socials ENABLE ROW LEVEL SECURITY;
 ALTER TABLE consultation ENABLE ROW LEVEL SECURITY;
+ALTER TABLE personal_traits ENABLE ROW LEVEL SECURITY;
+ALTER TABLE recommendations ENABLE ROW LEVEL SECURITY;
 
 -- RLS Policies: Public read, Authenticated write
 
@@ -263,6 +296,18 @@ CREATE POLICY "Authenticated can insert consultation" ON consultation FOR INSERT
 CREATE POLICY "Authenticated can update consultation" ON consultation FOR UPDATE USING (auth.role() = 'authenticated');
 CREATE POLICY "Authenticated can delete consultation" ON consultation FOR DELETE USING (auth.role() = 'authenticated');
 
+-- Personal Traits Policies
+CREATE POLICY "Public can read personal_traits" ON personal_traits FOR SELECT USING (true);
+CREATE POLICY "Authenticated can insert personal_traits" ON personal_traits FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can update personal_traits" ON personal_traits FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can delete personal_traits" ON personal_traits FOR DELETE USING (auth.role() = 'authenticated');
+
+-- Recommendations Policies
+CREATE POLICY "Public can read recommendations" ON recommendations FOR SELECT USING (true);
+CREATE POLICY "Authenticated can insert recommendations" ON recommendations FOR INSERT WITH CHECK (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can update recommendations" ON recommendations FOR UPDATE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can delete recommendations" ON recommendations FOR DELETE USING (auth.role() = 'authenticated');
+
 -- Create updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()
 RETURNS TRIGGER AS $$
@@ -284,3 +329,5 @@ CREATE TRIGGER update_thoughts_updated_at BEFORE UPDATE ON thoughts FOR EACH ROW
 CREATE TRIGGER update_activities_updated_at BEFORE UPDATE ON activities FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_socials_updated_at BEFORE UPDATE ON socials FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
 CREATE TRIGGER update_consultation_updated_at BEFORE UPDATE ON consultation FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_personal_traits_updated_at BEFORE UPDATE ON personal_traits FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();
+CREATE TRIGGER update_recommendations_updated_at BEFORE UPDATE ON recommendations FOR EACH ROW EXECUTE FUNCTION update_updated_at_column();

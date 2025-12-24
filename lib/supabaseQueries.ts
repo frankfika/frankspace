@@ -26,7 +26,9 @@ export async function fetchContentByLanguage(lang: Language): Promise<Partial<Co
       thoughts,
       activities,
       socials,
-      consultation
+      consultation,
+      personalTraits,
+      recommendations
     ] = await Promise.all([
       fetchData(supabase.from('personal_info').select('*').eq('lang', lang).single()),
       fetchData(supabase.from('navigation').select('*').eq('lang', lang).single()),
@@ -38,7 +40,9 @@ export async function fetchContentByLanguage(lang: Language): Promise<Partial<Co
       fetchData(supabase.from('thoughts').select('*').eq('lang', lang).order('display_order', { ascending: false })),
       fetchData(supabase.from('activities').select('*').eq('lang', lang).order('display_order', { ascending: false })),
       fetchData(supabase.from('socials').select('*').eq('lang', lang).order('display_order')),
-      fetchData(supabase.from('consultation').select('*').eq('lang', lang).single())
+      fetchData(supabase.from('consultation').select('*').eq('lang', lang).single()),
+      fetchData(supabase.from('personal_traits').select('*').eq('lang', lang).single()),
+      fetchData(supabase.from('recommendations').select('*').eq('lang', lang).order('display_order'))
     ]);
 
     // Transform database format to ContentData format
@@ -148,7 +152,35 @@ export async function fetchContentByLanguage(lang: Language): Promise<Partial<Co
         description: consultation.description || '',
         topics: consultation.topics || [],
         cta: consultation.cta || ''
-      } : undefined
+      } : undefined,
+
+      personalTraits: personalTraits ? {
+        mbti: personalTraits.mbti || '',
+        zodiac: personalTraits.zodiac || '',
+        hometown: personalTraits.hometown || '',
+        hangouts: personalTraits.hangouts || '',
+        workedIn: personalTraits.worked_in || '',
+        personalities: personalTraits.personalities || '',
+        proudMoments: personalTraits.proud_moments || [],
+        beliefs: personalTraits.beliefs || []
+      } : undefined,
+
+      recommendations: recommendations ? (() => {
+        // Group recommendations by type
+        const books = (recommendations as any[]).filter((r: any) => r.type === 'book').map((r: any) => ({
+          category: r.category,
+          books: r.items || []
+        }));
+        const movies = (recommendations as any[]).filter((r: any) => r.type === 'movie').map((r: any) => ({
+          category: r.category,
+          items: r.items || []
+        }));
+        const tvShows = (recommendations as any[]).filter((r: any) => r.type === 'tv_show').map((r: any) => ({
+          category: r.category,
+          items: r.items || []
+        }));
+        return { books, movies, tvShows };
+      })() : undefined
     };
 
     return contentData;
@@ -324,6 +356,70 @@ export const consultationQueries = {
     return await supabase
       .from('consultation')
       .upsert({ lang, ...data }, { onConflict: 'lang' });
+  }
+};
+
+export const navigationQueries = {
+  async get(lang: Language) {
+    return await supabase
+      .from('navigation')
+      .select('*')
+      .eq('lang', lang)
+      .single();
+  },
+  async update(lang: Language, data: any) {
+    return await supabase
+      .from('navigation')
+      .upsert({ lang, ...data }, { onConflict: 'lang' });
+  }
+};
+
+export const headersQueries = {
+  async get(lang: Language) {
+    return await supabase
+      .from('headers')
+      .select('*')
+      .eq('lang', lang)
+      .single();
+  },
+  async update(lang: Language, data: any) {
+    return await supabase
+      .from('headers')
+      .upsert({ lang, ...data }, { onConflict: 'lang' });
+  }
+};
+
+export const personalTraitsQueries = {
+  async get(lang: Language) {
+    return await supabase
+      .from('personal_traits')
+      .select('*')
+      .eq('lang', lang)
+      .single();
+  },
+  async update(lang: Language, data: any) {
+    return await supabase
+      .from('personal_traits')
+      .upsert({ lang, ...data }, { onConflict: 'lang' });
+  }
+};
+
+export const recommendationsQueries = {
+  async getAll(lang: Language) {
+    return await supabase
+      .from('recommendations')
+      .select('*')
+      .eq('lang', lang)
+      .order('display_order');
+  },
+  async create(data: any) {
+    return await supabase.from('recommendations').insert(data);
+  },
+  async update(id: string, data: any) {
+    return await supabase.from('recommendations').update(data).eq('id', id);
+  },
+  async delete(id: string) {
+    return await supabase.from('recommendations').delete().eq('id', id);
   }
 };
 
