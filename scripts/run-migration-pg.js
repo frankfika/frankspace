@@ -17,7 +17,7 @@ async function main() {
   console.log('🚀 Starting Supabase Migration...\n');
 
   // Read migration file
-  const migrationPath = path.join(__dirname, '..', 'supabase-migration.sql');
+  const migrationPath = path.join(__dirname, '..', 'supabase', 'migration.sql');
 
   if (!fs.existsSync(migrationPath)) {
     console.error('❌ Migration file not found:', migrationPath);

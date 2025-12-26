@@ -107,26 +107,28 @@ The following editors show placeholder pages - implement following the Activitie
 ## File Structure
 
 ```
-/lib
-  supabase.ts              # Supabase client initialization
-  supabaseQueries.ts       # All database queries
+/src
+  /lib
+    supabase.ts            # Supabase client initialization
+    supabaseQueries.ts     # All database queries
+  /hooks
+    useAuth.ts             # Authentication hook
+    useContent.ts          # Content fetching hook
+  /admin
+    /components
+      AdminLayout.tsx      # Admin panel layout with sidebar
+      ProtectedRoute.tsx   # Route protection wrapper
+    /pages
+      LoginPage.tsx        # Login page
+      Dashboard.tsx        # Admin dashboard
+      ActivitiesEditor.tsx # Activities CRUD editor (example)
+  AppRouter.tsx            # Main routing configuration
 
-/hooks
-  useAuth.ts               # Authentication hook
-  useContent.ts            # Content fetching hook
+/supabase
+  migration.sql            # Database schema
 
-/admin
-  /components
-    AdminLayout.tsx        # Admin panel layout with sidebar
-    ProtectedRoute.tsx     # Route protection wrapper
-  /pages
-    LoginPage.tsx          # Login page
-    Dashboard.tsx          # Admin dashboard
-    ActivitiesEditor.tsx   # Activities CRUD editor (example)
-
-AppRouter.tsx              # Main routing configuration
-supabase-migration.sql     # Database schema
-SUPABASE_SETUP.md         # Supabase setup guide
+/docs
+  SUPABASE_SETUP.md        # Supabase setup guide
 ```
 
 ## Database Schema

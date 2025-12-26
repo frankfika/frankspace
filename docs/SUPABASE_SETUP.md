@@ -31,7 +31,7 @@ VITE_SUPABASE_ANON_KEY=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
 
 1. In your Supabase dashboard, go to **SQL Editor**
 2. Click **New query**
-3. Copy the entire content of `supabase-migration.sql`
+3. Copy the entire content of `supabase/migration.sql`
 4. Paste it into the SQL Editor
 5. Click **Run** (or press Cmd/Ctrl + Enter)
 6. You should see "Success. No rows returned"

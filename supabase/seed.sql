@@ -1,5 +1,5 @@
 -- Frank Chen Portfolio - Supabase Seed Data
--- Run this AFTER running supabase-migration.sql
+-- Run this AFTER running supabase/migration.sql
 -- This will populate your database with the initial content
 
 -- =====================

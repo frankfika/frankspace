@@ -64,7 +64,7 @@ async function main() {
 
   if (missingTables.length > 0) {
     console.log('\n❌ Missing tables:', missingTables.join(', '));
-    console.log('\n⚠️  Please run supabase-migration.sql in Supabase Dashboard SQL Editor first!');
+    console.log('\n⚠️  Please run supabase/migration.sql in Supabase Dashboard SQL Editor first!');
     console.log('URL: https://supabase.com/dashboard/project/ydrnelssejbwsopfsumh/sql/new\n');
     process.exit(1);
   }
