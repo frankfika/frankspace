@@ -2,28 +2,26 @@ import React, { useState } from 'react';
 import useSWR from 'swr';
 import { projectsQueries, uploadImage } from '../../lib/supabaseQueries';
 import { translateToEnglish } from '../../lib/translateService';
-import { Plus, Edit2, Trash2, Save, X, Upload, AlertCircle, CheckCircle, Languages, Loader2, FolderOpen, ExternalLink } from 'lucide-react';
+import { Plus, Edit2, Trash2, Save, X, Upload, AlertCircle, CheckCircle, Languages, Loader2, FolderOpen, ExternalLink, Github } from 'lucide-react';
 
 interface Project {
   id?: string;
   title: string;
-  category: string;
+  tags: string[];
   description: string;
-  tech_stack: string[];
   link: string;
+  github_link: string;
   image: string;
-  stats: string;
   display_order: number;
 }
 
 const emptyData: Project = {
   title: '',
-  category: '',
+  tags: [],
   description: '',
-  tech_stack: [],
   link: '',
+  github_link: '',
   image: '',
-  stats: '',
   display_order: 0
 };
 
@@ -35,7 +33,7 @@ const ProjectsEditor: React.FC = () => {
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [techInput, setTechInput] = useState('');
+  const [tagInput, setTagInput] = useState('');
 
   const { data: zhProjects, mutate: mutateZh } = useSWR(
     ['projects', 'zh'],
@@ -55,7 +53,7 @@ const ProjectsEditor: React.FC = () => {
     const order = zhProjects?.data?.length || 0;
     setZhForm({ ...emptyData, display_order: order });
     setEnForm({ ...emptyData, display_order: order });
-    setTechInput('');
+    setTagInput('');
   };
 
   const handleEdit = (zhProject: any) => {
@@ -67,28 +65,26 @@ const ProjectsEditor: React.FC = () => {
     setZhForm({
       id: zhProject.id,
       title: zhProject.title || '',
-      category: zhProject.category || '',
+      tags: zhProject.tags || [],
       description: zhProject.description || '',
-      tech_stack: zhProject.tech_stack || [],
       link: zhProject.link || '',
+      github_link: zhProject.github_link || '',
       image: zhProject.image || '',
-      stats: zhProject.stats || '',
       display_order: zhProject.display_order
     });
 
     setEnForm({
       id: enProject.id,
       title: enProject.title || '',
-      category: enProject.category || '',
+      tags: enProject.tags || zhProject.tags || [],
       description: enProject.description || '',
-      tech_stack: enProject.tech_stack || zhProject.tech_stack || [],
       link: enProject.link || zhProject.link || '',
+      github_link: enProject.github_link || zhProject.github_link || '',
       image: enProject.image || zhProject.image || '',
-      stats: enProject.stats || '',
       display_order: enProject.display_order || zhProject.display_order
     });
 
-    setTechInput('');
+    setTagInput('');
   };
 
   const handleCancel = () => {
@@ -106,8 +102,8 @@ const ProjectsEditor: React.FC = () => {
       const newEnForm = { ...enForm };
 
       // Copy non-translatable fields
-      newEnForm.tech_stack = zhForm.tech_stack;
       newEnForm.link = zhForm.link;
+      newEnForm.github_link = zhForm.github_link;
       newEnForm.image = zhForm.image;
       newEnForm.display_order = zhForm.display_order;
 
@@ -116,17 +112,19 @@ const ProjectsEditor: React.FC = () => {
         const result = await translateToEnglish(zhForm.title);
         newEnForm.title = result.text;
       }
-      if (zhForm.category) {
-        const result = await translateToEnglish(zhForm.category);
-        newEnForm.category = result.text;
-      }
       if (zhForm.description) {
         const result = await translateToEnglish(zhForm.description);
         newEnForm.description = result.text;
       }
-      if (zhForm.stats) {
-        const result = await translateToEnglish(zhForm.stats);
-        newEnForm.stats = result.text;
+      // Translate tags
+      if (zhForm.tags && zhForm.tags.length > 0) {
+        const translatedTags = await Promise.all(
+          zhForm.tags.map(async (tag) => {
+            const result = await translateToEnglish(tag);
+            return result.text;
+          })
+        );
+        newEnForm.tags = translatedTags;
       }
 
       setEnForm(newEnForm);
@@ -139,19 +137,27 @@ const ProjectsEditor: React.FC = () => {
     }
   };
 
-  const handleAddTech = () => {
-    if (techInput.trim()) {
-      const newTech = [...zhForm.tech_stack, techInput.trim()];
-      setZhForm(prev => ({ ...prev, tech_stack: newTech }));
-      setEnForm(prev => ({ ...prev, tech_stack: newTech }));
-      setTechInput('');
+  const handleAddTag = (lang: 'zh' | 'en') => {
+    if (tagInput.trim()) {
+      if (lang === 'zh') {
+        const newTags = [...zhForm.tags, tagInput.trim()];
+        setZhForm(prev => ({ ...prev, tags: newTags }));
+      } else {
+        const newTags = [...enForm.tags, tagInput.trim()];
+        setEnForm(prev => ({ ...prev, tags: newTags }));
+      }
+      setTagInput('');
     }
   };
 
-  const handleRemoveTech = (index: number) => {
-    const newTech = zhForm.tech_stack.filter((_, i) => i !== index);
-    setZhForm(prev => ({ ...prev, tech_stack: newTech }));
-    setEnForm(prev => ({ ...prev, tech_stack: newTech }));
+  const handleRemoveTag = (index: number, lang: 'zh' | 'en') => {
+    if (lang === 'zh') {
+      const newTags = zhForm.tags.filter((_, i) => i !== index);
+      setZhForm(prev => ({ ...prev, tags: newTags }));
+    } else {
+      const newTags = enForm.tags.filter((_, i) => i !== index);
+      setEnForm(prev => ({ ...prev, tags: newTags }));
+    }
   };
 
   const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -333,27 +339,77 @@ const ProjectsEditor: React.FC = () => {
               </div>
             </div>
 
-            {/* Category */}
+            {/* Tags */}
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Category (中文)</label>
-                <input
-                  type="text"
-                  value={zhForm.category}
-                  onChange={(e) => setZhForm({ ...zhForm, category: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none text-sm"
-                  placeholder="工程, 金融科技"
-                />
+                <label className="block text-sm font-medium text-slate-700 mb-1">Tags (中文)</label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {zhForm.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center gap-1 px-3 py-1 bg-brand-100 text-brand-700 rounded-full text-sm"
+                    >
+                      {tag}
+                      <button
+                        onClick={() => handleRemoveTag(index, 'zh')}
+                        className="hover:text-red-600"
+                      >
+                        <X size={14} />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={tagInput}
+                    onChange={(e) => setTagInput(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleAddTag('zh')}
+                    className="flex-1 px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none text-sm"
+                    placeholder="输入标签后回车"
+                  />
+                  <button
+                    onClick={() => handleAddTag('zh')}
+                    className="px-3 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors"
+                  >
+                    <Plus size={18} />
+                  </button>
+                </div>
               </div>
               <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Category (English)</label>
-                <input
-                  type="text"
-                  value={enForm.category}
-                  onChange={(e) => setEnForm({ ...enForm, category: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none text-sm bg-blue-50"
-                  placeholder="Engineering, FinTech"
-                />
+                <label className="block text-sm font-medium text-slate-700 mb-1">Tags (English)</label>
+                <div className="flex flex-wrap gap-2 mb-2">
+                  {enForm.tags.map((tag, index) => (
+                    <span
+                      key={index}
+                      className="inline-flex items-center gap-1 px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm"
+                    >
+                      {tag}
+                      <button
+                        onClick={() => handleRemoveTag(index, 'en')}
+                        className="hover:text-red-600"
+                      >
+                        <X size={14} />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-2">
+                  <input
+                    type="text"
+                    value={tagInput}
+                    onChange={(e) => setTagInput(e.target.value)}
+                    onKeyPress={(e) => e.key === 'Enter' && handleAddTag('en')}
+                    className="flex-1 px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none text-sm bg-blue-50"
+                    placeholder="Type tag and press Enter"
+                  />
+                  <button
+                    onClick={() => handleAddTag('en')}
+                    className="px-3 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors"
+                  >
+                    <Plus size={18} />
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -381,70 +437,9 @@ const ProjectsEditor: React.FC = () => {
               </div>
             </div>
 
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Stats / Highlight (中文)</label>
-                <input
-                  type="text"
-                  value={zhForm.stats}
-                  onChange={(e) => setZhForm({ ...zhForm, stats: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none text-sm"
-                  placeholder="100万+ 用户"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Stats / Highlight (English)</label>
-                <input
-                  type="text"
-                  value={enForm.stats}
-                  onChange={(e) => setEnForm({ ...enForm, stats: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none text-sm bg-blue-50"
-                  placeholder="1M+ Users"
-                />
-              </div>
-            </div>
-
-            {/* Tech Stack - same for both */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Tech Stack (same for both)</label>
-              <div className="flex flex-wrap gap-2 mb-2">
-                {zhForm.tech_stack.map((tech, index) => (
-                  <span
-                    key={index}
-                    className="inline-flex items-center gap-1 px-3 py-1 bg-brand-100 text-brand-700 rounded-full text-sm"
-                  >
-                    {tech}
-                    <button
-                      onClick={() => handleRemoveTech(index)}
-                      className="hover:text-red-600"
-                    >
-                      <X size={14} />
-                    </button>
-                  </span>
-                ))}
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={techInput}
-                  onChange={(e) => setTechInput(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && handleAddTech()}
-                  className="flex-1 max-w-md px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none text-sm"
-                  placeholder="Add technology..."
-                />
-                <button
-                  onClick={handleAddTech}
-                  className="px-3 py-2 bg-slate-200 text-slate-700 rounded-lg hover:bg-slate-300 transition-colors"
-                >
-                  <Plus size={18} />
-                </button>
-              </div>
-            </div>
-
             {/* Link - same for both */}
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Link (same for both)</label>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Project Link (same for both)</label>
               <input
                 type="url"
                 value={zhForm.link}
@@ -454,6 +449,21 @@ const ProjectsEditor: React.FC = () => {
                 }}
                 className="w-full max-w-md px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none text-sm"
                 placeholder="https://example.com"
+              />
+            </div>
+
+            {/* GitHub Link - same for both */}
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">GitHub Link (optional, same for both)</label>
+              <input
+                type="url"
+                value={zhForm.github_link}
+                onChange={(e) => {
+                  setZhForm({ ...zhForm, github_link: e.target.value });
+                  setEnForm({ ...enForm, github_link: e.target.value });
+                }}
+                className="w-full max-w-md px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none text-sm"
+                placeholder="https://github.com/username/repo"
               />
             </div>
 
@@ -490,20 +500,6 @@ const ProjectsEditor: React.FC = () => {
               </div>
             </div>
 
-            {/* Display Order */}
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Display Order</label>
-              <input
-                type="number"
-                value={zhForm.display_order}
-                onChange={(e) => {
-                  const order = parseInt(e.target.value);
-                  setZhForm({ ...zhForm, display_order: order });
-                  setEnForm({ ...enForm, display_order: order });
-                }}
-                className="w-32 px-3 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 outline-none text-sm"
-              />
-            </div>
           </div>
         </div>
       )}
@@ -540,10 +536,17 @@ const ProjectsEditor: React.FC = () => {
                           <h3 className="font-semibold text-slate-900">{enProject?.title || '-'}</h3>
                         </div>
                       </div>
-                      {project.category && (
-                        <span className="text-xs text-brand-600 bg-brand-50 px-2 py-0.5 rounded-full">
-                          {project.category}
-                        </span>
+                      {project.tags && project.tags.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-1">
+                          {project.tags.slice(0, 3).map((tag: string, idx: number) => (
+                            <span key={idx} className="text-xs text-brand-600 bg-brand-50 px-2 py-0.5 rounded-full">
+                              {tag}
+                            </span>
+                          ))}
+                          {project.tags.length > 3 && (
+                            <span className="text-xs text-slate-400">+{project.tags.length - 3}</span>
+                          )}
+                        </div>
                       )}
                     </div>
                   </div>
@@ -563,35 +566,29 @@ const ProjectsEditor: React.FC = () => {
                   </div>
                 </div>
 
-                {project.tech_stack && project.tech_stack.length > 0 && (
-                  <div className="flex flex-wrap gap-1 mb-3">
-                    {project.tech_stack.slice(0, 4).map((tech: string, idx: number) => (
-                      <span key={idx} className="text-xs px-2 py-0.5 bg-slate-100 text-slate-600 rounded">
-                        {tech}
-                      </span>
-                    ))}
-                    {project.tech_stack.length > 4 && (
-                      <span className="text-xs px-2 py-0.5 bg-slate-100 text-slate-400 rounded">
-                        +{project.tech_stack.length - 4}
-                      </span>
+                <div className="flex items-center justify-end">
+                  <div className="flex gap-2">
+                    {project.github_link && (
+                      <a
+                        href={project.github_link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-slate-600 hover:text-slate-800"
+                      >
+                        <Github size={16} />
+                      </a>
+                    )}
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-brand-600 hover:text-brand-700"
+                      >
+                        <ExternalLink size={16} />
+                      </a>
                     )}
                   </div>
-                )}
-
-                <div className="flex items-center justify-between">
-                  {project.stats && (
-                    <span className="text-sm font-medium text-green-600">{project.stats}</span>
-                  )}
-                  {project.link && (
-                    <a
-                      href={project.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand-600 hover:text-brand-700"
-                    >
-                      <ExternalLink size={16} />
-                    </a>
-                  )}
                 </div>
               </div>
             </div>

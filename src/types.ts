@@ -27,10 +27,10 @@ export interface SkillMetric {
 export interface Project {
   id: string;
   title: string;
-  category: string;
+  tags: string[];
   description: string;
-  techStack: string[];
   link?: string;
+  githubLink?: string;
   image?: string;
   stats?: string;
 }

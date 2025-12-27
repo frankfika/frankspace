@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { ContentData, Project } from '../types';
-import { Code, Activity, Terminal, ArrowUpRight, Plus, Trash2, Edit2, Save, X } from 'lucide-react';
+import { Code, Activity, Terminal, ArrowUpRight, Plus, Trash2, Edit2, Save, X, Github } from 'lucide-react';
 
 // Generate thumbnail URL from project link
 const getThumbnailUrl = (link?: string): string => {
@@ -29,12 +29,12 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
   const [editForm, setEditForm] = useState<Partial<Project>>({});
   const [tagInput, setTagInput] = useState('');
 
-  // Extract categories dynamically
-  const categories = ['All', ...Array.from(new Set(projects.map(p => p.category)))];
+  // Extract unique tags dynamically
+  const allTags = ['All', ...Array.from(new Set(projects.flatMap(p => p.tags || [])))];
 
   const filteredProjects = filter === 'All'
     ? projects
-    : projects.filter(p => p.category === filter);
+    : projects.filter(p => p.tags?.includes(filter));
 
   const handleDelete = (id: string) => {
     if (window.confirm('Are you sure you want to delete this project?')) {
@@ -51,10 +51,10 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
   const handleNewClick = () => {
       setEditForm({
           title: '',
-          category: 'Engineering',
+          tags: [],
           description: '',
-          techStack: [],
           link: '',
+          githubLink: '',
           image: '',
           stats: ''
       });
@@ -62,8 +62,8 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
   };
 
   const handleSave = () => {
-      if (!editForm.title || !editForm.description || !editForm.category) {
-          return alert('Title, Category, and Description are required');
+      if (!editForm.title || !editForm.description) {
+          return alert('Title and Description are required');
       }
 
       // Auto-generate thumbnail from link
@@ -73,10 +73,10 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
           const newProject: Project = {
               id: Date.now().toString(),
               title: editForm.title!,
-              category: editForm.category!,
+              tags: editForm.tags || [],
               description: editForm.description!,
-              techStack: editForm.techStack || [],
               link: editForm.link,
+              githubLink: editForm.githubLink,
               image: autoImage,
               stats: editForm.stats
           };
@@ -99,10 +99,10 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
 
   const handleAddTag = () => {
       const trimmedTag = tagInput.trim();
-      if (trimmedTag && !editForm.techStack?.includes(trimmedTag)) {
+      if (trimmedTag && !editForm.tags?.includes(trimmedTag)) {
           setEditForm({
               ...editForm,
-              techStack: [...(editForm.techStack || []), trimmedTag]
+              tags: [...(editForm.tags || []), trimmedTag]
           });
           setTagInput('');
       }
@@ -111,7 +111,7 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
   const handleRemoveTag = (index: number) => {
       setEditForm({
           ...editForm,
-          techStack: editForm.techStack?.filter((_, i) => i !== index)
+          tags: editForm.tags?.filter((_, i) => i !== index)
       });
   };
 
@@ -144,38 +144,11 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
                   </div>
 
                   <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">Category *</label>
-                      <select
-                          value={editForm.category || ''}
-                          onChange={(e) => setEditForm({ ...editForm, category: e.target.value })}
-                          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                      >
-                          <option value="">Select category</option>
-                          <option value="Media">Media</option>
-                          <option value="FinTech">FinTech</option>
-                          <option value="Engineering">Engineering</option>
-                          <option value="Blockchain">Blockchain</option>
-                          <option value="AI">AI</option>
-                          <option value="Strategy">Strategy</option>
-                      </select>
-                  </div>
-
-                  <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">Description *</label>
-                      <textarea
-                          value={editForm.description || ''}
-                          onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
-                          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent min-h-[100px]"
-                          placeholder="Project description"
-                      />
-                  </div>
-
-                  <div>
-                      <label className="block text-sm font-semibold text-slate-700 mb-2">Tech Stack</label>
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Tags</label>
 
                       {/* Display existing tags */}
                       <div className="flex flex-wrap gap-2 mb-3">
-                          {editForm.techStack?.map((tag, index) => (
+                          {editForm.tags?.map((tag, index) => (
                               <span
                                   key={index}
                                   className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-brand-50 text-brand-700 rounded-lg border border-brand-200 text-sm font-medium"
@@ -205,7 +178,7 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
                                   }
                               }}
                               className="flex-1 px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
-                              placeholder="Type tech name and press Enter"
+                              placeholder="Type tag and press Enter (e.g. AI, FinTech)"
                           />
                           <button
                               type="button"
@@ -215,6 +188,16 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
                               <Plus size={16} /> Add
                           </button>
                       </div>
+                  </div>
+
+                  <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">Description *</label>
+                      <textarea
+                          value={editForm.description || ''}
+                          onChange={(e) => setEditForm({ ...editForm, description: e.target.value })}
+                          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent min-h-[100px]"
+                          placeholder="Project description"
+                      />
                   </div>
 
                   <div>
@@ -229,6 +212,17 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
                       <p className="text-xs text-slate-500 mt-1">
                           Thumbnail will be automatically generated from this URL
                       </p>
+                  </div>
+
+                  <div>
+                      <label className="block text-sm font-semibold text-slate-700 mb-2">GitHub Link (optional)</label>
+                      <input
+                          type="url"
+                          value={editForm.githubLink || ''}
+                          onChange={(e) => setEditForm({ ...editForm, githubLink: e.target.value })}
+                          className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-brand-500 focus:border-transparent"
+                          placeholder="https://github.com/username/repo"
+                      />
                   </div>
 
                   <div>
@@ -278,17 +272,17 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
 
         {/* Filter Tabs + Admin Add Button */}
         <div className="flex gap-1.5 sm:gap-2 flex-wrap items-center">
-          {categories.map(cat => (
+          {allTags.map(tag => (
             <button
-              key={cat}
-              onClick={() => setFilter(cat)}
+              key={tag}
+              onClick={() => setFilter(tag)}
               className={`px-3 sm:px-4 md:px-5 py-1.5 sm:py-2 md:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all ${
-                filter === cat
+                filter === tag
                   ? 'bg-slate-900 text-white shadow-lg shadow-slate-900/20 transform scale-105'
                   : 'bg-white text-slate-500 hover:bg-slate-50 border border-slate-200 hover:border-slate-300'
               }`}
             >
-              {cat}
+              {tag}
             </button>
           ))}
 
@@ -372,32 +366,51 @@ const VibeCoding: React.FC<VibeCodingProps> = ({ data, projects, isAdmin, onUpda
                 <div className="p-4 sm:p-5 md:p-6 flex-1 flex flex-col relative">
                   <div className="flex justify-between items-start mb-3 sm:mb-4">
                     <div className="flex flex-col">
-                        <span className="text-[10px] sm:text-xs font-bold font-mono text-brand-600 mb-0.5 sm:mb-1 flex items-center gap-1">
-                            <span className="inline-block w-1 h-1 sm:w-1.5 sm:h-1.5 bg-brand-500 rounded-full animate-pulse"></span>
-                            {project.category}
-                        </span>
+                        {project.tags && project.tags.length > 0 && (
+                          <div className="flex flex-wrap gap-1 mb-1">
+                            {project.tags.slice(0, 2).map((tag, i) => (
+                              <span key={i} className="text-[10px] sm:text-xs font-bold font-mono text-brand-600 flex items-center gap-1">
+                                <span className="inline-block w-1 h-1 sm:w-1.5 sm:h-1.5 bg-brand-500 rounded-full animate-pulse"></span>
+                                {tag}
+                              </span>
+                            ))}
+                          </div>
+                        )}
                         <h3 className="text-base sm:text-lg md:text-xl font-bold text-slate-900 group-hover:text-brand-600 transition-colors">
                             {project.title}
                         </h3>
                     </div>
-                    {project.stats && (
+                    <div className="flex items-center gap-2">
+                      {project.githubLink && (
+                        <a
+                          href={project.githubLink}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="text-slate-400 hover:text-slate-700 transition-colors"
+                        >
+                          <Github size={16} className="sm:w-[18px] sm:h-[18px]" />
+                        </a>
+                      )}
+                      {project.stats && (
                         <div className="flex items-center gap-1 sm:gap-1.5 text-slate-600 text-[10px] sm:text-xs font-bold bg-slate-100 px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg border border-slate-200">
                             <Activity size={10} className="text-brand-500 sm:w-3 sm:h-3" />
                             {project.stats}
                         </div>
-                     )}
+                      )}
+                    </div>
                   </div>
 
                   <p className="text-slate-600 text-xs sm:text-sm mb-4 sm:mb-6 leading-relaxed flex-1 border-l-2 border-slate-100 pl-3 sm:pl-4">
                     {project.description}
                   </p>
 
-                  {/* Tech Stack Footer */}
+                  {/* Tags Footer */}
                   <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-3 sm:pt-4 border-t border-slate-100 mt-auto">
-                    {project.techStack.map((tech, i) => (
+                    {project.tags?.map((tag, i) => (
                       <span key={i} className="text-[10px] sm:text-xs text-slate-600 bg-slate-50 px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded border border-slate-200 font-mono flex items-center gap-1 sm:gap-1.5 group-hover:border-brand-300 transition-colors">
                         <span className="text-brand-400 font-bold">#</span>
-                        {tech}
+                        {tag}
                       </span>
                     ))}
                   </div>

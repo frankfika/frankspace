@@ -106,10 +106,10 @@ export async function fetchContentByLanguage(lang: Language): Promise<Partial<Co
       projects: projects ? projects.map((p: any) => ({
         id: p.id,
         title: p.title,
-        category: p.category || '',
+        tags: p.tags || [],
         description: p.description || '',
-        techStack: p.tech_stack || [],
         link: p.link,
+        githubLink: p.github_link,
         image: p.image,
         stats: p.stats
       })) : [],
