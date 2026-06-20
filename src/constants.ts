@@ -255,42 +255,48 @@ export const CONTENT: { en: ContentData; zh: ContentData } = {
       {
         id: '1',
         title: "Nordic Institute",
-        category: "Media",
+        tags: ["Media", "Content Strategy", "WeChat Eco", "Branding"],
         description: "Co-founded renowned Nordic public account becoming a major information platform for the Nordic Chinese community.",
-        techStack: ["Content Strategy", "WeChat Eco", "Branding"],
-        stats: "10K+ Followers",
         image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800&auto=format&fit=crop",
-        link: "https://mp.weixin.qq.com/s/nordic-institute"
+        link: "https://mp.weixin.qq.com/s/nordic-institute",
+        stats: "10K+ Followers"
       },
       {
         id: '2',
         title: "AI Risk Assessment",
-        category: "FinTech",
+        tags: ["FinTech", "Python", "Scikit-learn", "Financial Modeling"],
         description: "Applied AI algorithms for investment project risk assessment and return forecasting to improve decision efficiency.",
-        techStack: ["Python", "Scikit-learn", "Financial Modeling"],
-        stats: "RMB 100M+ Managed",
         image: "https://images.unsplash.com/photo-1611974765270-ca1258634369?q=80&w=800&auto=format&fit=crop",
-        link: "https://github.com/frankfika/ai-risk-assessment"
+        link: "https://github.com/frankfika/ai-risk-assessment",
+        stats: "RMB 100M+ Managed"
       },
       {
         id: '3',
         title: "City Route AI",
-        category: "Engineering",
+        tags: ["Engineering", "Node.js", "React", "Graph Algorithms"],
         description: "City-level AI route recommendation system for Robotaxi/Bus booking services.",
-        techStack: ["Node.js", "React", "Graph Algorithms"],
-        stats: "3x Dev Efficiency",
         image: "https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop",
-        link: "https://github.com/frankfika/city-route-ai"
+        link: "https://github.com/frankfika/city-route-ai",
+        stats: "3x Dev Efficiency"
       },
       {
         id: '4',
         title: "Web3 Operations",
-        category: "Blockchain",
+        tags: ["Blockchain", "Solidity", "Community Mgmt", "Tokenomics"],
         description: "Leading technical and cross-departmental teams to deliver million-user Web3 project.",
-        techStack: ["Solidity", "Community Mgmt", "Tokenomics"],
-        stats: "1M+ Users",
         image: "https://images.unsplash.com/photo-1621504450168-38f6854b13eb?q=80&w=800&auto=format&fit=crop",
-        link: "https://www.htxdao.com"
+        link: "https://www.htxdao.com",
+        stats: "1M+ Users"
+      },
+      {
+        id: '5',
+        title: 'DailyFlow',
+        tags: ['Vibe Coding', 'Tauri', 'React', 'Desktop', 'AI', 'Markdown'],
+        description: 'Local-first smart task & notes management desktop app. Markdown as single source of truth, built-in AI assistant with 15+ model providers, automatic cross-day task migration. Built with Tauri 2 + React 19 + Express.',
+        link: 'https://github.com/frankfika/dailyflow',
+        githubLink: 'https://github.com/frankfika/dailyflow',
+        image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop',
+        stats: '34 Releases | 149 Tests'
       }
     ],
     activities: [
@@ -456,7 +462,7 @@ export const CONTENT: { en: ContentData; zh: ContentData } = {
     navigation: {
       home: "首页",
       profile: "个人介绍",
-      vibe: "灵感编程",
+      vibe: "VibeCoding",
       activities: "活动足迹",
       thoughts: "思考笔记",
       consultation: "付费咨询"
@@ -589,42 +595,48 @@ export const CONTENT: { en: ContentData; zh: ContentData } = {
       {
         id: '1',
         title: "北欧模式 (Nordic Institute)",
-        category: "媒体与传播",
+        tags: ["媒体与传播", "内容战略", "微信生态", "品牌建设"],
         description: "联合创办北欧知名公众号，成为北欧华人社区的主要信息平台。",
-        techStack: ["内容战略", "微信生态", "品牌建设"],
-        stats: "1万+ 关注者",
         image: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800&auto=format&fit=crop",
-        link: "https://mp.weixin.qq.com/s/nordic-institute"
+        link: "https://mp.weixin.qq.com/s/nordic-institute",
+        stats: "1万+ 关注者"
       },
       {
         id: '2',
         title: "AI 风险评估模型",
-        category: "金融科技",
+        tags: ["金融科技", "Python", "Scikit-learn", "金融建模"],
         description: "应用AI算法对投资项目进行风险评估和回报预测，提高决策效率。",
-        techStack: ["Python", "Scikit-learn", "金融建模"],
-        stats: "管理 1亿+ 资金",
         image: "https://images.unsplash.com/photo-1611974765270-ca1258634369?q=80&w=800&auto=format&fit=crop",
-        link: "https://github.com/frankfika/ai-risk-assessment"
+        link: "https://github.com/frankfika/ai-risk-assessment",
+        stats: "管理 1亿+ 资金"
       },
       {
         id: '3',
         title: "城市路线AI推荐",
-        category: "工程开发",
+        tags: ["工程开发", "Node.js", "React", "图算法"],
         description: "用于Robotaxi/巴士预订服务的城市级AI路线推荐系统。",
-        techStack: ["Node.js", "React", "图算法"],
-        stats: "3倍 开发效率",
         image: "https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop",
-        link: "https://github.com/frankfika/city-route-ai"
+        link: "https://github.com/frankfika/city-route-ai",
+        stats: "3倍 开发效率"
       },
       {
         id: '4',
         title: "Web3 运营交付",
-        category: "区块链",
+        tags: ["区块链", "Solidity", "社群管理", "通证经济"],
         description: "带领技术和跨部门团队成功交付百万用户级Web3项目。",
-        techStack: ["Solidity", "社群管理", "通证经济"],
-        stats: "100万+ 用户",
         image: "https://images.unsplash.com/photo-1621504450168-38f6854b13eb?q=80&w=800&auto=format&fit=crop",
-        link: "https://www.htxdao.com"
+        link: "https://www.htxdao.com",
+        stats: "100万+ 用户"
+      },
+      {
+        id: '5',
+        title: 'DailyFlow',
+        tags: ['Vibe Coding', 'Tauri', 'React', '桌面应用', 'AI', 'Markdown'],
+        description: '本地优先的智能任务与笔记管理桌面应用。以 Markdown 作为唯一数据源，内置 AI 助手（支持 15+ 模型供应商），自动处理跨日任务迁移。基于 Tauri 2 + React 19 + Express 构建。',
+        link: 'https://github.com/frankfika/dailyflow',
+        githubLink: 'https://github.com/frankfika/dailyflow',
+        image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop',
+        stats: '34 个版本 | 149 个测试'
       }
     ],
     activities: [

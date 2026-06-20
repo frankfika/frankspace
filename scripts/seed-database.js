@@ -121,7 +121,7 @@ async function main() {
   console.log('2. Navigation...');
   await upsert('navigation', [
     { lang: 'en', home: 'Home', profile: 'About Me', vibe: 'Vibe Coding', activities: 'Activities', thoughts: 'Thoughts', consultation: 'Consultation' },
-    { lang: 'zh', home: '首页', profile: '个人介绍', vibe: '灵感编程', activities: '活动足迹', thoughts: '思考笔记', consultation: '付费咨询' }
+    { lang: 'zh', home: '首页', profile: '个人介绍', vibe: 'VibeCoding', activities: '活动足迹', thoughts: '思考笔记', consultation: '付费咨询' }
   ]);
   console.log('  ✅ Done');
 
@@ -179,57 +179,17 @@ async function main() {
   ]);
   console.log('  ✅ Done');
 
-  // Projects
+  // Projects (managed via admin panel, not seeded)
   console.log('7. Projects...');
-  await upsert('projects', [
-    { lang: 'en', title: 'Nordic Institute', category: 'Media', description: 'Co-founded renowned Nordic public account becoming a major information platform for the Nordic Chinese community.', tech_stack: ["Content Strategy", "WeChat Eco", "Branding"], stats: '10K+ Followers', image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800&auto=format&fit=crop', link: 'https://mp.weixin.qq.com/s/nordic-institute', display_order: 0 },
-    { lang: 'en', title: 'AI Risk Assessment', category: 'FinTech', description: 'Applied AI algorithms for investment project risk assessment and return forecasting to improve decision efficiency.', tech_stack: ["Python", "Scikit-learn", "Financial Modeling"], stats: 'RMB 100M+ Managed', image: 'https://images.unsplash.com/photo-1611974765270-ca1258634369?q=80&w=800&auto=format&fit=crop', link: 'https://github.com/frankfika/ai-risk-assessment', display_order: 1 },
-    { lang: 'en', title: 'City Route AI', category: 'Engineering', description: 'City-level AI route recommendation system for Robotaxi/Bus booking services.', tech_stack: ["Node.js", "React", "Graph Algorithms"], stats: '3x Dev Efficiency', image: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop', link: 'https://github.com/frankfika/city-route-ai', display_order: 2 },
-    { lang: 'en', title: 'Web3 Operations', category: 'Blockchain', description: 'Leading technical and cross-departmental teams to deliver million-user Web3 project.', tech_stack: ["Solidity", "Community Mgmt", "Tokenomics"], stats: '1M+ Users', image: 'https://images.unsplash.com/photo-1621504450168-38f6854b13eb?q=80&w=800&auto=format&fit=crop', link: 'https://www.htxdao.com', display_order: 3 },
-    { lang: 'zh', title: '北欧模式 (Nordic Institute)', category: '媒体与传播', description: '联合创办北欧知名公众号，成为北欧华人社区的主要信息平台。', tech_stack: ["内容战略", "微信生态", "品牌建设"], stats: '1万+ 关注者', image: 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800&auto=format&fit=crop', link: 'https://mp.weixin.qq.com/s/nordic-institute', display_order: 0 },
-    { lang: 'zh', title: 'AI 风险评估模型', category: '金融科技', description: '应用AI算法对投资项目进行风险评估和回报预测，提高决策效率。', tech_stack: ["Python", "Scikit-learn", "金融建模"], stats: '管理 1亿+ 资金', image: 'https://images.unsplash.com/photo-1611974765270-ca1258634369?q=80&w=800&auto=format&fit=crop', link: 'https://github.com/frankfika/ai-risk-assessment', display_order: 1 },
-    { lang: 'zh', title: '城市路线AI推荐', category: '工程开发', description: '用于Robotaxi/巴士预订服务的城市级AI路线推荐系统。', tech_stack: ["Node.js", "React", "图算法"], stats: '3倍 开发效率', image: 'https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop', link: 'https://github.com/frankfika/city-route-ai', display_order: 2 },
-    { lang: 'zh', title: 'Web3 运营交付', category: '区块链', description: '带领技术和跨部门团队成功交付百万用户级Web3项目。', tech_stack: ["Solidity", "社群管理", "通证经济"], stats: '100万+ 用户', image: 'https://images.unsplash.com/photo-1621504450168-38f6854b13eb?q=80&w=800&auto=format&fit=crop', link: 'https://www.htxdao.com', display_order: 3 }
-  ]);
-  console.log('  ✅ Done');
+  console.log('  ⏭️  Skipped (managed via admin panel)');
 
-  // Thoughts
+  // Thoughts (managed via admin panel, not seeded)
   console.log('8. Thoughts...');
-  await upsert('thoughts', [
-    { lang: 'en', title: 'The Convergence of AI and Investment Ops', date: '2024-10-15', tags: ["AI Strategy", "Finance"], snippet: 'How machine learning models are reshaping due diligence processes in private equity...', content: 'The landscape of private equity is undergoing a seismic shift. Traditionally, due diligence was a manual, labor-intensive process involving endless spreadsheets and expert interviews. Today, Agentic Workflows and LLMs can analyze market sentiment, predict churn from user reviews, and even audit codebases in minutes.', link: 'https://36kr.com/', read_time: '5 min read', display_order: 0 },
-    { lang: 'en', title: 'Managing Cross-Cultural Tech Teams', date: '2024-08-22', tags: ["Management", "Culture"], snippet: 'Lessons learned from Stockholm to Shanghai: Bridging the gap between engineering and business units.', content: 'Having led teams in Sweden, India, and China, I\'ve observed that the "Tech" language is universal, but the "Business" language is highly dialectal.', link: 'https://36kr.com/', read_time: '8 min read', display_order: 1 },
-    { lang: 'en', title: 'Zero Cost Marketing: The 36kr Strategy', date: '2024-05-10', tags: ["Growth Hacking", "PR"], snippet: 'Leveraging personal influence and authoritative media to gain traction without ad spend.', content: 'When we launched our Web3 project, we had zero marketing budget. Instead of buying ads, we focused on "Narrative Fit".', link: 'https://36kr.com/', read_time: '4 min read', display_order: 2 },
-    { lang: 'en', title: 'Investment Methodology | How do investors really view projects?', date: '2023-06-15', tags: ["Investment", "Methodology"], snippet: 'A detailed mind map breaking down how investors evaluate startup projects from multiple dimensions.', content: null, link: 'https://mp.weixin.qq.com/s/yRAphxCu4rFsLEjehJyK6A', read_time: '10 min read', display_order: 3 },
-    { lang: 'en', title: 'Dirty Jobs and Hard Tech', date: '2023-05-20', tags: ["Tech", "Industry"], snippet: 'Why the most valuable tech companies often do the dirty work that others avoid.', content: null, link: 'https://mp.weixin.qq.com/s/rQMjdqCqWFlGETH0G-0x5A', read_time: '8 min read', display_order: 4 },
-    { lang: 'en', title: 'A Debate on the Rise of India', date: '2023-04-10', tags: ["India", "Geopolitics"], snippet: 'My thoughts on India\'s economic trajectory and what it means for global tech.', content: null, link: 'https://mp.weixin.qq.com/s/i5Zf7s-oDMpXantd5nFjKg', read_time: '12 min read', display_order: 5 },
-    { lang: 'en', title: 'AI Companies in China: High-Tech Construction Crew', date: '2023-08-15', tags: ["AI", "China"], snippet: 'An analysis of China\'s AI industry - the reality behind the hype.', content: null, link: 'https://mp.weixin.qq.com/s/cKCRcZrn9v_R5TKP0fodZA', read_time: '15 min read', display_order: 6 },
-    { lang: 'en', title: 'From L0 to L3: Understanding Generative AI Technology Layers', date: '2023-09-20', tags: ["AI", "Technology"], snippet: 'A liberal arts student\'s interpretation of the four-layer technology system of Generative AI.', content: null, link: 'https://mp.weixin.qq.com/s/6-oj-8v9TYi8ZphUgDWjqA', read_time: '20 min read', display_order: 7 },
-    { lang: 'en', title: 'Build a Personal Website + AI Assistant in One Day', date: '2024-01-10', tags: ["AI", "Tutorial"], snippet: 'How I built this personal website with an integrated AI chatbot without writing much code.', content: null, link: 'https://mp.weixin.qq.com/s/u_B6-22Tl9ZVFMepkv0cXg', read_time: '8 min read', display_order: 8 },
-    { lang: 'zh', title: 'AI与投资运营的融合', date: '2024-10-15', tags: ["AI战略", "金融"], snippet: '机器学习模型如何重塑私募股权的尽职调查流程...', content: '私募股权投资的版图正在发生巨变。传统上，尽职调查是一个依赖人工、劳动密集型的过程，涉及无数的电子表格和专家访谈。如今，Agentic Workflows和大语言模型可以在几分钟内分析市场情绪、根据用户评论预测流失率，甚至审计代码库。', link: 'https://36kr.com/', read_time: '5分钟阅读', display_order: 0 },
-    { lang: 'zh', title: '跨文化技术团队管理', date: '2024-08-22', tags: ["管理", "文化"], snippet: '从斯德哥尔摩到上海：弥合工程与业务部门之间的鸿沟。', content: '曾在瑞典、印度和中国领导团队，我观察到"技术"语言是通用的，但"商业"语言却有很强的地方口音。', link: 'https://36kr.com/', read_time: '8分钟阅读', display_order: 1 },
-    { lang: 'zh', title: '零成本营销：36kr攻略', date: '2024-05-10', tags: ["增长黑客", "公关"], snippet: '如何利用个人影响力和权威媒体在不投放广告的情况下获得关注。', content: '当我们启动Web3项目时，营销预算为零。我们没有购买广告，而是专注于"叙事契合度"。', link: 'https://36kr.com/', read_time: '4分钟阅读', display_order: 2 },
-    { lang: 'zh', title: '投资方法论 | 投资人究竟是怎么看项目的？', date: '2023-06-15', tags: ["投资", "方法论"], snippet: '一张详细的脑图，从多个维度解析投资人如何评估创业项目。', content: null, link: 'https://mp.weixin.qq.com/s/yRAphxCu4rFsLEjehJyK6A', read_time: '10分钟阅读', display_order: 3 },
-    { lang: 'zh', title: '"脏活累活"与硬科技', date: '2023-05-20', tags: ["科技", "行业"], snippet: '为什么最有价值的科技公司往往在做别人不愿意做的脏活累活。', content: null, link: 'https://mp.weixin.qq.com/s/rQMjdqCqWFlGETH0G-0x5A', read_time: '8分钟阅读', display_order: 4 },
-    { lang: 'zh', title: '胡说八道｜记一场关于"印度崛起"的小辩论', date: '2023-04-10', tags: ["印度", "地缘政治"], snippet: '我对印度经济发展轨迹的思考，以及它对全球科技的意义。', content: null, link: 'https://mp.weixin.qq.com/s/i5Zf7s-oDMpXantd5nFjKg', read_time: '12分钟阅读', display_order: 5 },
-    { lang: 'zh', title: '中国的AI企业现状：聚光灯下的「高科技施工队」', date: '2023-08-15', tags: ["AI", "中国"], snippet: '对中国AI行业的深度分析——繁华背后的真实现状。', content: null, link: 'https://mp.weixin.qq.com/s/cKCRcZrn9v_R5TKP0fodZA', read_time: '15分钟阅读', display_order: 6 },
-    { lang: 'zh', title: '从L0到L3：文科生对「生成式AI」四层技术体系的解读', date: '2023-09-20', tags: ["AI", "技术"], snippet: '一个文科生视角下的生成式AI四层技术体系解读。', content: null, link: 'https://mp.weixin.qq.com/s/6-oj-8v9TYi8ZphUgDWjqA', read_time: '20分钟阅读', display_order: 7 },
-    { lang: 'zh', title: '就不写代码 | 花一天时间打造一个[个人网站]+[大模型助手]', date: '2024-01-10', tags: ["AI", "教程"], snippet: '如何在不写太多代码的情况下搭建一个带AI聊天助手的个人网站。', content: null, link: 'https://mp.weixin.qq.com/s/u_B6-22Tl9ZVFMepkv0cXg', read_time: '8分钟阅读', display_order: 8 }
-  ]);
-  console.log('  ✅ Done');
+  console.log('  ⏭️  Skipped (managed via admin panel)');
 
-  // Activities
+  // Activities (managed via admin panel, not seeded)
   console.log('9. Activities...');
-  await upsert('activities', [
-    { lang: 'en', title: 'AI Investment Conference', role: 'Organizer', date: '2021-09-15', location: 'Hefei, China', description: 'Organized and executed a 200+ attendee AI investment conference at zero cost, successfully building a government-enterprise-investor collaboration platform.', images: ["https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800&auto=format&fit=crop", "https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=800&auto=format&fit=crop"], video_url: null, tag: 'Conference', display_order: 0 },
-    { lang: 'en', title: 'HTXDAO Governance', role: 'Committee Member', date: '2024-03-01', location: 'Global', description: 'Serving as a key member of the HTXDAO Governance Committee, influencing decentralized decision-making processes.', images: ["https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop"], video_url: null, tag: 'Governance', display_order: 1 },
-    { lang: 'en', title: 'Medical Supply Coordination', role: 'Volunteer Lead', date: '2020-02-10', location: 'India / China', description: 'Independently coordinated cross-border supply chain for medical supplies during the pandemic. Featured in 36kr special report.', images: ["https://images.unsplash.com/photo-1584036561566-b93a50208c3c?q=80&w=800&auto=format&fit=crop", "https://images.unsplash.com/photo-1584634731339-252c581abfc5?q=80&w=800&auto=format&fit=crop"], video_url: null, tag: 'Community', display_order: 2 },
-    { lang: 'en', title: 'AI Community Builder', role: 'Community Manager', date: '2025-01-15', location: 'Online', description: 'Managed a 2,000-member AI developer community, enhancing the company\'s influence within developer circles.', images: ["https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"], video_url: 'https://www.youtube.com/watch?v=lxRwEPvL-mQ', tag: 'Community', display_order: 3 },
-    { lang: 'zh', title: 'AI 投资峰会', role: '组织者', date: '2021-09-15', location: '中国合肥', description: '零成本组织并执行200+人规模的AI投资峰会，成功搭建政企投合作平台。', images: ["https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800&auto=format&fit=crop", "https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=800&auto=format&fit=crop"], video_url: null, tag: 'Conference', display_order: 0 },
-    { lang: 'zh', title: 'HTXDAO 治理委员会', role: '委员会成员', date: '2024-03-01', location: '全球', description: '担任HTXDAO治理委员会关键成员，影响去中心化决策进程。', images: ["https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop"], video_url: null, tag: 'Governance', display_order: 1 },
-    { lang: 'zh', title: '医疗物资协调', role: '志愿负责人', date: '2020-02-10', location: '印度 / 中国', description: '疫情期间独立协调跨国医疗物资供应链。获36kr专题报道。', images: ["https://images.unsplash.com/photo-1584036561566-b93a50208c3c?q=80&w=800&auto=format&fit=crop", "https://images.unsplash.com/photo-1584634731339-252c581abfc5?q=80&w=800&auto=format&fit=crop"], video_url: null, tag: 'Community', display_order: 2 },
-    { lang: 'zh', title: 'AI 开发者社区', role: '社区负责人', date: '2025-01-15', location: '线上', description: '管理2000+成员的AI开发者社区，提升公司在开发者圈层的影响力。', images: ["https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"], video_url: null, tag: 'Community', display_order: 3 }
-  ]);
-  console.log('  ✅ Done');
+  console.log('  ⏭️  Skipped (managed via admin panel)');
 
   // Socials
   console.log('10. Socials...');

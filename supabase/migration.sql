@@ -232,81 +232,81 @@ ALTER TABLE recommendations ENABLE ROW LEVEL SECURITY;
 
 -- Personal Info Policies
 CREATE POLICY "Public can read personal_info" ON personal_info FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert personal_info" ON personal_info FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update personal_info" ON personal_info FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete personal_info" ON personal_info FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert personal_info" ON personal_info FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update personal_info" ON personal_info FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete personal_info" ON personal_info FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Navigation Policies
 CREATE POLICY "Public can read navigation" ON navigation FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert navigation" ON navigation FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update navigation" ON navigation FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete navigation" ON navigation FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert navigation" ON navigation FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update navigation" ON navigation FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete navigation" ON navigation FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Headers Policies
 CREATE POLICY "Public can read headers" ON headers FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert headers" ON headers FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update headers" ON headers FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete headers" ON headers FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert headers" ON headers FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update headers" ON headers FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete headers" ON headers FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Skills Policies
 CREATE POLICY "Public can read skills" ON skills FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert skills" ON skills FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update skills" ON skills FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete skills" ON skills FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert skills" ON skills FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update skills" ON skills FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete skills" ON skills FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Experience Policies
 CREATE POLICY "Public can read experience" ON experience FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert experience" ON experience FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update experience" ON experience FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete experience" ON experience FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert experience" ON experience FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update experience" ON experience FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete experience" ON experience FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Education Policies
 CREATE POLICY "Public can read education" ON education FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert education" ON education FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update education" ON education FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete education" ON education FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert education" ON education FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update education" ON education FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete education" ON education FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Projects Policies
 CREATE POLICY "Public can read projects" ON projects FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert projects" ON projects FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update projects" ON projects FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete projects" ON projects FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert projects" ON projects FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update projects" ON projects FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete projects" ON projects FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Thoughts Policies
 CREATE POLICY "Public can read thoughts" ON thoughts FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert thoughts" ON thoughts FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update thoughts" ON thoughts FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete thoughts" ON thoughts FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert thoughts" ON thoughts FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update thoughts" ON thoughts FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete thoughts" ON thoughts FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Activities Policies
 CREATE POLICY "Public can read activities" ON activities FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert activities" ON activities FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update activities" ON activities FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete activities" ON activities FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert activities" ON activities FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update activities" ON activities FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete activities" ON activities FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Socials Policies
 CREATE POLICY "Public can read socials" ON socials FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert socials" ON socials FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update socials" ON socials FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete socials" ON socials FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert socials" ON socials FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update socials" ON socials FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete socials" ON socials FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Consultation Policies
 CREATE POLICY "Public can read consultation" ON consultation FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert consultation" ON consultation FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update consultation" ON consultation FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete consultation" ON consultation FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert consultation" ON consultation FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update consultation" ON consultation FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete consultation" ON consultation FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Personal Traits Policies
 CREATE POLICY "Public can read personal_traits" ON personal_traits FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert personal_traits" ON personal_traits FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update personal_traits" ON personal_traits FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete personal_traits" ON personal_traits FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert personal_traits" ON personal_traits FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update personal_traits" ON personal_traits FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete personal_traits" ON personal_traits FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Recommendations Policies
 CREATE POLICY "Public can read recommendations" ON recommendations FOR SELECT USING (true);
-CREATE POLICY "Authenticated can insert recommendations" ON recommendations FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can update recommendations" ON recommendations FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated can delete recommendations" ON recommendations FOR DELETE USING (auth.role() = 'authenticated');
+CREATE POLICY "Authenticated can insert recommendations" ON recommendations FOR INSERT WITH CHECK (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can update recommendations" ON recommendations FOR UPDATE USING (auth.uid() IS NOT NULL);
+CREATE POLICY "Authenticated can delete recommendations" ON recommendations FOR DELETE USING (auth.uid() IS NOT NULL);
 
 -- Create updated_at trigger function
 CREATE OR REPLACE FUNCTION update_updated_at_column()

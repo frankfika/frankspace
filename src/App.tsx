@@ -215,12 +215,16 @@ const App: React.FC = () => {
       >
         <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
           <div 
-            className="text-xl font-bold font-mono tracking-tighter text-slate-900 cursor-pointer flex items-center gap-2 group"
+            className="text-xl font-bold font-mono tracking-tighter text-slate-900 cursor-pointer flex items-center gap-2.5 group"
             onClick={() => setActiveTab(Tab.HOME)}
           >
-            <span className="text-brand-600 group-hover:rotate-12 transition-transform">&lt;</span>
+            <img 
+              src="/assets/logo.svg" 
+              alt="Frank Chen" 
+              className="h-7 w-7 group-hover:scale-110 transition-transform"
+            />
             Frank_Chen
-            <span className="text-accent-600 group-hover:-rotate-12 transition-transform">/&gt;</span>
+            <span className="text-accent-600 group-hover:-rotate-12 transition-transform text-sm">/&gt;</span>
           </div>
 
           {/* Desktop Nav */}

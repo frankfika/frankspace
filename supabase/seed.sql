@@ -29,7 +29,7 @@ ON CONFLICT (lang) DO UPDATE SET
 -- =====================
 INSERT INTO navigation (lang, home, profile, vibe, activities, thoughts, consultation) VALUES
 ('en', 'Home', 'About Me', 'Vibe Coding', 'Activities', 'Thoughts', 'Consultation'),
-('zh', '首页', '个人介绍', '灵感编程', '活动足迹', '思考笔记', '付费咨询')
+('zh', '首页', '个人介绍', 'VibeCoding', '活动足迹', '思考笔记', '付费咨询')
 ON CONFLICT (lang) DO UPDATE SET
   home = EXCLUDED.home,
   profile = EXCLUDED.profile,
@@ -95,53 +95,19 @@ INSERT INTO education (lang, school, degree, period, details, display_order) VAL
 ('zh', '墨尔本皇家理工大学', '信息技术学士', '2012 - 2015', '["Tripalocal创始成员", "获得Telstra投资"]', 2);
 
 -- =====================
--- PROJECTS
+-- PROJECTS (managed via admin panel, not seeded)
 -- =====================
-INSERT INTO projects (lang, title, tags, description, stats, image, link, github_link, display_order) VALUES
-('en', 'Nordic Institute', '["Media", "Content Strategy", "Branding"]', 'Co-founded renowned Nordic public account becoming a major information platform for the Nordic Chinese community.', '10K+ Followers', 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800&auto=format&fit=crop', 'https://mp.weixin.qq.com/s/nordic-institute', NULL, 0),
-('en', 'AI Risk Assessment', '["FinTech", "AI", "Python"]', 'Applied AI algorithms for investment project risk assessment and return forecasting to improve decision efficiency.', 'RMB 100M+ Managed', 'https://images.unsplash.com/photo-1611974765270-ca1258634369?q=80&w=800&auto=format&fit=crop', 'https://github.com/frankfika/ai-risk-assessment', 'https://github.com/frankfika/ai-risk-assessment', 1),
-('en', 'City Route AI', '["Engineering", "AI", "Node.js"]', 'City-level AI route recommendation system for Robotaxi/Bus booking services.', '3x Dev Efficiency', 'https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop', 'https://github.com/frankfika/city-route-ai', 'https://github.com/frankfika/city-route-ai', 2),
-('en', 'Web3 Operations', '["Blockchain", "Web3", "Community"]', 'Leading technical and cross-departmental teams to deliver million-user Web3 project.', '1M+ Users', 'https://images.unsplash.com/photo-1621504450168-38f6854b13eb?q=80&w=800&auto=format&fit=crop', 'https://www.htxdao.com', NULL, 3),
-('zh', '北欧模式 (Nordic Institute)', '["媒体", "内容战略", "品牌建设"]', '联合创办北欧知名公众号，成为北欧华人社区的主要信息平台。', '1万+ 关注者', 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?q=80&w=800&auto=format&fit=crop', 'https://mp.weixin.qq.com/s/nordic-institute', NULL, 0),
-('zh', 'AI 风险评估模型', '["金融科技", "AI", "Python"]', '应用AI算法对投资项目进行风险评估和回报预测，提高决策效率。', '管理 1亿+ 资金', 'https://images.unsplash.com/photo-1611974765270-ca1258634369?q=80&w=800&auto=format&fit=crop', 'https://github.com/frankfika/ai-risk-assessment', 'https://github.com/frankfika/ai-risk-assessment', 1),
-('zh', '城市路线AI推荐', '["工程开发", "AI", "Node.js"]', '用于Robotaxi/巴士预订服务的城市级AI路线推荐系统。', '3倍 开发效率', 'https://images.unsplash.com/photo-1573164713988-8665fc963095?q=80&w=800&auto=format&fit=crop', 'https://github.com/frankfika/city-route-ai', 'https://github.com/frankfika/city-route-ai', 2),
-('zh', 'Web3 运营交付', '["区块链", "Web3", "社群管理"]', '带领技术和跨部门团队成功交付百万用户级Web3项目。', '100万+ 用户', 'https://images.unsplash.com/photo-1621504450168-38f6854b13eb?q=80&w=800&auto=format&fit=crop', 'https://www.htxdao.com', NULL, 3);
+-- No seed data: projects are added dynamically via the admin dashboard
 
 -- =====================
--- ACTIVITIES
+-- ACTIVITIES (managed via admin panel, not seeded)
 -- =====================
-INSERT INTO activities (lang, title, role, date, location, description, images, video_url, tag, display_order) VALUES
-('en', 'AI Investment Conference', 'Organizer', '2021-09-15', 'Hefei, China', 'Organized and executed a 200+ attendee AI investment conference at zero cost, successfully building a government-enterprise-investor collaboration platform.', '["https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800&auto=format&fit=crop", "https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=800&auto=format&fit=crop"]', NULL, 'Conference', 0),
-('en', 'HTXDAO Governance', 'Committee Member', '2024-03-01', 'Global', 'Serving as a key member of the HTXDAO Governance Committee, influencing decentralized decision-making processes.', '["https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop"]', NULL, 'Governance', 1),
-('en', 'Medical Supply Coordination', 'Volunteer Lead', '2020-02-10', 'India / China', 'Independently coordinated cross-border supply chain for medical supplies during the pandemic. Featured in 36kr special report.', '["https://images.unsplash.com/photo-1584036561566-b93a50208c3c?q=80&w=800&auto=format&fit=crop", "https://images.unsplash.com/photo-1584634731339-252c581abfc5?q=80&w=800&auto=format&fit=crop"]', NULL, 'Community', 2),
-('en', 'AI Community Builder', 'Community Manager', '2025-01-15', 'Online', 'Managed a 2,000-member AI developer community, enhancing the company''s influence within developer circles.', '["https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"]', 'https://www.youtube.com/watch?v=lxRwEPvL-mQ', 'Community', 3),
-('zh', 'AI 投资峰会', '组织者', '2021-09-15', '中国合肥', '零成本组织并执行200+人规模的AI投资峰会，成功搭建政企投合作平台。', '["https://images.unsplash.com/photo-1544531586-fde5298cdd40?q=80&w=800&auto=format&fit=crop", "https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=800&auto=format&fit=crop"]', NULL, 'Conference', 0),
-('zh', 'HTXDAO 治理委员会', '委员会成员', '2024-03-01', '全球', '担任HTXDAO治理委员会关键成员，影响去中心化决策进程。', '["https://images.unsplash.com/photo-1639762681485-074b7f938ba0?q=80&w=800&auto=format&fit=crop"]', NULL, 'Governance', 1),
-('zh', '医疗物资协调', '志愿负责人', '2020-02-10', '印度 / 中国', '疫情期间独立协调跨国医疗物资供应链。获36kr专题报道。', '["https://images.unsplash.com/photo-1584036561566-b93a50208c3c?q=80&w=800&auto=format&fit=crop", "https://images.unsplash.com/photo-1584634731339-252c581abfc5?q=80&w=800&auto=format&fit=crop"]', NULL, 'Community', 2),
-('zh', 'AI 开发者社区', '社区负责人', '2025-01-15', '线上', '管理2000+成员的AI开发者社区，提升公司在开发者圈层的影响力。', '["https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop"]', NULL, 'Community', 3);
+-- No seed data: activities are added dynamically via the admin dashboard
 
 -- =====================
--- THOUGHTS
+-- THOUGHTS (managed via admin panel, not seeded)
 -- =====================
-INSERT INTO thoughts (lang, title, date, tags, snippet, content, link, read_time, display_order) VALUES
-('en', 'The Convergence of AI and Investment Ops', '2024-10-15', '["AI Strategy", "Finance"]', 'How machine learning models are reshaping due diligence processes in private equity...', 'The landscape of private equity is undergoing a seismic shift. Traditionally, due diligence was a manual, labor-intensive process involving endless spreadsheets and expert interviews. Today, Agentic Workflows and LLMs can analyze market sentiment, predict churn from user reviews, and even audit codebases in minutes.', 'https://36kr.com/', '5 min read', 0),
-('en', 'Managing Cross-Cultural Tech Teams', '2024-08-22', '["Management", "Culture"]', 'Lessons learned from Stockholm to Shanghai: Bridging the gap between engineering and business units.', 'Having led teams in Sweden, India, and China, I''ve observed that the "Tech" language is universal, but the "Business" language is highly dialectal.', 'https://36kr.com/', '8 min read', 1),
-('en', 'Zero Cost Marketing: The 36kr Strategy', '2024-05-10', '["Growth Hacking", "PR"]', 'Leveraging personal influence and authoritative media to gain traction without ad spend.', 'When we launched our Web3 project, we had zero marketing budget. Instead of buying ads, we focused on "Narrative Fit".', 'https://36kr.com/', '4 min read', 2),
-('en', 'Investment Methodology | How do investors really view projects?', '2023-06-15', '["Investment", "Methodology"]', 'A detailed mind map breaking down how investors evaluate startup projects from multiple dimensions.', NULL, 'https://mp.weixin.qq.com/s/yRAphxCu4rFsLEjehJyK6A', '10 min read', 3),
-('en', 'Dirty Jobs and Hard Tech', '2023-05-20', '["Tech", "Industry"]', 'Why the most valuable tech companies often do the dirty work that others avoid.', NULL, 'https://mp.weixin.qq.com/s/rQMjdqCqWFlGETH0G-0x5A', '8 min read', 4),
-('en', 'A Debate on the Rise of India', '2023-04-10', '["India", "Geopolitics"]', 'My thoughts on India''s economic trajectory and what it means for global tech.', NULL, 'https://mp.weixin.qq.com/s/i5Zf7s-oDMpXantd5nFjKg', '12 min read', 5),
-('en', 'AI Companies in China: High-Tech Construction Crew', '2023-08-15', '["AI", "China"]', 'An analysis of China''s AI industry - the reality behind the hype.', NULL, 'https://mp.weixin.qq.com/s/cKCRcZrn9v_R5TKP0fodZA', '15 min read', 6),
-('en', 'From L0 to L3: Understanding Generative AI Technology Layers', '2023-09-20', '["AI", "Technology"]', 'A liberal arts student''s interpretation of the four-layer technology system of Generative AI.', NULL, 'https://mp.weixin.qq.com/s/6-oj-8v9TYi8ZphUgDWjqA', '20 min read', 7),
-('en', 'Build a Personal Website + AI Assistant in One Day', '2024-01-10', '["AI", "Tutorial"]', 'How I built this personal website with an integrated AI chatbot without writing much code.', NULL, 'https://mp.weixin.qq.com/s/u_B6-22Tl9ZVFMepkv0cXg', '8 min read', 8),
-('zh', 'AI与投资运营的融合', '2024-10-15', '["AI战略", "金融"]', '机器学习模型如何重塑私募股权的尽职调查流程...', '私募股权投资的版图正在发生巨变。传统上，尽职调查是一个依赖人工、劳动密集型的过程，涉及无数的电子表格和专家访谈。如今，Agentic Workflows和大语言模型可以在几分钟内分析市场情绪、根据用户评论预测流失率，甚至审计代码库。', 'https://36kr.com/', '5分钟阅读', 0),
-('zh', '跨文化技术团队管理', '2024-08-22', '["管理", "文化"]', '从斯德哥尔摩到上海：弥合工程与业务部门之间的鸿沟。', '曾在瑞典、印度和中国领导团队，我观察到"技术"语言是通用的，但"商业"语言却有很强的地方口音。', 'https://36kr.com/', '8分钟阅读', 1),
-('zh', '零成本营销：36kr攻略', '2024-05-10', '["增长黑客", "公关"]', '如何利用个人影响力和权威媒体在不投放广告的情况下获得关注。', '当我们启动Web3项目时，营销预算为零。我们没有购买广告，而是专注于"叙事契合度"。', 'https://36kr.com/', '4分钟阅读', 2),
-('zh', '投资方法论 | 投资人究竟是怎么看项目的？', '2023-06-15', '["投资", "方法论"]', '一张详细的脑图，从多个维度解析投资人如何评估创业项目。', NULL, 'https://mp.weixin.qq.com/s/yRAphxCu4rFsLEjehJyK6A', '10分钟阅读', 3),
-('zh', '"脏活累活"与硬科技', '2023-05-20', '["科技", "行业"]', '为什么最有价值的科技公司往往在做别人不愿意做的脏活累活。', NULL, 'https://mp.weixin.qq.com/s/rQMjdqCqWFlGETH0G-0x5A', '8分钟阅读', 4),
-('zh', '胡说八道｜记一场关于"印度崛起"的小辩论', '2023-04-10', '["印度", "地缘政治"]', '我对印度经济发展轨迹的思考，以及它对全球科技的意义。', NULL, 'https://mp.weixin.qq.com/s/i5Zf7s-oDMpXantd5nFjKg', '12分钟阅读', 5),
-('zh', '中国的AI企业现状：聚光灯下的「高科技施工队」', '2023-08-15', '["AI", "中国"]', '对中国AI行业的深度分析——繁华背后的真实现状。', NULL, 'https://mp.weixin.qq.com/s/cKCRcZrn9v_R5TKP0fodZA', '15分钟阅读', 6),
-('zh', '从L0到L3：文科生对「生成式AI」四层技术体系的解读', '2023-09-20', '["AI", "技术"]', '一个文科生视角下的生成式AI四层技术体系解读。', NULL, 'https://mp.weixin.qq.com/s/6-oj-8v9TYi8ZphUgDWjqA', '20分钟阅读', 7),
-('zh', '就不写代码 | 花一天时间打造一个[个人网站]+[大模型助手]', '2024-01-10', '["AI", "教程"]', '如何在不写太多代码的情况下搭建一个带AI聊天助手的个人网站。', NULL, 'https://mp.weixin.qq.com/s/u_B6-22Tl9ZVFMepkv0cXg', '8分钟阅读', 8);
+-- No seed data: thoughts are added dynamically via the admin dashboard
 
 -- =====================
 -- SOCIALS
