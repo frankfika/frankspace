@@ -1,0 +1,5 @@
+{
+  "version": 1,
+  "include": ["/*"],
+  "exclude": ["/favicon.svg", "/logo.svg", "/resume-en.pdf", "/resume-zh.pdf"]
+}
