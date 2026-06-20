@@ -219,7 +219,7 @@ const App: React.FC = () => {
             onClick={() => setActiveTab(Tab.HOME)}
           >
             <img 
-              src="/assets/logo.svg" 
+              src="/logo.svg" 
               alt="Frank Chen" 
               className="h-7 w-7 group-hover:scale-110 transition-transform"
             />
