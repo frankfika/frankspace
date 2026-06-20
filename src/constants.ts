@@ -295,7 +295,7 @@ export const CONTENT: { en: ContentData; zh: ContentData } = {
         description: 'Local-first smart task & notes management desktop app. Markdown as single source of truth, built-in AI assistant with 15+ model providers, automatic cross-day task migration. Built with Tauri 2 + React 19 + Express.',
         link: 'https://github.com/frankfika/dailyflow',
         githubLink: 'https://github.com/frankfika/dailyflow',
-        image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop',
+        image: '/dailyflow-github.png',
         stats: '34 Releases | 149 Tests'
       }
     ],
@@ -635,7 +635,7 @@ export const CONTENT: { en: ContentData; zh: ContentData } = {
         description: '本地优先的智能任务与笔记管理桌面应用。以 Markdown 作为唯一数据源，内置 AI 助手（支持 15+ 模型供应商），自动处理跨日任务迁移。基于 Tauri 2 + React 19 + Express 构建。',
         link: 'https://github.com/frankfika/dailyflow',
         githubLink: 'https://github.com/frankfika/dailyflow',
-        image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?q=80&w=800&auto=format&fit=crop',
+        image: '/dailyflow-github.png',
         stats: '34 个版本 | 149 个测试'
       }
     ],

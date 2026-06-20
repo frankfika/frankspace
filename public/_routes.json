@@ -1,5 +1,5 @@
 {
   "version": 1,
   "include": ["/*"],
-  "exclude": ["/favicon.svg", "/logo.svg", "/resume-en.pdf", "/resume-zh.pdf"]
+  "exclude": ["/favicon.svg", "/logo.svg", "/dailyflow-github.png", "/resume-en.pdf", "/resume-zh.pdf"]
 }
